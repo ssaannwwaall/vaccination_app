@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'VaccinationDoseForRegular.dart';
 
 class NewRegisterationModel {
@@ -18,7 +19,7 @@ class NewRegisterationModel {
 
   //String? _vaccinationKey;
   String? _nextVaccinationDate;
-  List<VaccinationDoseForRegular>? list_of_vaccincs;
+  List<VaccinationDoseForRegular>? list_of_vaccincs = [];
 
   NewRegisterationModel(
       this._name,
@@ -38,7 +39,7 @@ class NewRegisterationModel {
       //this._vaccinationKey,
       this.list_of_vaccincs);
 
-  Future<Map<String, dynamic>> getMapOf() async{
+  Map<String, dynamic> getMapOf() {
     Map<String, dynamic> map = {
       'name': _name,
       'fname': _fname,
@@ -56,7 +57,9 @@ class NewRegisterationModel {
       'gender': _gender,
       //'vaccinationKey': _vaccinationKey,
       'nextVaccinationDate': _nextVaccinationDate,
-      'list_of_vaccincs': await getMapofList(list_of_vaccincs), // list_of_vaccincs,
+      'list_of_vaccincs': getMapofList(list_of_vaccincs), // list_of_vaccincs,
+      //'list_of_vaccincs': list_of_vaccincs as Map<dynamic, dynamic>,
+      // list_of_vaccincs,
     };
     return map;
   }
@@ -75,10 +78,9 @@ class NewRegisterationModel {
     _unionCouncil = value['unionCouncil'];
     _joiningDate = value['joiningDate'];
     _gender = value['gender'];
-    list_of_vaccincs = value['list_of_vaccincs'];
+    list_of_vaccincs = getListFromMap(value['list_of_vaccincs']);
     _epi_card_no = value['epi_card_no'];
     _key = value['key'];
-    //_vaccinationKey = value['vaccinationKey'];
     _nextVaccinationDate = value['nextVaccinationDate'];
   }
 
@@ -184,17 +186,26 @@ class NewRegisterationModel {
     _name = value;
   }
 
-  Map<String, dynamic> getMapofList(List<VaccinationDoseForRegular>? list_vacc) {
+  Map<String, dynamic> getMapofList(
+      List<VaccinationDoseForRegular>? list_vacc) {
     Map<String, dynamic> map = {};
-    for (int i = 0; i < list_vacc!.length; i++) {
-      map = {
-        i.toString(): {
-          list_vacc[i].getMapOf(),
-          print('list of vaccine'),
-          print(list_vacc[i].vaccination_name),
-        },
-      };
+    Map<String, dynamic> mp = {};
+    // map = {
+    //   i.toString(): list_vacc[i].getMapOf(),
+    // };
+    mp = {
+      for (VaccinationDoseForRegular item in list_vacc!)
+        '${list_vacc.indexOf(item)}': item.getMapOf()
+    };
+    return mp;
+  }
+
+  List<VaccinationDoseForRegular> getListFromMap(List<dynamic> vlu) {
+    List<VaccinationDoseForRegular> list_ = [];
+    for (int i = 0; i < vlu.length; i++) {
+      var onj = VaccinationDoseForRegular.fromSnapshot(vlu[i]);
+      list_.add(onj);
     }
-    return map;
+    return list_;
   }
 }

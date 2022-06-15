@@ -25,12 +25,9 @@ class _UpcomingScreenState extends State<UpcomingScreen> {
 
   @override
   void initState() {
-    //TODO: implement initState
     _loadUpcomingKids();
     setState(() {
       list_kids;
-      print('lsit size is');
-      print(list_kids.length);
     });
     super.initState();
   }
@@ -67,8 +64,11 @@ class _UpcomingScreenState extends State<UpcomingScreen> {
                     ? ListView.builder(
                         itemCount: list_kids.length,
                         itemBuilder: (ctx, index) {
-                          return ListItemView(_width, list_kids[index],
-                              'Next vaccination date', screeThemeColor, ()async {
+                          return ListItemView(
+                              _width,
+                              list_kids[index],
+                              'Next vaccination date',
+                              screeThemeColor, () async {
                             Constants.regular_kid = list_kids[index];
                             await Helper.determineCurrentPosition();
                             Navigator.of(context)
@@ -77,7 +77,12 @@ class _UpcomingScreenState extends State<UpcomingScreen> {
                         },
                       )
                     : Container(
-                        child: Text('list is null'),
+                        child: const Center(
+                            child: Text(
+                          'Follow-up childrens not found',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w600),
+                        )),
                       ),
               ),
             ],
@@ -91,9 +96,9 @@ class _UpcomingScreenState extends State<UpcomingScreen> {
     Map map = await LocalDatabase.getAllKids();
     list_kids.clear();
     map.forEach((key, value) {
-      print('kids value');
+      //print('kids value');
       final a = NewRegisterationModel.fromSnapshot(value);
-      print(a);
+      // print(a);
       DateTime dateTime_vac = DateTime.parse(a.nextVaccinationDate);
       final dif = dateTime_vac.difference(dateTime_now).inDays;
       print('date diff is '); //more than -1 to 28 are in follow-up

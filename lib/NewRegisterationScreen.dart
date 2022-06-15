@@ -705,9 +705,9 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                   'Add child', screenThemeColor, _width * .48,
                                   () async {
                                 print('add child');
-                                String? name = CustomValidator().validateName(
+                                String? name = CustomValidator().validateDescription(
                                     _controllerName.text.toString());
-                                String? fname = CustomValidator().validateName(
+                                String? fname = CustomValidator().validateDescription(
                                     _controllerFName.text.toString());
                                 String? phone = CustomValidator()
                                     .validateMobile(
@@ -925,7 +925,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
         vaccine_map.forEach((key, value) {
           //_vaccine.add(key);
           list_of_vaccinations
-              .add(VaccinationDoseForRegular(key, FirebaseCalls.user.uid, false));
+              .add(VaccinationDoseForRegular(nextVaccinationDate.toString(),key, FirebaseCalls.user.uid, false));
         });
         setState(() {
           list_of_vaccinations;

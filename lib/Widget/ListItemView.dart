@@ -23,8 +23,6 @@ class ListItemView extends StatelessWidget {
     dateTime_dob = DateFormat("yyyy-MM-dd").parse(newRegisteraionModel!.dob);
     dateTime_next_vacc = DateFormat("yyyy-MM-dd")
         .parse(newRegisteraionModel!.nextVaccinationDate);
-    print('date');
-    print(dateTime_dob.toString());
 
     return Container(
       color: color,
@@ -51,7 +49,7 @@ class ListItemView extends StatelessWidget {
                         //Image.network(newRegisteraionModel!.pic),
                       ),
                       Text(
-                        newRegisteraionModel!.list_of_vaccincs![0].vaccination_name!,
+                        newRegisteraionModel!.name,
                         style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
@@ -70,22 +68,19 @@ class ListItemView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Text(
-                          //new DateFormat("yyyy-MM-dd").parse(newRegisteraionModel!.nextVaccinationDate),
-                          //newRegisteraionModel!.nextVaccinationDate,
-                          //dateTime_next_vacc.toString(),
                           '$next_vaccination_date ${dateTime_next_vacc!.day}-${dateTime_next_vacc!.month}-${dateTime_next_vacc!.year}',
                           style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
                               color: MyColors.color_white),
                         ),
-                        Text(
+                        /*Text(
                           newRegisteraionModel!.name,
                           style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
                               color: MyColors.color_white),
-                        ),
+                        ),*/
                         Text(
                           //"DOB ${dateTime_dob.toString()}",
                           "DOB ${dateTime_dob!.day}-${dateTime_dob!.month}-${dateTime_dob!.year}",

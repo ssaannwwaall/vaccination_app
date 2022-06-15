@@ -6,8 +6,11 @@ import 'package:vaccination_app/Helper/SharefPrefsCurrentUser.dart';
 import 'package:vaccination_app/HomeScreen.dart';
 import 'package:vaccination_app/Models/VaccinationRecord.dart';
 import 'package:vaccination_app/Widget/MyButton.dart';
+import 'package:vaccination_app/Widget/RegularVaccinationRow.dart';
 import 'package:vaccination_app/main.dart';
 
+import 'Helper/Constants.dart';
+import 'Helper/Constants.dart';
 import 'Helper/LocalDatabase.dart';
 import 'Helper/MyColors.dart';
 import 'Models/NewRegisteration.dart';
@@ -91,19 +94,37 @@ class _VaccineToRegisKidsState extends State<VaccineToRegisKids> {
                   ),
                 ],
               ),
-              Row(
-                children: [
-                  const Text(
-                    'Vaccination name ',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    ' ${Constants.regular_kid?.list_of_vaccincs![0]}',
-                    style: const TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                ],
+              // Row(
+              //   children: [
+              //     const Text(
+              //       'Vaccination name ',
+              //       style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              //     ),
+              //     Text(
+              //       ' ${Constants.regular_kid?.list_of_vaccincs![0]}',
+              //       style: const TextStyle(
+              //         fontSize: 14,
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              Container(
+                height: 200,
+                child: ListView.builder(
+                  itemCount: Constants.regular_kid!.list_of_vaccincs!.length,
+                  itemBuilder: (ctx, index) {
+                    return RegularVaccinationRow(
+                        screenThemeColor,
+                        Constants
+                            .regular_kid!.list_of_vaccincs![index].vaccined,
+                        Constants.regular_kid!.list_of_vaccincs![index]
+                            .vaccination_name, (bool? checkbox_value) {
+                      print('check box clicked');
+                      Constants.regular_kid!.list_of_vaccincs![index].vaccined =
+                          checkbox_value as bool;
+                    });
+                  },
+                ),
               ),
               Row(
                 children: [
