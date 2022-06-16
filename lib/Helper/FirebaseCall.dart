@@ -175,10 +175,14 @@ class FirebaseCalls {
   static Future getAllUpcoming() async {
     ref_regis_kids.once();
     ref_regis_kids.onValue.listen((value) {
-      Map data = (value.snapshot.value as Map);
-      print('all kids');
-      print(data.toString());
-      LocalDatabase.saveAllKids(data);
+      if (value.snapshot.exists) {
+        Map data = (value.snapshot.value as Map);
+        print('all kids');
+        print(data.toString());
+        LocalDatabase.saveAllKids(data);
+      } else {
+        LocalDatabase.saveAllKids({});
+      }
     });
     //if (who == ConstentStrings.upcoming) {}
     return null;

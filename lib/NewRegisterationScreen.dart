@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 import 'dart:math';
 import 'package:intl/intl.dart';
@@ -17,6 +18,12 @@ import 'Models/NewlyBorn.dart';
 import 'Models/VaccinationDoseForRegular.dart';
 import 'Widget/MyButton.dart';
 import 'Widget/MyTextFiled.dart';
+import 'package:camera/camera.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart';
+
+String? _imgFilePicPath = null;
+String pic_url = '';
 
 class NewRegisterationScreen extends StatefulWidget {
   static const String routeName = '/NewRegisterationScreen';
@@ -37,11 +44,11 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
   String lat = '33.6163723';
   String long = '72.8059114';
   Position? currentPosition;
-  int _radioGroupValue = 0;
+  int _radioGroupValueGender = 0;
+  int _radioGroupValueCategory = 0;
 
-  PlatformFile? _filePicPicked;
-  String pic_url = '';
-
+  //PlatformFile? _filePicPicked;
+  //String pic_url = '';
   final List<String> _cities = ['City'];
   final List<String> _tahsil = ['Tahsil'];
   final List<String> _councils = ['Council'];
@@ -49,7 +56,6 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
   final List<String> _dose = ['Dose'];
 
   //final List<String> _vaccine = ['Vaccine'];
-
   String? _selectedCity;
   String? _selectedTahsil;
   String? _selectedConsil;
@@ -75,8 +81,6 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
   @override
   Widget build(BuildContext context) {
     currentPosition = Helper.currentPositon;
-    print('longitude on new birth    ');
-    print(currentPosition?.latitude);
     MediaQueryData mediaQueryData = MediaQuery.of(context);
     var _hight = mediaQueryData.size.height;
     var _width = mediaQueryData.size.width;
@@ -115,42 +119,51 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                         ),
                         GestureDetector(
                           onTap: () async {
+                            // Obtain a list of the available cameras on the device.
+                            final cameras = await availableCameras();
+                            // Get a specific camera from the list of available cameras.
+                            final firstCamera = cameras.first;
+
                             Feedback.forTap(context);
-                            print('file picked       click...');
-                            _filePicPicked = await Helper.getPictureFromPhone();
-                            if (_filePicPicked != null) {
-                              setState(() {
-                                _filePicPicked;
-                                print('file picked  $_filePicPicked');
-                              });
+                            print('going to take camera...');
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    TakePictureScreen(camera: firstCamera)));
+
+                            //_filePicPicked = await Helper.getPictureFromPhone();
+                            //if (_filePicPicked != null) {
+                            /*if (_imgFilePicPath != null) {
+                              // setState(() {
+                              //   _filePicPicked;
+                              //   print('file picked  $_filePicPicked');
+                              // });
                               if (await Helper.isInternetAvailble()) {
                                 pic_url = await FirebaseCalls.uploadPicture(
-                                    'newlyBorn',
+                                    'newReg',
                                     _controllerPhone.text.toString(),
-                                    _filePicPicked!.path!);
+                                    _imgFilePicPath!);
                               } else {
-                                pic_url = _filePicPicked!.path!;
-                                pic_url = _filePicPicked!.path!;
+                                pic_url = _imgFilePicPath!;
                               }
                               print('download url in screen is $pic_url');
                             } else {
                               //something went wrong
                               Fluttertoast.showToast(
-                                  msg: "something went wrong",
+                                  msg: "Image not found",
                                   toastLength: Toast.LENGTH_SHORT,
                                   gravity: ToastGravity.BOTTOM,
                                   timeInSecForIosWeb: 1,
                                   backgroundColor: MyColors.color_gray,
                                   textColor: MyColors.color_white,
                                   fontSize: 16.0);
-                            }
+                            }*/
                           },
                           child: Container(
                             width: _width * .9,
                             height: _hight * 0.13,
-                            child: _filePicPicked != null
+                            child: _imgFilePicPath != null
                                 ? Image.file(
-                                    File(_filePicPicked!.path!),
+                                    File(_imgFilePicPath!),
                                     //fit: BoxFit.cover,
                                   )
                                 : SvgPicture.asset('assets/images/camera.svg'),
@@ -228,7 +241,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                                 shape: BoxShape.rectangle,
                                                 border: Border.all(
                                                     width: .5,
-                                                    color: Colors.black),
+                                                    color: screenThemeColor),
                                                 borderRadius:
                                                     BorderRadius.circular(5),
                                               ),
@@ -275,7 +288,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                                 shape: BoxShape.rectangle,
                                                 border: Border.all(
                                                     width: .5,
-                                                    color: Colors.black),
+                                                    color: screenThemeColor),
                                                 borderRadius:
                                                     BorderRadius.circular(5),
                                               ),
@@ -316,7 +329,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                                 shape: BoxShape.rectangle,
                                                 border: Border.all(
                                                     width: .5,
-                                                    color: Colors.black),
+                                                    color: screenThemeColor),
                                                 borderRadius:
                                                     BorderRadius.circular(5),
                                               ),
@@ -383,7 +396,8 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                           decoration: BoxDecoration(
                                             shape: BoxShape.rectangle,
                                             border: Border.all(
-                                                width: .5, color: Colors.black),
+                                                width: .5,
+                                                color: screenThemeColor),
                                             borderRadius:
                                                 BorderRadius.circular(5),
                                           ),
@@ -431,14 +445,14 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                               MainAxisAlignment.center,
                                           children: [
                                             Container(
-                                              margin: EdgeInsets.only(
+                                              margin: const EdgeInsets.only(
                                                   left: 5, right: 5),
                                               width: _width * .9,
                                               decoration: BoxDecoration(
                                                 shape: BoxShape.rectangle,
                                                 border: Border.all(
                                                     width: .5,
-                                                    color: Colors.black),
+                                                    color: screenThemeColor),
                                                 borderRadius:
                                                     BorderRadius.circular(5),
                                               ),
@@ -473,7 +487,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                                 shape: BoxShape.rectangle,
                                                 border: Border.all(
                                                     width: .5,
-                                                    color: Colors.black),
+                                                    color: screenThemeColor),
                                                 borderRadius:
                                                     BorderRadius.circular(5),
                                               ),
@@ -542,7 +556,8 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                           decoration: BoxDecoration(
                                             shape: BoxShape.rectangle,
                                             border: Border.all(
-                                                width: .5, color: Colors.black),
+                                                width: .5,
+                                                color: screenThemeColor),
                                             borderRadius:
                                                 BorderRadius.circular(5),
                                           ),
@@ -573,7 +588,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                                 )),
                                           ),
                                         ),
-                                        Container(
+                                        /*Container(
                                           width: _width * 9,
                                           child: Row(
                                             children: [
@@ -597,7 +612,8 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                               )
                                             ],
                                           ),
-                                        ),
+                                        ),*/
+
                                         MyTextFiled(
                                             _width * 0.95,
                                             'Location coordinates',
@@ -617,7 +633,8 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                               height: _hight * 0.06,
                                               child: RadioListTile(
                                                 value: 0,
-                                                groupValue: _radioGroupValue,
+                                                groupValue:
+                                                    _radioGroupValueGender,
                                                 activeColor: screenThemeColor,
                                                 selected: true,
                                                 title: const Text(
@@ -629,7 +646,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                                 ),
                                                 onChanged: (value) {
                                                   setState(() =>
-                                                      _radioGroupValue =
+                                                      _radioGroupValueGender =
                                                           value as int);
                                                 },
                                               ),
@@ -639,7 +656,8 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                               height: _hight * 0.06,
                                               child: RadioListTile(
                                                 value: 1,
-                                                groupValue: _radioGroupValue,
+                                                groupValue:
+                                                    _radioGroupValueGender,
                                                 activeColor: screenThemeColor,
                                                 selected: false,
                                                 title: const Text(
@@ -651,7 +669,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                                 ),
                                                 onChanged: (value) {
                                                   setState(() =>
-                                                      _radioGroupValue =
+                                                      _radioGroupValueGender =
                                                           value as int);
                                                 },
                                               ),
@@ -661,7 +679,8 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                               height: _hight * 0.06,
                                               child: RadioListTile(
                                                 value: 2,
-                                                groupValue: _radioGroupValue,
+                                                groupValue:
+                                                    _radioGroupValueGender,
                                                 activeColor: screenThemeColor,
                                                 selected: false,
                                                 title: const Text(
@@ -673,7 +692,65 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                                 ),
                                                 onChanged: (value) {
                                                   setState(() =>
-                                                      _radioGroupValue =
+                                                      _radioGroupValueGender =
+                                                          value as int);
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Text(
+                                          'Please select category',
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              width: _width * 0.45,
+                                              height: _hight * 0.06,
+                                              child: RadioListTile(
+                                                value: 0,
+                                                groupValue:
+                                                    _radioGroupValueCategory,
+                                                activeColor: screenThemeColor,
+                                                selected: true,
+                                                title: const Text(
+                                                  'Normal',
+                                                  style: TextStyle(
+                                                    color: MyColors.color_black,
+                                                    fontSize: 11,
+                                                  ),
+                                                ),
+                                                onChanged: (value) {
+                                                  setState(() =>
+                                                      _radioGroupValueCategory =
+                                                          value as int);
+                                                },
+                                              ),
+                                            ),
+                                            Container(
+                                              width: _width * 0.45,
+                                              height: _hight * 0.06,
+                                              child: RadioListTile(
+                                                value: 1,
+                                                groupValue:
+                                                    _radioGroupValueGender,
+                                                activeColor: screenThemeColor,
+                                                selected: false,
+                                                title: const Text(
+                                                  'Refusal',
+                                                  style: TextStyle(
+                                                    color: MyColors.color_black,
+                                                    fontSize: 11,
+                                                  ),
+                                                ),
+                                                onChanged: (value) {
+                                                  setState(() =>
+                                                      _radioGroupValueGender =
                                                           value as int);
                                                 },
                                               ),
@@ -705,10 +782,12 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                   'Add child', screenThemeColor, _width * .48,
                                   () async {
                                 print('add child');
-                                String? name = CustomValidator().validateDescription(
-                                    _controllerName.text.toString());
-                                String? fname = CustomValidator().validateDescription(
-                                    _controllerFName.text.toString());
+                                String? name = CustomValidator()
+                                    .validateDescription(
+                                        _controllerName.text.toString());
+                                String? fname = CustomValidator()
+                                    .validateDescription(
+                                        _controllerFName.text.toString());
                                 String? phone = CustomValidator()
                                     .validateMobile(
                                         _controllerPhone.text.toString());
@@ -729,13 +808,20 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                     .validateAddress(
                                         _controllerAddress.text.toString());
                                 String gender = 'Male';
-                                if (_radioGroupValue == 0) {
+                                if (_radioGroupValueGender == 0) {
                                   gender = 'Male';
-                                } else if (_radioGroupValue == 1) {
+                                } else if (_radioGroupValueGender == 1) {
                                   gender = 'Female';
-                                } else if (_radioGroupValue == 2) {
+                                } else if (_radioGroupValueGender == 2) {
                                   gender = 'Transgender';
                                 }
+                                bool refusal = false;
+                                if (_radioGroupValueGender == 0) {
+                                  refusal = false;
+                                } else if (_radioGroupValueGender == 1) {
+                                  refusal = true;
+                                }
+
                                 if (name != null) {
                                   showtoas(name);
                                 } else if (fname != null) {
@@ -764,8 +850,10 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                   showtoas('Picture required');
                                 } else {
                                   //upload data
+                                  //_radioGroupValueCategory
                                   print('list of vaccinations ');
-                                  print(list_of_vaccinations[0].vaccination_name);
+                                  print(
+                                      list_of_vaccinations[0].vaccination_name);
                                   var obj = NewRegisterationModel(
                                       _controllerName.text.toString(),
                                       _controllerFName.text.toString(),
@@ -786,7 +874,8 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                       gender.toString(),
                                       nextVaccinationDate.toString(),
                                       //_selectedVaccine.toString(),
-                                      list_of_vaccinations);
+                                      list_of_vaccinations,
+                                      refusal);
 
                                   print('button pressed');
                                   if (await Helper.isInternetAvailble()) {
@@ -924,8 +1013,11 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
         Map vaccine_map = value;
         vaccine_map.forEach((key, value) {
           //_vaccine.add(key);
-          list_of_vaccinations
-              .add(VaccinationDoseForRegular(nextVaccinationDate.toString(),key, FirebaseCalls.user.uid, false));
+          list_of_vaccinations.add(VaccinationDoseForRegular(
+              nextVaccinationDate.toString(),
+              key,
+              FirebaseCalls.user.uid,
+              false));
         });
         setState(() {
           list_of_vaccinations;
@@ -951,4 +1043,134 @@ void showtoas(String s) {
       backgroundColor: MyColors.color_red,
       textColor: MyColors.color_white,
       fontSize: 16.0);
+}
+
+class TakePictureScreen extends StatefulWidget {
+  const TakePictureScreen({
+    key,
+    required this.camera,
+  });
+
+  final CameraDescription camera;
+
+  @override
+  TakePictureScreenState createState() => TakePictureScreenState();
+}
+
+class TakePictureScreenState extends State<TakePictureScreen> {
+  late CameraController _controller;
+  late Future<void> _initializeControllerFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    // To display the current output from the Camera,
+    // create a CameraController.
+    _controller = CameraController(
+      // Get a specific camera from the list of available cameras.
+      widget.camera,
+      // Define the resolution to use.
+      ResolutionPreset.medium,
+    );
+    // Next, initialize the controller. This returns a Future.
+    _initializeControllerFuture = _controller.initialize();
+  }
+
+  @override
+  void dispose() {
+    // Dispose of the controller when the widget is disposed.
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // Fill this out in the next steps.
+    MediaQueryData mediaQueryData = MediaQuery.of(context);
+    var _hight = mediaQueryData.size.height;
+    var _width = mediaQueryData.size.width;
+    return Container(
+      width: _width,
+      height: _hight,
+      child: Stack(
+        children: [
+          FutureBuilder<void>(
+            future: _initializeControllerFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                // If the Future is complete, display the preview.
+                return CameraPreview(_controller);
+              } else {
+                // Otherwise, display a loading indicator.
+                return const Center(child: CircularProgressIndicator());
+              }
+            },
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(bottom: 50),
+                width: _width,
+                child: Center(
+                  child: FloatingActionButton(
+                    // Provide an onPressed callback.
+                    onPressed: () async {
+                      // Take the Picture in a try / catch block. If anything goes wrong,
+                      // catch the error.
+                      try {
+                        // Ensure that the camera is initialized.
+                        await _initializeControllerFuture;
+                        // Attempt to take a picture and then get the location
+                        // where the image file is saved.
+                        final image = await _controller.takePicture();
+                        print('image captured');
+                        print(image.path);
+                        setState(() {
+                          _imgFilePicPath = image.path;
+                        });
+                        // Navigator.of(context).push(MaterialPageRoute(builder: (context) => NewRegisterationScreen()));
+                        if (_imgFilePicPath != null) {
+                          //setState(() {
+                          //  _filePicPicked;
+                          //  print('file picked  $_filePicPicked');
+                          //});
+                          if (await Helper.isInternetAvailble()) {
+                            Random r = Random(0);
+                            pic_url = await FirebaseCalls.uploadPicture(
+                                'newReg',
+                                r.nextInt(1000000).toString(),
+                                _imgFilePicPath!);
+                          } else {
+                            pic_url = _imgFilePicPath!;
+                          }
+                          print('download url in screen is $pic_url');
+                        } else {
+                          //something went wrong
+                          Fluttertoast.showToast(
+                              msg: "Image not found",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: MyColors.color_gray,
+                              textColor: MyColors.color_white,
+                              fontSize: 16.0);
+                        }
+                        Navigator.of(context)
+                            .pushNamed(NewRegisterationScreen.routeName);
+                      } catch (e) {
+                        // If an error occurs, log the error to the console.
+                        print(e);
+                      }
+                    },
+                    child: const Icon(Icons.camera_alt),
+                  ),
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
 }
