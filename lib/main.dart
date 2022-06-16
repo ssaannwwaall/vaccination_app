@@ -4,6 +4,7 @@ import 'package:vaccination_app/HomeScreen.dart';
 import 'package:vaccination_app/LoginScreen.dart';
 import 'package:vaccination_app/NewBirthChildScreen.dart';
 import 'package:vaccination_app/NewRegisterationScreen.dart';
+import 'package:vaccination_app/RefusalScreen.dart';
 import 'package:vaccination_app/defaulterScreen.dart';
 import 'SplashScreen.dart';
 import 'UpcomingScreen.dart';
@@ -42,6 +43,7 @@ class _MainState extends State<Main> {
         UpcomingScreen.routeName: (ctx) => UpcomingScreen(),
         DefaulterScreen.routeName: (ctx) => DefaulterScreen(),
         VaccineToRegisKids.routeName: (ctx) => VaccineToRegisKids(),
+        RefusalScreen.routeName: (ctx) => RefusalScreen(),
       },
     );
   }

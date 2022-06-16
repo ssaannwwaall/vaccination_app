@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:vaccination_app/NewBirthChildScreen.dart';
 import 'package:vaccination_app/NewRegisterationScreen.dart';
+import 'package:vaccination_app/RefusalScreen.dart';
 import 'package:vaccination_app/UpcomingScreen.dart';
 import 'package:vaccination_app/Widget/CardHome.dart';
 import 'package:vaccination_app/Widget/MyButton.dart';
@@ -149,8 +150,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               MyColors.color_green_light,
                               'assets/images/bulb_icon1.svg'),
                           onTap: () {
-                            // Navigator.of(context)
-                            //     .pushNamed(NewBirthChildScreen.routeName);
+                             Navigator.of(context)
+                                 .pushNamed(RefusalScreen.routeName);
                           },
                         ),
                         GestureDetector(

@@ -738,7 +738,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                               child: RadioListTile(
                                                 value: 1,
                                                 groupValue:
-                                                    _radioGroupValueGender,
+                                                    _radioGroupValueCategory,
                                                 activeColor: screenThemeColor,
                                                 selected: false,
                                                 title: const Text(
@@ -750,7 +750,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                                 ),
                                                 onChanged: (value) {
                                                   setState(() =>
-                                                      _radioGroupValueGender =
+                                                      _radioGroupValueCategory =
                                                           value as int);
                                                 },
                                               ),
@@ -816,9 +816,10 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                   gender = 'Transgender';
                                 }
                                 bool refusal = false;
-                                if (_radioGroupValueGender == 0) {
+
+                                if (_radioGroupValueCategory == 0) {
                                   refusal = false;
-                                } else if (_radioGroupValueGender == 1) {
+                                } else if (_radioGroupValueCategory == 1) {
                                   refusal = true;
                                 }
 
