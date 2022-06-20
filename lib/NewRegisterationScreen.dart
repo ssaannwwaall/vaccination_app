@@ -218,24 +218,24 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                               children: [
                                                 MyTextFiled(
                                                     _width * .47,
-                                                    '   Child name',
+                                                    '   Child Name   بچہ کا نام ',
                                                     TextInputType.name,
                                                     _controllerName),
                                                 MyTextFiled(
                                                     _width * .47,
-                                                    '   Father name',
+                                                    '   Father name   والد کا نام ',
                                                     TextInputType.name,
                                                     _controllerFName),
                                               ],
                                             ),
                                             MyTextFiled(
                                                 _width * 0.95,
-                                                '   Phone number',
+                                                '   Phone number    موبائل نمبر',
                                                 TextInputType.name,
                                                 _controllerPhone),
                                             MyTextFiled(
                                                 _width * .95,
-                                                '   Epi Card No',
+                                                '   Epi Card No     ای پی آئ کاڈر نمبر',
                                                 TextInputType.name,
                                                 _controllerEpiCardNo),
                                             Row(
@@ -343,8 +343,8 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                                             Colors.white,
                                                         underline: SizedBox(),
                                                         elevation: 5,
-                                                        hint:
-                                                            const Text('City'),
+                                                        hint: const Text(
+                                                            'City   شہر '),
                                                         value: _selectedCity,
                                                         onChanged:
                                                             (newValue) async {
@@ -391,7 +391,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                                           underline:
                                                               const SizedBox(),
                                                           hint: const Text(
-                                                            'Tahsil',
+                                                            'Tahsil   تحصیل',
                                                             style: TextStyle(
                                                                 fontSize: 14,
                                                                 fontWeight:
@@ -461,7 +461,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                                 child: DropdownButton(
                                                     underline: const SizedBox(),
                                                     hint: const Text(
-                                                      'Union council',
+                                                      'Union council   یو نین کو نسل',
                                                       style: TextStyle(
                                                           fontSize: 14,
                                                           fontWeight:
@@ -764,31 +764,31 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                                     },
                                                   ),
                                                 ),
-                                                Container(
-                                                  width: _width * 0.33,
-                                                  height: _hight * 0.06,
-                                                  child: RadioListTile(
-                                                    value: 2,
-                                                    groupValue:
-                                                        _radioGroupValueGender,
-                                                    activeColor:
-                                                        screenThemeColor,
-                                                    selected: false,
-                                                    title: const Text(
-                                                      'Trans',
-                                                      style: TextStyle(
-                                                        color: MyColors
-                                                            .color_black,
-                                                        fontSize: 11,
-                                                      ),
-                                                    ),
-                                                    onChanged: (value) {
-                                                      setState(() =>
-                                                          _radioGroupValueGender =
-                                                              value as int);
-                                                    },
-                                                  ),
-                                                ),
+                                                // Container(
+                                                //   width: _width * 0.33,
+                                                //   height: _hight * 0.06,
+                                                //   child: RadioListTile(
+                                                //     value: 2,
+                                                //     groupValue:
+                                                //         _radioGroupValueGender,
+                                                //     activeColor:
+                                                //         screenThemeColor,
+                                                //     selected: false,
+                                                //     title: const Text(
+                                                //       'Trans',
+                                                //       style: TextStyle(
+                                                //         color: MyColors
+                                                //             .color_black,
+                                                //         fontSize: 11,
+                                                //       ),
+                                                //     ),
+                                                //     onChanged: (value) {
+                                                //       setState(() =>
+                                                //           _radioGroupValueGender =
+                                                //               value as int);
+                                                //     },
+                                                //   ),
+                                                // ),
                                               ],
                                             ),
                                             const Text(

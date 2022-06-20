@@ -163,19 +163,19 @@ class _CustomVaccinationScreenState extends State<CustomVaccinationScreen> {
                                           children: [
                                             MyTextFiled(
                                                 _width * .47,
-                                                'Patient name',
+                                                'Patient Nameمر یض کا نام',
                                                 TextInputType.name,
                                                 _controllerName),
                                             MyTextFiled(
                                                 _width * .47,
-                                                'Father name',
+                                                'Father Name   والد کا نام ',
                                                 TextInputType.name,
                                                 _controllerFName),
                                           ],
                                         ),
                                         MyTextFiled(
                                             _width * 0.95,
-                                            'Mobile',
+                                            'Mobile No   موبائل نمبر',
                                             TextInputType.name,
                                             _controllerPhone),
                                         Row(
@@ -266,7 +266,7 @@ class _CustomVaccinationScreenState extends State<CustomVaccinationScreen> {
                                                   child: DropdownButton(
                                                     underline: SizedBox(),
                                                     elevation: 5,
-                                                    hint: Text('City'),
+                                                    hint: Text('City   شہر'),
                                                     value: _selectedCity,
                                                     onChanged:
                                                         (newValue) async {
@@ -308,7 +308,7 @@ class _CustomVaccinationScreenState extends State<CustomVaccinationScreen> {
                                                   child: DropdownButton(
                                                       underline: SizedBox(),
                                                       hint: const Text(
-                                                        'Tahsil',
+                                                        'Tahsil   تحصیل',
                                                         style: TextStyle(
                                                             fontSize: 14,
                                                             fontWeight:
@@ -367,7 +367,7 @@ class _CustomVaccinationScreenState extends State<CustomVaccinationScreen> {
                                             child: DropdownButton(
                                                 underline: SizedBox(),
                                                 hint: const Text(
-                                                  'Union council',
+                                                  'Union council   یو نین کو نسل',
                                                   style: TextStyle(
                                                       fontSize: 14,
                                                       fontWeight:
@@ -511,29 +511,29 @@ class _CustomVaccinationScreenState extends State<CustomVaccinationScreen> {
                                                 },
                                               ),
                                             ),
-                                            Container(
-                                              width: _width * 0.33,
-                                              height: _hight * 0.06,
-                                              child: RadioListTile(
-                                                value: 2,
-                                                groupValue:
-                                                    _radioGroupValueGender,
-                                                activeColor: screenThemeColor,
-                                                selected: false,
-                                                title: const Text(
-                                                  'Trans',
-                                                  style: TextStyle(
-                                                    color: MyColors.color_black,
-                                                    fontSize: 11,
-                                                  ),
-                                                ),
-                                                onChanged: (value) {
-                                                  setState(() =>
-                                                      _radioGroupValueGender =
-                                                          value as int);
-                                                },
-                                              ),
-                                            ),
+                                            // Container(
+                                            //   width: _width * 0.33,
+                                            //   height: _hight * 0.06,
+                                            //   child: RadioListTile(
+                                            //     value: 2,
+                                            //     groupValue:
+                                            //         _radioGroupValueGender,
+                                            //     activeColor: screenThemeColor,
+                                            //     selected: false,
+                                            //     title: const Text(
+                                            //       'Trans',
+                                            //       style: TextStyle(
+                                            //         color: MyColors.color_black,
+                                            //         fontSize: 11,
+                                            //       ),
+                                            //     ),
+                                            //     onChanged: (value) {
+                                            //       setState(() =>
+                                            //           _radioGroupValueGender =
+                                            //               value as int);
+                                            //     },
+                                            //   ),
+                                            // ),
                                           ],
                                         ),
                                       ],

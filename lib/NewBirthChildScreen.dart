@@ -185,19 +185,19 @@ class _NewBirthChildScreenState extends State<NewBirthChildScreen> {
                                           children: [
                                             MyTextFiled(
                                                 _width * .47,
-                                                '   Child Name',
+                                                '   Child Name   بچہ کا نام',
                                                 TextInputType.name,
                                                 _controllerName),
                                             MyTextFiled(
                                                 _width * .47,
-                                                '   Father Name',
+                                                '   Father Name   والد کا نام',
                                                 TextInputType.name,
                                                 _controllerFName),
                                           ],
                                         ),
                                         MyTextFiled(
                                             _width * 0.95,
-                                            '   Phone Number',
+                                            '   Mobile Number   موبائل نمبر',
                                             TextInputType.name,
                                             _controllerPhone),
                                         Row(
@@ -206,7 +206,7 @@ class _NewBirthChildScreenState extends State<NewBirthChildScreen> {
                                           children: [
                                             MyTextFiled(
                                                 _width * .47,
-                                                '   Epi Card No',
+                                                '   Epi Card Noای پی آئ کاڈر نمبر',
                                                 TextInputType.name,
                                                 _controllerEpiCardNo),
                                             Container(
@@ -273,7 +273,8 @@ class _NewBirthChildScreenState extends State<NewBirthChildScreen> {
                                                 child: Center(
                                                   child: DropdownButton(
                                                     underline: const SizedBox(),
-                                                    hint: const Text('   City'),
+                                                    hint: const Text(
+                                                        '   City   شہر '),
                                                     dropdownColor:
                                                         const Color.fromARGB(
                                                             255, 205, 173, 171),
@@ -321,7 +322,7 @@ class _NewBirthChildScreenState extends State<NewBirthChildScreen> {
                                                       underline:
                                                           const SizedBox(),
                                                       hint: const Text(
-                                                        'Tahsil',
+                                                        'Tahsil   تحصیل',
                                                         style: TextStyle(
                                                             fontSize: 14,
                                                             fontWeight:
@@ -390,7 +391,7 @@ class _NewBirthChildScreenState extends State<NewBirthChildScreen> {
                                             child: DropdownButton(
                                                 underline: const SizedBox(),
                                                 hint: const Text(
-                                                  'Union Council',
+                                                  'Union Council   یو نین کو نسل',
                                                   style: TextStyle(
                                                       fontSize: 14,
                                                       fontWeight:
@@ -487,28 +488,28 @@ class _NewBirthChildScreenState extends State<NewBirthChildScreen> {
                                                 },
                                               ),
                                             ),
-                                            Container(
-                                              width: _width * 0.33,
-                                              height: _hight * 0.06,
-                                              child: RadioListTile(
-                                                value: 2,
-                                                groupValue: _radioGroupValue,
-                                                activeColor: screeThemeColor,
-                                                selected: false,
-                                                title: const Text(
-                                                  'Trans',
-                                                  style: TextStyle(
-                                                    color: MyColors.color_black,
-                                                    fontSize: 12,
-                                                  ),
-                                                ),
-                                                onChanged: (value) {
-                                                  setState(() =>
-                                                      _radioGroupValue =
-                                                          value as int);
-                                                },
-                                              ),
-                                            ),
+                                            // Container(
+                                            //   width: _width * 0.33,
+                                            //   height: _hight * 0.06,
+                                            //   child: RadioListTile(
+                                            //     value: 2,
+                                            //     groupValue: _radioGroupValue,
+                                            //     activeColor: screeThemeColor,
+                                            //     selected: false,
+                                            //     title: const Text(
+                                            //       'Trans',
+                                            //       style: TextStyle(
+                                            //         color: MyColors.color_black,
+                                            //         fontSize: 12,
+                                            //       ),
+                                            //     ),
+                                            //     onChanged: (value) {
+                                            //       setState(() =>
+                                            //           _radioGroupValue =
+                                            //               value as int);
+                                            //     },
+                                            //   ),
+                                            // ),
                                           ],
                                         ),
                                       ],
