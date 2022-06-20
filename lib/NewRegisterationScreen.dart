@@ -66,7 +66,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
 
   DateTime dob = DateTime.now();
   DateTime nextVaccinationDate = DateTime.now();
-  Color screenThemeColor = MyColors.color_yellow_light;
+  Color screenThemeColor = MyColors.New_Register;
 
   List<VaccinationDoseForRegular> list_of_vaccinations = [];
 
@@ -91,426 +91,380 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
 
     return SafeArea(
       child: Scaffold(
-        body: Container(
-          color: MyColors.color_white,
-          height: _hight,
-          width: _width,
-          child: Column(
-            children: [
-              Expanded(
-                child: ListView(
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+        body: Stack(
+          children: [
+            Image.asset(
+              'assets/images/bg_new2.jpg',
+              fit: BoxFit.fill,
+              width: double.infinity,
+              height: double.infinity,
+            ),
+            Container(
+              color: Colors.grey.withOpacity(0.4),
+              width: double.infinity,
+              height: double.infinity,
+            ),
+            Container(
+              //color: MyColors.color_white,
+              // color: Color.fromARGB(255, 225, 225, 225),
+              height: _hight,
+              width: _width,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: ListView(
                       children: [
-                        Container(
-                          color: MyColors.color_yellow_light,
-                          height: _hight * .07,
-                          width: _width,
-                          child: const Center(
-                            child: Text(
-                              'New Registration',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  color: MyColors.color_white,
-                                  fontWeight: FontWeight.w500),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              color: MyColors.New_Register,
+                              height: _hight * .07,
+                              width: _width,
+                              child: const Center(
+                                child: Text(
+                                  'New Registration',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      color: MyColors.color_white,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () async {
-                            // Obtain a list of the available cameras on the device.
-                            final cameras = await availableCameras();
-                            // Get a specific camera from the list of available cameras.
-                            final firstCamera = cameras.first;
+                            GestureDetector(
+                              onTap: () async {
+                                // Obtain a list of the available cameras on the device.
+                                final cameras = await availableCameras();
+                                // Get a specific camera from the list of available cameras.
+                                final firstCamera = cameras.first;
 
-                            Feedback.forTap(context);
-                            print('going to take camera...');
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>
-                                    TakePictureScreen(camera: firstCamera)));
+                                Feedback.forTap(context);
+                                print('going to take camera...');
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => TakePictureScreen(
+                                        camera: firstCamera)));
 
-                            //_filePicPicked = await Helper.getPictureFromPhone();
-                            //if (_filePicPicked != null) {
-                            /*if (_imgFilePicPath != null) {
-                              // setState(() {
-                              //   _filePicPicked;
-                              //   print('file picked  $_filePicPicked');
-                              // });
-                              if (await Helper.isInternetAvailble()) {
-                                pic_url = await FirebaseCalls.uploadPicture(
-                                    'newReg',
-                                    _controllerPhone.text.toString(),
-                                    _imgFilePicPath!);
+                                //_filePicPicked = await Helper.getPictureFromPhone();
+                                //if (_filePicPicked != null) {
+                                /*if (_imgFilePicPath != null) {
+                                // setState(() {
+                                //   _filePicPicked;
+                                //   print('file picked  $_filePicPicked');
+                                // });
+                                if (await Helper.isInternetAvailble()) {
+                                  pic_url = await FirebaseCalls.uploadPicture(
+                                      'newReg',
+                                      _controllerPhone.text.toString(),
+                                      _imgFilePicPath!);
+                                } else {
+                                  pic_url = _imgFilePicPath!;
+                                }
+                                print('download url in screen is $pic_url');
                               } else {
-                                pic_url = _imgFilePicPath!;
-                              }
-                              print('download url in screen is $pic_url');
-                            } else {
-                              //something went wrong
-                              Fluttertoast.showToast(
-                                  msg: "Image not found",
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  gravity: ToastGravity.BOTTOM,
-                                  timeInSecForIosWeb: 1,
-                                  backgroundColor: MyColors.color_gray,
-                                  textColor: MyColors.color_white,
-                                  fontSize: 16.0);
-                            }*/
-                          },
-                          child: Container(
-                            width: _width * .9,
-                            height: _hight * 0.13,
-                            child: _imgFilePicPath != null
-                                ? Image.file(
-                                    File(_imgFilePicPath!),
-                                    //fit: BoxFit.cover,
-                                  )
-                                : SvgPicture.asset('assets/images/camera.svg'),
-                          ),
-                          // Container(
-                          //   height: _hight * 0.13,
-                          //   width: _width,
-                          //   child: SvgPicture.asset('assets/images/logo.svg'),
-                          // ),
-                        ),
-                        Container(
-                          height: _hight * 0.64,
-                          width: _width,
-                          child: Column(
-                            children: [
-                              Expanded(
-                                child: ListView(
-                                  children: [
-                                    Column(
+                                //something went wrong
+                                Fluttertoast.showToast(
+                                    msg: "Image not found",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: MyColors.color_gray,
+                                    textColor: MyColors.color_white,
+                                    fontSize: 16.0);
+                              }*/
+                              },
+                              child: Container(
+                                width: _width * .9,
+                                height: _hight * 0.13,
+                                child: _imgFilePicPath != null
+                                    ? Image.file(
+                                        File(_imgFilePicPath!),
+                                        //fit: BoxFit.cover,
+                                      )
+                                    : Image.asset(
+                                        "assets/images/add-photo.png"),
+                                // SvgPicture.asset('assets/images/camera.svg'),
+                              ),
+                              // Container(
+                              //   height: _hight * 0.13,
+                              //   width: _width,
+                              //   child: SvgPicture.asset('assets/images/logo.svg'),
+                              // ),
+                            ),
+                            Container(
+                              height: _hight * 0.64,
+                              width: _width,
+                              child: Column(
+                                children: [
+                                  Expanded(
+                                    child: ListView(
                                       children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                        Column(
                                           children: [
-                                            MyTextFiled(
-                                                _width * .47,
-                                                'Child name',
-                                                TextInputType.name,
-                                                _controllerName),
-                                            MyTextFiled(
-                                                _width * .47,
-                                                'Father name',
-                                                TextInputType.name,
-                                                _controllerFName),
-                                          ],
-                                        ),
-                                        MyTextFiled(
-                                            _width * 0.95,
-                                            'Phone number',
-                                            TextInputType.name,
-                                            _controllerPhone),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              width: _width * .47,
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                MyTextFiled(
+                                                    _width * .47,
+                                                    '   Child name',
+                                                    TextInputType.name,
+                                                    _controllerName),
+                                                MyTextFiled(
+                                                    _width * .47,
+                                                    '   Father name',
+                                                    TextInputType.name,
+                                                    _controllerFName),
+                                              ],
                                             ),
-                                            Container(
-                                              width: _width * .47,
-                                              child: Text(
-                                                'Date of Birth',
-                                                style: TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.bold,
-                                                    color:
-                                                        MyColors.color_black),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
                                             MyTextFiled(
-                                                _width * .47,
-                                                'Epi card no',
+                                                _width * 0.95,
+                                                '   Phone number',
+                                                TextInputType.name,
+                                                _controllerPhone),
+                                            MyTextFiled(
+                                                _width * .95,
+                                                '   Epi Card No',
                                                 TextInputType.name,
                                                 _controllerEpiCardNo),
-                                            Container(
-                                              margin:
-                                                  EdgeInsets.only(bottom: 5),
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.rectangle,
-                                                border: Border.all(
-                                                    width: .5,
-                                                    color: screenThemeColor),
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                              ),
-                                              width: _width * .47,
-                                              child: TextButton(
-                                                  onPressed: () async {
-                                                    DateTime? date =
-                                                        await showDatePicker(
-                                                      context: context,
-                                                      initialDate: dob,
-                                                      firstDate: DateTime(1900),
-                                                      lastDate: DateTime(2100),
-                                                    );
-                                                    if (date == null) return;
-                                                    setState(() {
-                                                      dob = date;
-                                                    });
-                                                  },
-                                                  child: Center(
-                                                    child: Text(
-                                                      '${dob.day}-${dob.month}-${dob.year}',
-                                                      style: const TextStyle(
-                                                          fontSize: 14,
-                                                          color: MyColors
-                                                              .color_black),
-                                                    ),
-                                                  )),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            // MyTextFiled(
-                                            //     _width * .47,
-                                            //     'District',
-                                            //     TextInputType.name,
-                                            //     _controllerCity),
-
-                                            Container(
-                                              width: _width * .47,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.rectangle,
-                                                border: Border.all(
-                                                    width: .5,
-                                                    color: screenThemeColor),
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(3.0),
-                                                child: Center(
-                                                  child: DropdownButton(
-                                                    underline: SizedBox(),
-                                                    elevation: 5,
-                                                    hint: Text('City'),
-                                                    value: _selectedCity,
-                                                    onChanged:
-                                                        (newValue) async {
-                                                      setState(() {
-                                                        _selectedCity =
-                                                            newValue.toString();
-                                                      });
-                                                      await _loadTahsil(
-                                                          _selectedCity!);
-                                                    },
-                                                    items: _cities
-                                                        .map((thislocation) {
-                                                      return DropdownMenuItem(
-                                                        child: new Text(
-                                                            thislocation),
-                                                        value: thislocation,
-                                                      );
-                                                    }).toList(),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                // Container(
+                                                //   width: _width * .10,
+                                                // ),
+                                                Container(
+                                                  width: _width * .47,
+                                                  child: const Text(
+                                                    '   Date of Birth',
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: MyColors
+                                                            .New_Register),
                                                   ),
                                                 ),
-                                              ),
+                                                Container(
+                                                  width: _width * .47,
+                                                  margin: const EdgeInsets.only(
+                                                      bottom: 5),
+                                                  // decoration: BoxDecoration(
+                                                  //   shape: BoxShape.rectangle,
+                                                  //   border: Border.all(
+                                                  //       width: .5,
+                                                  //       color:
+                                                  //           MyColors.color_black),
+                                                  //   borderRadius:
+                                                  //       BorderRadius.circular(5),
+                                                  // ),
+                                                  child: Card(
+                                                    color:
+                                                        MyColors.New_Register,
+                                                    child: TextButton(
+                                                        onPressed: () async {
+                                                          DateTime? date =
+                                                              await showDatePicker(
+                                                            context: context,
+                                                            initialDate: dob,
+                                                            firstDate:
+                                                                DateTime(1900),
+                                                            lastDate:
+                                                                DateTime(2100),
+                                                          );
+                                                          if (date == null)
+                                                            return;
+                                                          setState(() {
+                                                            dob = date;
+                                                          });
+                                                        },
+                                                        child: Center(
+                                                          child: Text(
+                                                            '${dob.day}-${dob.month}-${dob.year}',
+                                                            style: const TextStyle(
+                                                                fontSize: 14,
+                                                                color: MyColors
+                                                                    .color_white),
+                                                          ),
+                                                        )),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            Container(
-                                              margin: EdgeInsets.only(left: 5),
-                                              width: _width * .47,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.rectangle,
-                                                border: Border.all(
-                                                    width: .5,
-                                                    color: screenThemeColor),
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(3.0),
-                                                child: Center(
-                                                  child: DropdownButton(
-                                                      underline: SizedBox(),
-                                                      hint: const Text(
-                                                        'Tahsil',
-                                                        style: TextStyle(
-                                                            fontSize: 14,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w600),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [],
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                // MyTextFiled(
+                                                //     _width * .47,
+                                                //     'District',
+                                                //     TextInputType.name,
+                                                //     _controllerCity),
+
+                                                Container(
+                                                  width: _width * .47,
+                                                  decoration: BoxDecoration(
+                                                    // borderRadius:
+                                                    //     const BorderRadius.all(
+                                                    //         Radius.circular(10.0)),
+                                                    shape: BoxShape.rectangle,
+                                                    border: Border.all(
+                                                        width: .5,
+                                                        color: MyColors
+                                                            .color_black),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            3.0),
+                                                    child: Center(
+                                                      child: DropdownButton(
+                                                        focusColor:
+                                                            Colors.white,
+                                                        underline: SizedBox(),
+                                                        elevation: 5,
+                                                        hint:
+                                                            const Text('City'),
+                                                        value: _selectedCity,
+                                                        onChanged:
+                                                            (newValue) async {
+                                                          setState(() {
+                                                            _selectedCity =
+                                                                newValue
+                                                                    .toString();
+                                                          });
+                                                          await _loadTahsil(
+                                                              _selectedCity!);
+                                                        },
+                                                        items: _cities.map(
+                                                            (thislocation) {
+                                                          return DropdownMenuItem(
+                                                            child: Text(
+                                                                thislocation),
+                                                            value: thislocation,
+                                                          );
+                                                        }).toList(),
                                                       ),
-                                                      value: _selectedTahsil,
-                                                      onChanged: (newValue) {
-                                                        setState(() {
-                                                          _selectedTahsil =
-                                                              newValue
-                                                                  .toString();
-                                                        });
-                                                        _loadCouncil(
-                                                            _selectedCity!,
-                                                            _selectedTahsil!);
-                                                      },
-                                                      items: _tahsil != null ||
-                                                              _tahsil.isNotEmpty
-                                                          ? _tahsil.map(
-                                                              (thislocation) {
-                                                              return DropdownMenuItem(
-                                                                child: Text(
-                                                                    thislocation),
-                                                                value:
-                                                                    thislocation,
-                                                              );
-                                                            }).toList()
-                                                          : ['Tahsiil'].map(
-                                                              (thislocation) {
-                                                              return DropdownMenuItem(
-                                                                child: Text(
-                                                                    thislocation),
-                                                                value:
-                                                                    thislocation,
-                                                              );
-                                                            }).toList()),
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
+                                                Container(
+                                                  margin: const EdgeInsets.only(
+                                                      left: 5),
+                                                  width: _width * .47,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.rectangle,
+                                                    border: Border.all(
+                                                        width: .5,
+                                                        color: MyColors
+                                                            .color_black),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            3.0),
+                                                    child: Center(
+                                                      child: DropdownButton(
+                                                          underline:
+                                                              const SizedBox(),
+                                                          hint: const Text(
+                                                            'Tahsil',
+                                                            style: TextStyle(
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600),
+                                                          ),
+                                                          value:
+                                                              _selectedTahsil,
+                                                          onChanged:
+                                                              (newValue) {
+                                                            setState(() {
+                                                              _selectedTahsil =
+                                                                  newValue
+                                                                      .toString();
+                                                            });
+                                                            _loadCouncil(
+                                                                _selectedCity!,
+                                                                _selectedTahsil!);
+                                                          },
+                                                          items: _tahsil !=
+                                                                      null ||
+                                                                  _tahsil
+                                                                      .isNotEmpty
+                                                              ? _tahsil.map(
+                                                                  (thislocation) {
+                                                                  return DropdownMenuItem(
+                                                                    child: Text(
+                                                                        thislocation),
+                                                                    value:
+                                                                        thislocation,
+                                                                  );
+                                                                }).toList()
+                                                              : ['Tahsiil'].map(
+                                                                  (thislocation) {
+                                                                  return DropdownMenuItem(
+                                                                    child: Text(
+                                                                        thislocation),
+                                                                    value:
+                                                                        thislocation,
+                                                                  );
+                                                                }).toList()),
+                                                    ),
+                                                  ),
+                                                ),
+
+                                                // MyTextFiled(
+                                                //     _width * .47,
+                                                //     'Tahsil',
+                                                //     TextInputType.name,
+                                                //     _controllerTahsil),
+                                              ],
                                             ),
-
-                                            // MyTextFiled(
-                                            //     _width * .47,
-                                            //     'Tahsil',
-                                            //     TextInputType.name,
-                                            //     _controllerTahsil),
-                                          ],
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                              top: 5, bottom: 10),
-                                          width: _width * .7,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.rectangle,
-                                            border: Border.all(
-                                                width: .5,
-                                                color: screenThemeColor),
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                          ),
-                                          child: Center(
-                                            child: DropdownButton(
-                                                underline: SizedBox(),
-                                                hint: const Text(
-                                                  'Union council',
-                                                  style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                ),
-                                                value: _selectedConsil,
-                                                onChanged: (newValue) {
-                                                  setState(() {
-                                                    _selectedConsil =
-                                                        newValue.toString();
-                                                  });
-                                                },
-                                                items: _councils != null ||
-                                                        _councils.isNotEmpty
-                                                    ? _councils
-                                                        .map((thislocation) {
-                                                        return DropdownMenuItem(
-                                                          child: Text(
-                                                              thislocation),
-                                                          value: thislocation,
-                                                        );
-                                                      }).toList()
-                                                    : ['Councils']
-                                                        .map((thislocation) {
-                                                        return DropdownMenuItem(
-                                                          child: Text(
-                                                              thislocation),
-                                                          value: thislocation,
-                                                        );
-                                                      }).toList()),
-                                          ),
-                                        ),
-
-                                        //todo: vaccination details
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
                                             Container(
                                               margin: const EdgeInsets.only(
-                                                  left: 5, right: 5),
-                                              width: _width * .9,
+                                                  top: 5, bottom: 10),
+                                              width: _width * .7,
                                               decoration: BoxDecoration(
                                                 shape: BoxShape.rectangle,
                                                 border: Border.all(
                                                     width: .5,
-                                                    color: screenThemeColor),
+                                                    color:
+                                                        MyColors.color_black),
                                                 borderRadius:
-                                                    BorderRadius.circular(5),
+                                                    BorderRadius.circular(10),
                                               ),
                                               child: Center(
                                                 child: DropdownButton(
-                                                  underline: SizedBox(),
-                                                  hint: const Text('Dose'),
-                                                  value: _selectedDose,
-                                                  onChanged: (newValue) async {
-                                                    setState(() {
-                                                      _selectedDose =
-                                                          newValue.toString();
-                                                    });
-                                                    //print('selected dose is $_selectedDose');
-                                                    await _loadVaccines(
-                                                        _selectedDose!);
-                                                  },
-                                                  items:
-                                                      _dose.map((thislocation) {
-                                                    return DropdownMenuItem(
-                                                      child: new Text(
-                                                          thislocation),
-                                                      value: thislocation,
-                                                    );
-                                                  }).toList(),
-                                                ),
-                                              ),
-                                            ),
-                                            /* Container(
-                                              width: _width * .47,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.rectangle,
-                                                border: Border.all(
-                                                    width: .5,
-                                                    color: screenThemeColor),
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                              ),
-                                              child: Center(
-                                                child: DropdownButton(
-                                                    underline: SizedBox(),
+                                                    underline: const SizedBox(),
                                                     hint: const Text(
-                                                      'Vaccine',
+                                                      'Union council',
                                                       style: TextStyle(
                                                           fontSize: 14,
                                                           fontWeight:
                                                               FontWeight.w600),
                                                     ),
-                                                    value: _selectedVaccine,
+                                                    value: _selectedConsil,
                                                     onChanged: (newValue) {
                                                       setState(() {
-                                                        _selectedVaccine =
+                                                        _selectedConsil =
                                                             newValue.toString();
                                                       });
                                                     },
-                                                    items: _vaccine != null ||
-                                                            _vaccine.isNotEmpty
-                                                        ? _vaccine.map(
+                                                    items: _councils != null ||
+                                                            _councils.isNotEmpty
+                                                        ? _councils.map(
                                                             (thislocation) {
                                                             return DropdownMenuItem(
                                                               child: Text(
@@ -520,7 +474,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                                             );
                                                           }).toList()
                                                         : [
-                                                            'Vaccine'
+                                                            'Councils'
                                                           ].map((thislocation) {
                                                             return DropdownMenuItem(
                                                               child: Text(
@@ -530,388 +484,642 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                                             );
                                                           }).toList()),
                                               ),
-                                            ),*/
+                                            ),
 
-                                            // MyTextFiled(
-                                            //     _width * .47,
-                                            //     'Tahsil',
-                                            //     TextInputType.name,
-                                            //     _controllerTahsil),
-                                          ],
-                                        ),
-                                        //nextVaccinationDate
-                                        Container(
-                                            margin: EdgeInsets.only(top: 5),
-                                            width: _width * .9,
-                                            child: const Text(
-                                              'Next vaccination date',
-                                              style: TextStyle(
-                                                  color: MyColors.color_black,
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.bold),
-                                            )),
-                                        Container(
-                                          margin: EdgeInsets.only(bottom: 5),
-                                          width: _width * .9,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.rectangle,
-                                            border: Border.all(
-                                                width: .5,
-                                                color: screenThemeColor),
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                          ),
-                                          child: Center(
-                                            child: TextButton(
-                                                onPressed: () async {
-                                                  DateTime? date =
-                                                      await showDatePicker(
-                                                    context: context,
-                                                    initialDate:
-                                                        nextVaccinationDate,
-                                                    firstDate: DateTime(1900),
-                                                    lastDate: DateTime(2100),
-                                                  );
-                                                  if (date == null) return;
-                                                  setState(() {
-                                                    nextVaccinationDate = date;
-                                                  });
-                                                },
-                                                child: Center(
-                                                  child: Text(
-                                                    '${nextVaccinationDate.day}-${nextVaccinationDate.month}-${nextVaccinationDate.year}',
-                                                    style: TextStyle(
-                                                        fontSize: 14,
+                                            //todo: vaccination details
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  margin: const EdgeInsets.only(
+                                                      left: 5, right: 5),
+                                                  width: _width * .9,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.rectangle,
+                                                    border: Border.all(
+                                                        width: .5,
                                                         color: MyColors
                                                             .color_black),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
                                                   ),
-                                                )),
-                                          ),
-                                        ),
-                                        /*Container(
-                                          width: _width * 9,
-                                          child: Row(
-                                            children: [
-                                              // Checkbox(
-                                              //     activeColor: screenThemeColor,
-                                              //     value: checkboxVacciened,
-                                              //     onChanged: (onChanged) {
-                                              //       setState(() {
-                                              //         checkboxVacciened =
-                                              //             onChanged as bool;
-                                              //         print(
-                                              //             'value   $checkboxVacciened');
-                                              //       });
-                                              //     }),
-                                              const Text(
-                                                'Have done this vaccine',
-                                                style: TextStyle(
-                                                  color: MyColors.color_black,
-                                                  fontSize: 14,
+                                                  child: Center(
+                                                    child: DropdownButton(
+                                                      underline:
+                                                          const SizedBox(),
+                                                      hint: const Text('Dose'),
+                                                      value: _selectedDose,
+                                                      onChanged:
+                                                          (newValue) async {
+                                                        setState(() {
+                                                          _selectedDose =
+                                                              newValue
+                                                                  .toString();
+                                                        });
+                                                        //print('selected dose is $_selectedDose');
+                                                        await _loadVaccines(
+                                                            _selectedDose!);
+                                                      },
+                                                      items: _dose
+                                                          .map((thislocation) {
+                                                        return DropdownMenuItem(
+                                                          child: Text(
+                                                              thislocation),
+                                                          value: thislocation,
+                                                        );
+                                                      }).toList(),
+                                                    ),
+                                                  ),
                                                 ),
-                                              )
-                                            ],
-                                          ),
-                                        ),*/
+                                                /* Container(
+                                                width: _width * .47,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.rectangle,
+                                                  border: Border.all(
+                                                      width: .5,
+                                                      color: screenThemeColor),
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                ),
+                                                child: Center(
+                                                  child: DropdownButton(
+                                                      underline: SizedBox(),
+                                                      hint: const Text(
+                                                        'Vaccine',
+                                                        style: TextStyle(
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight.w600),
+                                                      ),
+                                                      value: _selectedVaccine,
+                                                      onChanged: (newValue) {
+                                                        setState(() {
+                                                          _selectedVaccine =
+                                                              newValue.toString();
+                                                        });
+                                                      },
+                                                      items: _vaccine != null ||
+                                                              _vaccine.isNotEmpty
+                                                          ? _vaccine.map(
+                                                              (thislocation) {
+                                                              return DropdownMenuItem(
+                                                                child: Text(
+                                                                    thislocation),
+                                                                value:
+                                                                    thislocation,
+                                                              );
+                                                            }).toList()
+                                                          : [
+                                                              'Vaccine'
+                                                            ].map((thislocation) {
+                                                              return DropdownMenuItem(
+                                                                child: Text(
+                                                                    thislocation),
+                                                                value:
+                                                                    thislocation,
+                                                              );
+                                                            }).toList()),
+                                                ),
+                                              ),*/
 
-                                        MyTextFiled(
-                                            _width * 0.95,
-                                            'Location coordinates',
-                                            TextInputType.name,
-                                            _controllerLatLong),
-                                        MyTextFiled(
-                                            _width * 0.95,
-                                            'Address',
-                                            TextInputType.streetAddress,
-                                            _controllerAddress),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              width: _width * 0.33,
-                                              height: _hight * 0.06,
-                                              child: RadioListTile(
-                                                value: 0,
-                                                groupValue:
-                                                    _radioGroupValueGender,
-                                                activeColor: screenThemeColor,
-                                                selected: true,
-                                                title: const Text(
-                                                  'Male',
-                                                  style: TextStyle(
-                                                    color: MyColors.color_black,
-                                                    fontSize: 11,
-                                                  ),
-                                                ),
-                                                onChanged: (value) {
-                                                  setState(() =>
-                                                      _radioGroupValueGender =
-                                                          value as int);
-                                                },
-                                              ),
+                                                // MyTextFiled(
+                                                //     _width * .47,
+                                                //     'Tahsil',
+                                                //     TextInputType.name,
+                                                //     _controllerTahsil),
+                                              ],
                                             ),
-                                            Container(
-                                              width: _width * 0.33,
-                                              height: _hight * 0.06,
-                                              child: RadioListTile(
-                                                value: 1,
-                                                groupValue:
-                                                    _radioGroupValueGender,
-                                                activeColor: screenThemeColor,
-                                                selected: false,
-                                                title: const Text(
-                                                  'Female',
-                                                  style: TextStyle(
-                                                    color: MyColors.color_black,
-                                                    fontSize: 11,
+                                            //nextVaccinationDate
+                                            Row(
+                                              children: [
+                                                Container(
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            top: 5),
+                                                    width: _width * .5,
+                                                    child: const Text(
+                                                      'Next vaccination date',
+                                                      style: TextStyle(
+                                                          color: MyColors
+                                                              .New_Register,
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    )),
+                                                Container(
+                                                  margin: const EdgeInsets.only(
+                                                      top: 5),
+                                                  width: _width * .5,
+                                                  // decoration: BoxDecoration(
+                                                  //   shape: BoxShape.rectangle,
+                                                  //   border: Border.all(
+                                                  //       width: .5,
+                                                  //       color:
+                                                  //           screenThemeColor),
+                                                  //   borderRadius:
+                                                  //       BorderRadius.circular(
+                                                  //           5),
+                                                  // ),
+                                                  child: Card(
+                                                    color:
+                                                        MyColors.New_Register,
+                                                    child: Center(
+                                                      child: TextButton(
+                                                          onPressed: () async {
+                                                            DateTime? date =
+                                                                await showDatePicker(
+                                                              context: context,
+                                                              initialDate:
+                                                                  nextVaccinationDate,
+                                                              firstDate:
+                                                                  DateTime(
+                                                                      1900),
+                                                              lastDate:
+                                                                  DateTime(
+                                                                      2100),
+                                                            );
+                                                            if (date == null)
+                                                              return;
+                                                            setState(() {
+                                                              nextVaccinationDate =
+                                                                  date;
+                                                            });
+                                                          },
+                                                          child: Center(
+                                                            child: Text(
+                                                              '${nextVaccinationDate.day}-${nextVaccinationDate.month}-${nextVaccinationDate.year}',
+                                                              style: const TextStyle(
+                                                                  fontSize: 14,
+                                                                  color: MyColors
+                                                                      .color_white),
+                                                            ),
+                                                          )),
+                                                    ),
                                                   ),
                                                 ),
-                                                onChanged: (value) {
-                                                  setState(() =>
-                                                      _radioGroupValueGender =
-                                                          value as int);
-                                                },
-                                              ),
+                                              ],
                                             ),
-                                            Container(
-                                              width: _width * 0.33,
-                                              height: _hight * 0.06,
-                                              child: RadioListTile(
-                                                value: 2,
-                                                groupValue:
-                                                    _radioGroupValueGender,
-                                                activeColor: screenThemeColor,
-                                                selected: false,
-                                                title: const Text(
-                                                  'Trans',
+
+                                            /*Container(
+                                            width: _width * 9,
+                                            child: Row(
+                                              children: [
+                                                // Checkbox(
+                                                //     activeColor: screenThemeColor,
+                                                //     value: checkboxVacciened,
+                                                //     onChanged: (onChanged) {
+                                                //       setState(() {
+                                                //         checkboxVacciened =
+                                                //             onChanged as bool;
+                                                //         print(
+                                                //             'value   $checkboxVacciened');
+                                                //       });
+                                                //     }),
+                                                const Text(
+                                                  'Have done this vaccine',
                                                   style: TextStyle(
                                                     color: MyColors.color_black,
-                                                    fontSize: 11,
+                                                    fontSize: 14,
                                                   ),
-                                                ),
-                                                onChanged: (value) {
-                                                  setState(() =>
-                                                      _radioGroupValueGender =
-                                                          value as int);
-                                                },
-                                              ),
+                                                )
+                                              ],
                                             ),
-                                          ],
-                                        ),
-                                        Text(
-                                          'Please select category',
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              width: _width * 0.45,
-                                              height: _hight * 0.06,
-                                              child: RadioListTile(
-                                                value: 0,
-                                                groupValue:
-                                                    _radioGroupValueCategory,
-                                                activeColor: screenThemeColor,
-                                                selected: true,
-                                                title: const Text(
-                                                  'Normal',
-                                                  style: TextStyle(
-                                                    color: MyColors.color_black,
-                                                    fontSize: 11,
+                                          ),*/
+
+                                            MyTextFiled(
+                                                _width * 0.95,
+                                                'Location coordinates',
+                                                TextInputType.name,
+                                                _controllerLatLong),
+                                            MyTextFiled(
+                                                _width * 0.95,
+                                                'Address',
+                                                TextInputType.streetAddress,
+                                                _controllerAddress),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: _width * 0.33,
+                                                  height: _hight * 0.06,
+                                                  child: RadioListTile(
+                                                    value: 0,
+                                                    groupValue:
+                                                        _radioGroupValueGender,
+                                                    activeColor:
+                                                        screenThemeColor,
+                                                    selected: true,
+                                                    title: const Text(
+                                                      'Male',
+                                                      style: TextStyle(
+                                                        color: MyColors
+                                                            .color_black,
+                                                        fontSize: 11,
+                                                      ),
+                                                    ),
+                                                    onChanged: (value) {
+                                                      setState(() =>
+                                                          _radioGroupValueGender =
+                                                              value as int);
+                                                    },
                                                   ),
                                                 ),
-                                                onChanged: (value) {
-                                                  setState(() =>
-                                                      _radioGroupValueCategory =
-                                                          value as int);
-                                                },
-                                              ),
+                                                Container(
+                                                  width: _width * 0.33,
+                                                  height: _hight * 0.06,
+                                                  child: RadioListTile(
+                                                    value: 1,
+                                                    groupValue:
+                                                        _radioGroupValueGender,
+                                                    activeColor:
+                                                        screenThemeColor,
+                                                    selected: false,
+                                                    title: const Text(
+                                                      'Female',
+                                                      style: TextStyle(
+                                                        color: MyColors
+                                                            .color_black,
+                                                        fontSize: 11,
+                                                      ),
+                                                    ),
+                                                    onChanged: (value) {
+                                                      setState(() =>
+                                                          _radioGroupValueGender =
+                                                              value as int);
+                                                    },
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: _width * 0.33,
+                                                  height: _hight * 0.06,
+                                                  child: RadioListTile(
+                                                    value: 2,
+                                                    groupValue:
+                                                        _radioGroupValueGender,
+                                                    activeColor:
+                                                        screenThemeColor,
+                                                    selected: false,
+                                                    title: const Text(
+                                                      'Trans',
+                                                      style: TextStyle(
+                                                        color: MyColors
+                                                            .color_black,
+                                                        fontSize: 11,
+                                                      ),
+                                                    ),
+                                                    onChanged: (value) {
+                                                      setState(() =>
+                                                          _radioGroupValueGender =
+                                                              value as int);
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            Container(
-                                              width: _width * 0.45,
-                                              height: _hight * 0.06,
-                                              child: RadioListTile(
-                                                value: 1,
-                                                groupValue:
-                                                    _radioGroupValueCategory,
-                                                activeColor: screenThemeColor,
-                                                selected: false,
-                                                title: const Text(
-                                                  'Refusal',
-                                                  style: TextStyle(
-                                                    color: MyColors.color_black,
-                                                    fontSize: 11,
+                                            Text(
+                                              'Please select category',
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: _width * 0.45,
+                                                  height: _hight * 0.06,
+                                                  child: RadioListTile(
+                                                    value: 0,
+                                                    groupValue:
+                                                        _radioGroupValueCategory,
+                                                    activeColor:
+                                                        screenThemeColor,
+                                                    selected: true,
+                                                    title: const Text(
+                                                      'Normal',
+                                                      style: TextStyle(
+                                                        color: MyColors
+                                                            .color_black,
+                                                        fontSize: 11,
+                                                      ),
+                                                    ),
+                                                    onChanged: (value) {
+                                                      setState(() =>
+                                                          _radioGroupValueCategory =
+                                                              value as int);
+                                                    },
                                                   ),
                                                 ),
-                                                onChanged: (value) {
-                                                  setState(() =>
-                                                      _radioGroupValueCategory =
-                                                          value as int);
-                                                },
-                                              ),
+                                                Container(
+                                                  width: _width * 0.45,
+                                                  height: _hight * 0.06,
+                                                  child: RadioListTile(
+                                                    value: 1,
+                                                    groupValue:
+                                                        _radioGroupValueCategory,
+                                                    activeColor:
+                                                        screenThemeColor,
+                                                    selected: false,
+                                                    title: const Text(
+                                                      'Refusal',
+                                                      style: TextStyle(
+                                                        color: MyColors
+                                                            .color_black,
+                                                        fontSize: 11,
+                                                      ),
+                                                    ),
+                                                    onChanged: (value) {
+                                                      setState(() =>
+                                                          _radioGroupValueCategory =
+                                                              value as int);
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
                                       ],
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          height: _hight * .1,
-                          width: _width,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              MyButton('Back', screenThemeColor, _width * .48,
-                                  () {
-                                print('back pressed');
-                                Navigator.of(context)
-                                    .pushNamed(HomeScreen.routeName);
-                              }),
-                              MyButton(
-                                  'Add child', screenThemeColor, _width * .48,
-                                  () async {
-                                print('add child');
-                                String? name = CustomValidator()
-                                    .validateDescription(
-                                        _controllerName.text.toString());
-                                String? fname = CustomValidator()
-                                    .validateDescription(
-                                        _controllerFName.text.toString());
-                                String? phone = CustomValidator()
-                                    .validateMobile(
-                                        _controllerPhone.text.toString());
-                                //String? dob = CustomValidator().validateName(
-                                //   _controllerDateOfBirth.text.toString());
-                                String? city = CustomValidator()
-                                    .validateDescription(_selectedCity);
-                                print('cityyyyyyyyyyyyyy');
-                                print(city);
-                                String? thsl = CustomValidator()
-                                    .validateDescription(_selectedTahsil);
-                                String? council = CustomValidator()
-                                    .validateDescription(_selectedConsil);
-                                String? coordinats = CustomValidator()
-                                    .validateDescription(
-                                        _controllerLatLong.text.toString());
-                                String? address = CustomValidator()
-                                    .validateAddress(
-                                        _controllerAddress.text.toString());
-                                String gender = 'Male';
-                                if (_radioGroupValueGender == 0) {
-                                  gender = 'Male';
-                                } else if (_radioGroupValueGender == 1) {
-                                  gender = 'Female';
-                                } else if (_radioGroupValueGender == 2) {
-                                  gender = 'Transgender';
-                                }
-                                bool refusal = false;
-                                if (_radioGroupValueCategory == 0) {
-                                  refusal = false;
-                                } else if (_radioGroupValueCategory == 1) {
-                                  refusal = true;
-                                }
-                                if (name != null) {
-                                  showtoas(name);
-                                } else if (fname != null) {
-                                  fname =
-                                      fname.replaceAll('Name', 'Father name ');
-                                  showtoas('$fname');
-                                } else if (phone != null) {
-                                  showtoas(phone);
-                                } else if (city != null) {
-                                  city = city.replaceAll('Field', 'City ');
-                                  showtoas(' $city');
-                                } else if (thsl != null) {
-                                  thsl = thsl.replaceAll('Field', 'Tahsil ');
-                                  showtoas(' $thsl');
-                                } else if (council != null) {
-                                  council =
-                                      council.replaceAll('Field', 'Council ');
-                                  showtoas(' $council');
-                                } else if (coordinats != null) {
-                                  coordinats = coordinats.replaceAll(
-                                      'Name', 'Location coordinates ');
-                                  showtoas(coordinats);
-                                } else if (address != null) {
-                                  showtoas(address);
-                                } else if (pic_url == '') {
-                                  showtoas('Picture required');
-                                } else {
-                                  //upload data
-                                  //_radioGroupValueCategory
-                                  print('list of vaccinations ');
-                                  print(
-                                      list_of_vaccinations[0].vaccination_name);
-                                  var obj = NewRegisterationModel(
-                                      _controllerName.text.toString(),
-                                      _controllerFName.text.toString(),
-                                      _controllerPhone.text.toString(),
-                                      dob.toString(),
-                                      _selectedCity!,
-                                      _selectedTahsil!,
-                                      (Helper.currentPositon.latitude
-                                          .toString()),
-                                      (Helper.currentPositon.longitude
-                                          .toString()),
-                                      _controllerAddress.text.toString(),
-                                      pic_url,
-                                      _selectedConsil!,
-                                      DateFormat('yyyy-MM-dd – kk:mm')
-                                          .format(DateTime.now())
-                                          .toString(),
-                                      gender.toString(),
-                                      nextVaccinationDate.toString(),
-                                      //_selectedVaccine.toString(),
-                                      list_of_vaccinations,
-                                      refusal);
+                            ),
+                            Container(
+                              height: _hight * .1,
+                              width: _width,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  MyButton(
+                                      'Back', screenThemeColor, _width * .48,
+                                      () {
+                                    print('back pressed');
+                                    Navigator.of(context)
+                                        .pushNamed(HomeScreen.routeName);
+                                  }),
+                                  MyButton('Add child', screenThemeColor,
+                                      _width * .48, () async {
+                                    print('add child');
+                                    String? name = CustomValidator()
+                                        .validateDescription(
+                                            _controllerName.text.toString());
+                                    String? fname = CustomValidator()
+                                        .validateDescription(
+                                            _controllerFName.text.toString());
+                                    String? phone = CustomValidator()
+                                        .validateMobile(
+                                            _controllerPhone.text.toString());
+                                    //String? dob = CustomValidator().validateName(
+                                    //   _controllerDateOfBirth.text.toString());
+                                    String? city = CustomValidator()
+                                        .validateDescription(_selectedCity);
+                                    print('cityyyyyyyyyyyyyy');
+                                    print(city);
+                                    String? thsl = CustomValidator()
+                                        .validateDescription(_selectedTahsil);
+                                    String? council = CustomValidator()
+                                        .validateDescription(_selectedConsil);
+                                    String? coordinats = CustomValidator()
+                                        .validateDescription(
+                                            _controllerLatLong.text.toString());
+                                    String? address = CustomValidator()
+                                        .validateAddress(
+                                            _controllerAddress.text.toString());
+                                    String gender = 'Male';
+                                    if (_radioGroupValueGender == 0) {
+                                      gender = 'Male';
+                                    } else if (_radioGroupValueGender == 1) {
+                                      gender = 'Female';
+                                    } else if (_radioGroupValueGender == 2) {
+                                      gender = 'Transgender';
+                                    }
+                                    bool refusal = false;
 
-                                  print('button pressed');
-                                  if (await Helper.isInternetAvailble()) {
-                                    FirebaseCalls.setNewRegistration(
-                                            newReg: obj)
-                                        .then((value) => {
-                                              if (value == null)
-                                                {
-                                                  showtoas(
-                                                      'New reg. successfully'),
-                                                  Navigator.of(context)
-                                                      .pushNamed(
-                                                          HomeScreen.routeName),
-                                                }
-                                              else
-                                                {
-                                                  showtoas(
-                                                      'Something went wrong'),
-                                                }
-                                            });
-                                  } else {
-                                    showtoas('have not internet connection');
-                                    // save in local data base
-                                  }
-                                }
-                                //Navigator.of(context).pushNamed(HomeScreen.routeName);
-                              }),
-                            ],
-                          ),
+                                    if (_radioGroupValueCategory == 0) {
+                                      refusal = false;
+                                    } else if (_radioGroupValueCategory == 1) {
+                                      refusal = true;
+                                    }
+
+                                    if (name != null) {
+                                      showtoas(name);
+                                    } else if (fname != null) {
+                                      fname = fname.replaceAll(
+                                          'Name', 'Father name ');
+                                      showtoas('$fname');
+                                    } else if (phone != null) {
+                                      showtoas(phone);
+                                    } else if (city != null) {
+                                      city = city.replaceAll('Field', 'City ');
+                                      showtoas(' $city');
+                                    } else if (thsl != null) {
+                                      thsl =
+                                          thsl.replaceAll('Field', 'Tahsil ');
+                                      showtoas(' $thsl');
+                                    } else if (council != null) {
+                                      council = council.replaceAll(
+                                          'Field', 'Council ');
+                                      showtoas(' $council');
+                                    } else if (coordinats != null) {
+                                      coordinats = coordinats.replaceAll(
+                                          'Name', 'Location coordinates ');
+                                      showtoas(coordinats);
+                                    } else if (address != null) {
+                                      showtoas(address);
+                                    } else if (pic_url == '') {
+                                      showtoas('Picture required');
+                                    } else {
+                                      //upload data
+                                      //_radioGroupValueCategory
+                                      print('list of vaccinations ');
+                                      print(list_of_vaccinations[0]
+                                          .vaccination_name);
+                                      var obj = NewRegisterationModel(
+                                          _controllerName.text.toString(),
+                                          _controllerFName.text.toString(),
+                                          _controllerPhone.text.toString(),
+                                          dob.toString(),
+                                          _selectedCity!,
+                                          _selectedTahsil!,
+                                          (Helper.currentPositon.latitude
+                                              .toString()),
+                                          (Helper.currentPositon.longitude
+                                              .toString()),
+                                          _controllerAddress.text.toString(),
+                                          pic_url,
+                                          _selectedConsil!,
+                                          DateFormat('yyyy-MM-dd – kk:mm')
+                                              .format(DateTime.now())
+                                              .toString(),
+                                          gender.toString(),
+                                          nextVaccinationDate.toString(),
+                                          //_selectedVaccine.toString(),
+                                          list_of_vaccinations,
+                                          refusal);
+                                    }
+                                  }),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              height: _hight * .1,
+                              width: _width,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  MyButton(
+                                      'Back', screenThemeColor, _width * .48,
+                                      () {
+                                    print('back pressed');
+                                    Navigator.of(context)
+                                        .pushNamed(HomeScreen.routeName);
+                                  }),
+                                  MyButton('Add child', screenThemeColor,
+                                      _width * .48, () async {
+                                    print('add child');
+                                    String? name = CustomValidator()
+                                        .validateDescription(
+                                            _controllerName.text.toString());
+                                    String? fname = CustomValidator()
+                                        .validateDescription(
+                                            _controllerFName.text.toString());
+                                    String? phone = CustomValidator()
+                                        .validateMobile(
+                                            _controllerPhone.text.toString());
+                                    //String? dob = CustomValidator().validateName(
+                                    //   _controllerDateOfBirth.text.toString());
+                                    String? city = CustomValidator()
+                                        .validateDescription(_selectedCity);
+                                    print('cityyyyyyyyyyyyyy');
+                                    print(city);
+                                    String? thsl = CustomValidator()
+                                        .validateDescription(_selectedTahsil);
+                                    String? council = CustomValidator()
+                                        .validateDescription(_selectedConsil);
+                                    String? coordinats = CustomValidator()
+                                        .validateDescription(
+                                            _controllerLatLong.text.toString());
+                                    String? address = CustomValidator()
+                                        .validateAddress(
+                                            _controllerAddress.text.toString());
+                                    String gender = 'Male';
+                                    if (_radioGroupValueGender == 0) {
+                                      gender = 'Male';
+                                    } else if (_radioGroupValueGender == 1) {
+                                      gender = 'Female';
+                                    } else if (_radioGroupValueGender == 2) {
+                                      gender = 'Transgender';
+                                    }
+                                    bool refusal = false;
+                                    if (_radioGroupValueCategory == 0) {
+                                      refusal = false;
+                                    } else if (_radioGroupValueCategory == 1) {
+                                      refusal = true;
+                                    }
+                                    if (name != null) {
+                                      showtoas(name);
+                                    } else if (fname != null) {
+                                      fname = fname.replaceAll(
+                                          'Name', 'Father name ');
+                                      showtoas('$fname');
+                                    } else if (phone != null) {
+                                      showtoas(phone);
+                                    } else if (city != null) {
+                                      city = city.replaceAll('Field', 'City ');
+                                      showtoas(' $city');
+                                    } else if (thsl != null) {
+                                      thsl =
+                                          thsl.replaceAll('Field', 'Tahsil ');
+                                      showtoas(' $thsl');
+                                    } else if (council != null) {
+                                      council = council.replaceAll(
+                                          'Field', 'Council ');
+                                      showtoas(' $council');
+                                    } else if (coordinats != null) {
+                                      coordinats = coordinats.replaceAll(
+                                          'Name', 'Location coordinates ');
+                                      showtoas(coordinats);
+                                    } else if (address != null) {
+                                      showtoas(address);
+                                    } else if (pic_url == '') {
+                                      showtoas('Picture required');
+                                    } else {
+                                      //upload data
+                                      //_radioGroupValueCategory
+                                      print('list of vaccinations ');
+                                      print(list_of_vaccinations[0]
+                                          .vaccination_name);
+                                      var obj = NewRegisterationModel(
+                                          _controllerName.text.toString(),
+                                          _controllerFName.text.toString(),
+                                          _controllerPhone.text.toString(),
+                                          dob.toString(),
+                                          _selectedCity!,
+                                          _selectedTahsil!,
+                                          (Helper.currentPositon.latitude
+                                              .toString()),
+                                          (Helper.currentPositon.longitude
+                                              .toString()),
+                                          _controllerAddress.text.toString(),
+                                          pic_url,
+                                          _selectedConsil!,
+                                          DateFormat('yyyy-MM-dd – kk:mm')
+                                              .format(DateTime.now())
+                                              .toString(),
+                                          gender.toString(),
+                                          nextVaccinationDate.toString(),
+                                          //_selectedVaccine.toString(),
+                                          list_of_vaccinations,
+                                          refusal);
+
+                                      print('button pressed');
+                                      if (await Helper.isInternetAvailble()) {
+                                        FirebaseCalls.setNewRegistration(
+                                                newReg: obj)
+                                            .then((value) => {
+                                                  if (value == null)
+                                                    {
+                                                      showtoas(
+                                                          'New reg. successfully'),
+                                                      Navigator.of(context)
+                                                          .pushNamed(HomeScreen
+                                                              .routeName),
+                                                    }
+                                                  else
+                                                    {
+                                                      showtoas(
+                                                          'Something went wrong'),
+                                                    }
+                                                });
+                                      } else {
+                                        showtoas(
+                                            'have not internet connection');
+                                        // save in local data base
+                                      }
+                                    }
+                                    //Navigator.of(context).pushNamed(HomeScreen.routeName);
+                                  }),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

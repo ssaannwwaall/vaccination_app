@@ -20,7 +20,7 @@ class UpcomingScreen extends StatefulWidget {
 
 class _UpcomingScreenState extends State<UpcomingScreen> {
   List<NewRegisterationModel> list_kids = [];
-  Color screeThemeColor = MyColors.color_purpel_light;
+  Color screeThemeColor = MyColors.Fllow_up;
   DateTime dateTime_now = DateTime.now();
 
   @override
@@ -38,52 +38,53 @@ class _UpcomingScreenState extends State<UpcomingScreen> {
     var _hight = mediaQueryData.size.height;
     var _width = mediaQueryData.size.width;
     return Scaffold(
+      appBar: AppBar(
+        actions: [],
+        backgroundColor: MyColors.Fllow_up,
+        title: const Text(
+          "Follow-up kids",
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              color: MyColors.color_white),
+        ),
+      ),
       body: SafeArea(
         child: Container(
           width: _width,
           height: _hight,
           child: Column(
             children: [
-              Container(
-                width: _width,
-                height: _hight * .05,
-                child: Center(
-                  child: Text(
-                    'Follow-up kids',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: screeThemeColor),
-                  ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  width: _width,
+                  height: _hight * .75,
+                  child: list_kids.isNotEmpty
+                      ? ListView.builder(
+                          itemCount: list_kids.length,
+                          itemBuilder: (ctx, index) {
+                            return ListItemView(
+                                _width,
+                                list_kids[index],
+                                'Next Vaccination Date',
+                                screeThemeColor, () async {
+                              Constants.regular_kid = list_kids[index];
+                              await Helper.determineCurrentPosition();
+                              Navigator.of(context)
+                                  .pushNamed(VaccineToRegisKids.routeName);
+                            });
+                          },
+                        )
+                      : Container(
+                          child: const Center(
+                              child: Text(
+                            'Follow-up childrens not found',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.w600),
+                          )),
+                        ),
                 ),
-              ),
-              Container(
-                width: _width,
-                height: _hight * .85,
-                child: list_kids.isNotEmpty
-                    ? ListView.builder(
-                        itemCount: list_kids.length,
-                        itemBuilder: (ctx, index) {
-                          return ListItemView(
-                              _width,
-                              list_kids[index],
-                              'Next vaccination date',
-                              screeThemeColor, () async {
-                            Constants.regular_kid = list_kids[index];
-                            await Helper.determineCurrentPosition();
-                            Navigator.of(context)
-                                .pushNamed(VaccineToRegisKids.routeName);
-                          });
-                        },
-                      )
-                    : Container(
-                        child: const Center(
-                            child: Text(
-                          'Follow-up childrens not found',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w600),
-                        )),
-                      ),
               ),
             ],
           ),

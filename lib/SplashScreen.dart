@@ -54,19 +54,28 @@ class _SplashScreenState extends State<SplashScreen>
     var _hight = mediaQueryData.size.height;
     var _width = mediaQueryData.size.width;
     return Container(
-      color: MyColors.color_ref_lightttt,
+      color: MyColors.splash,
+      //color: const Color(0xff1b5baa),
+
       height: _hight,
       width: _width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            height: _hight * .7,
-            width: _width * .7,
-            child: SvgPicture.asset(
-              'assets/images/logo.svg',
+            height: _hight * .3,
+            width: _width * .4,
+            child: Image.asset(
+              'assets/images/newlogo.png',
             ),
           ),
+          Container(
+           child: Text("Risi Vaccination",style:  TextStyle(
+             color: Colors.white,
+             fontSize: 25,
+               fontWeight: FontWeight.bold,
+           ),),
+          )
         ],
       ),
     );
@@ -76,6 +85,7 @@ class _SplashScreenState extends State<SplashScreen>
 
 
 _loadCitiesAndRegonsAndVaccines() async {
+  print('internet checking');
   if (await Helper.isInternetAvailble()) {
     print('internet is available');
     await FirebaseCalls.getCitiesAndRegions();

@@ -17,7 +17,7 @@ class RefusalScreen extends StatefulWidget {
 
 class _UpcomingScreenState extends State<RefusalScreen> {
   List<NewRegisterationModel> list_refusal = [];
-  Color screeThemeColor = MyColors.color_purpel_light;
+  Color screeThemeColor = MyColors.Refusals;
   DateTime dateTime_now = DateTime.now();
 
   @override
@@ -33,42 +33,44 @@ class _UpcomingScreenState extends State<RefusalScreen> {
     var _hight = mediaQueryData.size.height;
     var _width = mediaQueryData.size.width;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: MyColors.Refusals,
+        title: const Text(
+          "Refusals",
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              color: MyColors.color_white),
+        ),
+      ),
       body: SafeArea(
         child: Container(
           width: _width,
           height: _hight,
           child: Column(
             children: [
-              Container(
-                width: _width,
-                height: _hight * .05,
-                child: Center(
-                  child: Text(
-                    'Refusals',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: screeThemeColor),
-                  ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  // decoration:
+                  //     BoxDecoration(borderRadius: BorderRadius.circular(50)),
+                  width: _width,
+                  height: _hight * .75,
+                  child: list_refusal.isNotEmpty
+                      ? ListView.builder(
+                          itemCount: list_refusal.length,
+                          itemBuilder: (ctx, index) {
+                            return ListItemView(_width, list_refusal[index],
+                                'Vaccination date ', screeThemeColor, () {});
+                          },
+                        )
+                      : const Center(
+                          child: Text(
+                          'No ${ConstentStrings.defaulter} found',
+                          style: TextStyle(
+                              fontSize: 30, color: MyColors.color_black),
+                        )),
                 ),
-              ),
-              Container(
-                width: _width,
-                height: _hight * .85,
-                child: list_refusal.isNotEmpty
-                    ? ListView.builder(
-                        itemCount: list_refusal.length,
-                        itemBuilder: (ctx, index) {
-                          return ListItemView(_width, list_refusal[index],
-                              'Vaccination date ', screeThemeColor, () {});
-                        },
-                      )
-                    : const Center(
-                        child: Text(
-                        'No ${ConstentStrings.defaulter} found',
-                        style: TextStyle(
-                            fontSize: 30, color: MyColors.color_black),
-                      )),
               ),
             ],
           ),
@@ -83,7 +85,7 @@ class _UpcomingScreenState extends State<RefusalScreen> {
     map.forEach((key, value) {
       final a = NewRegisterationModel.fromSnapshot(value);
       print(a);
-       if (a.refusal == true) {
+      if (a.refusal == true) {
         list_refusal.add(a);
       }
     });

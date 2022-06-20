@@ -159,6 +159,7 @@ class FirebaseCalls {
     final snapshot = await ref_cities.once();
     ref_cities.onValue.listen((DatabaseEvent value) async {
       Map data = (value.snapshot.value as Map);
+      print('city test $data');
       await LocalDatabase.saveCitiesAndRegons(data).then((result) => {
             if (result == null)
               {

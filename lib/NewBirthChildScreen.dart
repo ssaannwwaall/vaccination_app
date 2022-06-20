@@ -59,7 +59,7 @@ class _NewBirthChildScreenState extends State<NewBirthChildScreen> {
   String? _selectedConsil;
 
   DateTime dob = DateTime.now();
-  Color screeThemeColor = MyColors.color_ref_lightttt;
+  Color screeThemeColor = MyColors.Newly_Born;
 
   @override
   void initState() {
@@ -101,7 +101,7 @@ class _NewBirthChildScreenState extends State<NewBirthChildScreen> {
                           width: _width,
                           child: const Center(
                             child: Text(
-                              'Add newly born child',
+                              'Add Newly Born Child',
                               style: TextStyle(
                                   fontSize: 20,
                                   color: MyColors.color_white,
@@ -149,8 +149,12 @@ class _NewBirthChildScreenState extends State<NewBirthChildScreen> {
                                     File(_filePicPicked!.path!),
                                     //fit: BoxFit.cover,
                                   )
-                                : SvgPicture.asset('assets/images/camera.svg'),
+                                : Image.asset("assets/images/add-photo.png"),
+                            //SvgPicture.asset('assets/images/camera.svg')
                           ),
+                        ),
+                        const SizedBox(
+                          height: 20,
                         ),
                         Container(
                           height: _hight * 0.64,
@@ -168,19 +172,19 @@ class _NewBirthChildScreenState extends State<NewBirthChildScreen> {
                                           children: [
                                             MyTextFiled(
                                                 _width * .47,
-                                                'Child name',
+                                                '   Child Name',
                                                 TextInputType.name,
                                                 _controllerName),
                                             MyTextFiled(
                                                 _width * .47,
-                                                'Father name',
+                                                '   Father Name',
                                                 TextInputType.name,
                                                 _controllerFName),
                                           ],
                                         ),
                                         MyTextFiled(
                                             _width * 0.95,
-                                            'Phone number',
+                                            '   Phone Number',
                                             TextInputType.name,
                                             _controllerPhone),
                                         Row(
@@ -189,15 +193,16 @@ class _NewBirthChildScreenState extends State<NewBirthChildScreen> {
                                           children: [
                                             MyTextFiled(
                                                 _width * .47,
-                                                'Epi card no',
+                                                '   Epi Card No',
                                                 TextInputType.name,
                                                 _controllerEpiCardNo),
                                             Container(
                                               width: _width * .47,
-                                              decoration: BoxDecoration(
+                                              decoration: const BoxDecoration(
                                                 shape: BoxShape.rectangle,
                                               ),
                                               child: Card(
+                                                color: Colors.blue,
                                                 elevation: 2,
                                                 child: TextButton(
                                                     onPressed: () async {
@@ -218,9 +223,9 @@ class _NewBirthChildScreenState extends State<NewBirthChildScreen> {
                                                     child: Center(
                                                       child: Text(
                                                         '${dob.day}-${dob.month}-${dob.year}',
-                                                        style: TextStyle(
+                                                        style: const TextStyle(
                                                             color: MyColors
-                                                                .color_black,
+                                                                .color_white,
                                                             fontSize: 14),
                                                       ),
                                                     )),
@@ -242,66 +247,107 @@ class _NewBirthChildScreenState extends State<NewBirthChildScreen> {
                                               width: _width * .47,
                                               decoration: BoxDecoration(
                                                 shape: BoxShape.rectangle,
-                                                //border: OutlinedBorder(),
+                                                border: Border.all(
+                                                    width: .5,
+                                                    color:
+                                                        MyColors.color_black),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
                                               ),
-                                              child: DropdownButton(
-                                                hint: Text('City'),
-                                                value: _selectedCity,
-                                                onChanged: (newValue) async {
-                                                  setState(() {
-                                                    _selectedCity =
-                                                        newValue.toString();
-                                                  });
-                                                  await _loadTahsil(
-                                                      _selectedCity!);
-                                                },
-                                                items:
-                                                    _cities.map((thislocation) {
-                                                  return DropdownMenuItem(
-                                                    child:
-                                                        new Text(thislocation),
-                                                    value: thislocation,
-                                                  );
-                                                }).toList(),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(3.0),
+                                                child: Center(
+                                                  child: DropdownButton(
+                                                    underline: const SizedBox(),
+                                                    hint: const Text('   City'),
+                                                    dropdownColor:
+                                                        const Color.fromARGB(
+                                                            255, 205, 173, 171),
+                                                    value: _selectedCity,
+                                                    onChanged:
+                                                        (newValue) async {
+                                                      setState(() {
+                                                        _selectedCity =
+                                                            newValue.toString();
+                                                      });
+                                                      await _loadTahsil(
+                                                          _selectedCity!);
+                                                    },
+                                                    items: _cities
+                                                        .map((thislocation) {
+                                                      return DropdownMenuItem(
+                                                        child:
+                                                            Text(thislocation),
+                                                        value: thislocation,
+                                                      );
+                                                    }).toList(),
+                                                  ),
+                                                ),
                                               ),
+                                            ),
+                                            const SizedBox(
+                                              width: 10,
                                             ),
                                             Container(
                                               width: _width * .47,
-                                              child: DropdownButton(
-                                                  hint: const Text(
-                                                    'Tahsil',
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w600),
-                                                  ),
-                                                  value: _selectedTahsil,
-                                                  onChanged: (newValue) {
-                                                    setState(() {
-                                                      _selectedTahsil =
-                                                          newValue.toString();
-                                                    });
-                                                    _loadCouncil(_selectedCity!,
-                                                        _selectedTahsil!);
-                                                  },
-                                                  items: _tahsil != null ||
-                                                          _tahsil.isNotEmpty
-                                                      ? _tahsil
-                                                          .map((thislocation) {
-                                                          return DropdownMenuItem(
-                                                            child: Text(
-                                                                thislocation),
-                                                            value: thislocation,
-                                                          );
-                                                        }).toList()
-                                                      : ['Tahsiil']
-                                                          .map((thislocation) {
-                                                          return DropdownMenuItem(
-                                                            child: Text(
-                                                                thislocation),
-                                                            value: thislocation,
-                                                          );
-                                                        }).toList()),
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.rectangle,
+                                                border: Border.all(
+                                                    width: .5,
+                                                    color:
+                                                        MyColors.color_black),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(3.0),
+                                                child: Center(
+                                                  child: DropdownButton(
+                                                      underline:
+                                                          const SizedBox(),
+                                                      hint: const Text(
+                                                        'Tahsil',
+                                                        style: TextStyle(
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      ),
+                                                      value: _selectedTahsil,
+                                                      onChanged: (newValue) {
+                                                        setState(() {
+                                                          _selectedTahsil =
+                                                              newValue
+                                                                  .toString();
+                                                        });
+                                                        _loadCouncil(
+                                                            _selectedCity!,
+                                                            _selectedTahsil!);
+                                                      },
+                                                      items: _tahsil != null ||
+                                                              _tahsil.isNotEmpty
+                                                          ? _tahsil.map(
+                                                              (thislocation) {
+                                                              return DropdownMenuItem(
+                                                                child: Text(
+                                                                    thislocation),
+                                                                value:
+                                                                    thislocation,
+                                                              );
+                                                            }).toList()
+                                                          : ['Tahsiil'].map(
+                                                              (thislocation) {
+                                                              return DropdownMenuItem(
+                                                                child: Text(
+                                                                    thislocation),
+                                                                value:
+                                                                    thislocation,
+                                                              );
+                                                            }).toList()),
+                                                ),
+                                              ),
                                             ),
 
                                             // MyTextFiled(
@@ -311,42 +357,58 @@ class _NewBirthChildScreenState extends State<NewBirthChildScreen> {
                                             //     _controllerTahsil),
                                           ],
                                         ),
+                                        const SizedBox(
+                                          height: 8,
+                                        ),
                                         Container(
-                                          margin: EdgeInsets.only(bottom: 10),
+                                          margin:
+                                              const EdgeInsets.only(bottom: 10),
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.rectangle,
+                                            border: Border.all(
+                                                width: .5,
+                                                color: MyColors.color_black),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
                                           width: _width * .7,
-                                          child: DropdownButton(
-                                              hint: const Text(
-                                                'Union council',
-                                                style: TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight:
-                                                        FontWeight.w600),
-                                              ),
-                                              value: _selectedConsil,
-                                              onChanged: (newValue) {
-                                                setState(() {
-                                                  _selectedConsil =
-                                                      newValue.toString();
-                                                });
-                                              },
-                                              items: _councils != null ||
-                                                      _councils.isNotEmpty
-                                                  ? _councils
-                                                      .map((thislocation) {
-                                                      return DropdownMenuItem(
-                                                        child:
-                                                            Text(thislocation),
-                                                        value: thislocation,
-                                                      );
-                                                    }).toList()
-                                                  : ['Councils']
-                                                      .map((thislocation) {
-                                                      return DropdownMenuItem(
-                                                        child:
-                                                            Text(thislocation),
-                                                        value: thislocation,
-                                                      );
-                                                    }).toList()),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(3.0),
+                                            child: DropdownButton(
+                                                underline: const SizedBox(),
+                                                hint: const Text(
+                                                  'Union Council',
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                ),
+                                                value: _selectedConsil,
+                                                onChanged: (newValue) {
+                                                  setState(() {
+                                                    _selectedConsil =
+                                                        newValue.toString();
+                                                  });
+                                                },
+                                                items: _councils != null ||
+                                                        _councils.isNotEmpty
+                                                    ? _councils
+                                                        .map((thislocation) {
+                                                        return DropdownMenuItem(
+                                                          child: Text(
+                                                              thislocation),
+                                                          value: thislocation,
+                                                        );
+                                                      }).toList()
+                                                    : ['Councils']
+                                                        .map((thislocation) {
+                                                        return DropdownMenuItem(
+                                                          child: Text(
+                                                              thislocation),
+                                                          value: thislocation,
+                                                        );
+                                                      }).toList()),
+                                          ),
                                         ),
                                         // MyTextFiled(
                                         //     _width * 0.95,
@@ -380,7 +442,7 @@ class _NewBirthChildScreenState extends State<NewBirthChildScreen> {
                                                   'Male',
                                                   style: TextStyle(
                                                     color: MyColors.color_black,
-                                                    fontSize: 11,
+                                                    fontSize: 12,
                                                   ),
                                                 ),
                                                 onChanged: (value) {
@@ -402,7 +464,7 @@ class _NewBirthChildScreenState extends State<NewBirthChildScreen> {
                                                   'Female',
                                                   style: TextStyle(
                                                     color: MyColors.color_black,
-                                                    fontSize: 11,
+                                                    fontSize: 12,
                                                   ),
                                                 ),
                                                 onChanged: (value) {
@@ -424,7 +486,7 @@ class _NewBirthChildScreenState extends State<NewBirthChildScreen> {
                                                   'Trans',
                                                   style: TextStyle(
                                                     color: MyColors.color_black,
-                                                    fontSize: 11,
+                                                    fontSize: 12,
                                                   ),
                                                 ),
                                                 onChanged: (value) {
@@ -458,7 +520,7 @@ class _NewBirthChildScreenState extends State<NewBirthChildScreen> {
                                     .pushNamed(HomeScreen.routeName);
                               }),
                               MyButton(
-                                  'Add child', screeThemeColor, _width * .48,
+                                  'Add Child', screeThemeColor, _width * .48,
                                   () async {
                                 print('add child');
                                 String? name = CustomValidator().validateName(

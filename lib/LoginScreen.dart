@@ -40,7 +40,19 @@ class _LoginScreenState extends State<LoginScreen> {
     var _width = mediaQueryData.size.width;
     return Scaffold(
       body: Container(
-        color: MyColors.color_white,
+
+        decoration: const BoxDecoration(
+
+          image: DecorationImage(
+
+            image: AssetImage("assets/images/bgg.jpg"),
+            colorFilter:
+            ColorFilter.mode(Colors.black,
+                BlendMode.dstATop),
+            fit: BoxFit.cover,
+          ),
+        ),
+        //color: MyColors.color_white,
         height: _hight,
         width: _width,
         child: Padding(

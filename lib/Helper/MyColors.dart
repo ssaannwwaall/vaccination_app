@@ -19,4 +19,11 @@ class MyColors {
   static const Color color_gray_light = Color.fromARGB(255, 183, 183, 183);
   static const Color color_gray = Color.fromARGB(255, 152, 152, 152);
   static const Color color_gray_dark = Color.fromARGB(255, 91, 91, 91);
+  static const Color splash = Color(0xff1b5baa);
+  static const Color Dashboard = Color.fromARGB(255, 0, 119, 255);
+  static const Color Newly_Born = Color.fromARGB(185, 247, 5, 5);
+  static const Color New_Register = Color.fromARGB(255, 143, 68, 241);
+  static const Color Fllow_up = Color.fromARGB(255, 33, 140, 198);
+  static const Color Refusals = Color.fromARGB(255, 57, 189, 45);
+  static const Color Defaulters = Color.fromARGB(255, 235, 85, 107);
 }

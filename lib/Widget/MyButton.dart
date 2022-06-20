@@ -7,7 +7,7 @@ class MyButton extends StatelessWidget {
   final void Function()? _function_handler;
   final double width;
   final Color buttonColor;
-  MyButton(this.lable,this.buttonColor, this.width, this._function_handler);
+  MyButton(this.lable, this.buttonColor, this.width, this._function_handler);
 
   //static StreamBuilder
 

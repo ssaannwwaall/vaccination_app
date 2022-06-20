@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             //home title
             Container(
-              color: MyColors.color_blue,
+              color: MyColors.splash,
               height: _hight * .07,
               width: _width,
               child: const Center(
@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: TextStyle(
                       fontSize: 20,
                       color: MyColors.color_white,
-                      fontWeight: FontWeight.w500),
+                      fontWeight: FontWeight.bold),
                 ),
               ),
             ),
@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               _hight * 0.1,
                               _width * 0.45,
                               'Vaccination status',
-                              MyColors.color_blue_light,
+                              MyColors.Dashboard,
                               'assets/images/graph1.svg'),
                           onTap: () {
                             // Navigator.of(context)
@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               _hight * 0.1,
                               _width * 0.45,
                               'Newly born',
-                              MyColors.color_ref_lightttt,
+                              MyColors.Newly_Born,
                               'assets/images/baby1.svg'),
                           onTap: () async {
                             await Helper.determineCurrentPosition();
@@ -110,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               _hight * 0.1,
                               _width * 0.45,
                               'New Registration',
-                              MyColors.color_yellow_light,
+                              MyColors.New_Register,
                               'assets/images/injection1.svg'),
                           onTap: () async {
                             await Helper.determineCurrentPosition();
@@ -125,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               _hight * 0.1,
                               _width * 0.45,
                               'Follow-up kids',
-                              MyColors.color_purpel_light,
+                              MyColors.Fllow_up,
                               'assets/images/injections1.svg'),
                           onTap: () {
                             Navigator.pushNamed(
@@ -147,11 +147,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               _hight * 0.1,
                               _width * 0.45,
                               'Refusals',
-                              MyColors.color_green_light,
+                              MyColors.Refusals,
                               'assets/images/bulb_icon1.svg'),
                           onTap: () {
-                             Navigator.of(context)
-                                 .pushNamed(RefusalScreen.routeName);
+                            Navigator.of(context)
+                                .pushNamed(RefusalScreen.routeName);
                           },
                         ),
                         GestureDetector(
@@ -159,7 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             _hight * 0.1,
                             _width * 0.45,
                             'Defaulters',
-                            MyColors.color_blue_lightttt,
+                            MyColors.Defaulters,
                             'assets/images/heart_broken1.svg',
                           ),
                           onTap: () {
@@ -178,10 +178,10 @@ class _HomeScreenState extends State<HomeScreen> {
               width: _width,
               child: GestureDetector(
                 child: const Card(
-                  color: MyColors.color_ref_lightttt,
+                  color: MyColors.splash,
                   child: Center(
                     child: Text(
-                      'Click to upload pendding data',
+                      'Click to Upload Pendding Data',
                       style: TextStyle(
                           color: MyColors.color_white,
                           fontWeight: FontWeight.bold,
