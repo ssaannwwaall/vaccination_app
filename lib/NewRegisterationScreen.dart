@@ -16,6 +16,7 @@ import 'Helper/custom_validator.dart';
 import 'HomeScreen.dart';
 import 'Models/NewlyBorn.dart';
 import 'Models/VaccinationDoseForRegular.dart';
+import 'NavHomeScreen.dart';
 import 'Widget/MyButton.dart';
 import 'Widget/MyTextFiled.dart';
 import 'package:camera/camera.dart';
@@ -91,16 +92,27 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
 
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          actions: [],
+          backgroundColor: MyColors.New_Register,
+          title: const Text(
+            "New Registration",
+            style: TextStyle(
+                fontSize: 20,
+                color: MyColors.color_white,
+                fontWeight: FontWeight.w500),
+          ),
+        ),
         body: Stack(
           children: [
             Image.asset(
-              'assets/images/bg_new2.jpg',
+              'assets/images/bgg.jpg',
               fit: BoxFit.fill,
               width: double.infinity,
               height: double.infinity,
             ),
             Container(
-              color: Colors.grey.withOpacity(0.4),
+              color: Colors.white.withOpacity(0.5),
               width: double.infinity,
               height: double.infinity,
             ),
@@ -117,20 +129,20 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Container(
-                              color: MyColors.New_Register,
-                              height: _hight * .07,
-                              width: _width,
-                              child: const Center(
-                                child: Text(
-                                  'New Registration',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      color: MyColors.color_white,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ),
-                            ),
+                            // Container(
+                            //   color: MyColors.New_Register,
+                            //   height: _hight * .07,
+                            //   width: _width,
+                            //   child: const Center(
+                            //     child: Text(
+                            //       'New Registration',
+                            //       style: TextStyle(
+                            //           fontSize: 20,
+                            //           color: MyColors.color_white,
+                            //           fontWeight: FontWeight.w500),
+                            //     ),
+                            //   ),
+                            // ),
                             GestureDetector(
                               onTap: () async {
                                 // Obtain a list of the available cameras on the device.
@@ -779,7 +791,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                                 ),
                                               ],
                                             ),
-                                            Text(
+                                            const Text(
                                               'Please select category',
                                               style: TextStyle(
                                                   fontSize: 16,
@@ -862,7 +874,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                       () {
                                     print('back pressed');
                                     Navigator.of(context)
-                                        .pushNamed(HomeScreen.routeName);
+                                        .pushNamed(NavHomeScreen.routeName);
                                   }),
                                   MyButton('Add child', screenThemeColor,
                                       _width * .48, () async {
@@ -968,6 +980,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                 ],
                               ),
                             ),
+
                             Container(
                               height: _hight * .1,
                               width: _width,

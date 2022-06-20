@@ -66,23 +66,24 @@ class _SplashScreenState extends State<SplashScreen>
             height: _hight * .3,
             width: _width * .4,
             child: Image.asset(
-              'assets/images/newlogo.png',
+              'assets/images/risi.png',
             ),
           ),
           Container(
-           child: Text("Risi Vaccination",style:  TextStyle(
-             color: Colors.white,
-             fontSize: 25,
-               fontWeight: FontWeight.bold,
-           ),),
+            child: const Text(
+              "Risi Vaccination",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           )
         ],
       ),
     );
   }
 }
-
-
 
 _loadCitiesAndRegonsAndVaccines() async {
   print('internet checking');

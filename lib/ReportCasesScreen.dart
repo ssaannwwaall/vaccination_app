@@ -75,7 +75,7 @@ class _ReportCasesScreenState extends State<ReportCasesScreen> {
   @override
   Widget build(BuildContext context) {
     currentPosition = Helper.currentPositon;
-    screenThemeColor = MyColors.color_ref_light;
+    screenThemeColor = Color.fromARGB(255, 39, 76, 211);
     MediaQueryData mediaQueryData = MediaQuery.of(context);
     var _hight = mediaQueryData.size.height;
     var _width = mediaQueryData.size.width;
@@ -86,6 +86,17 @@ class _ReportCasesScreenState extends State<ReportCasesScreen> {
 
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          actions: [],
+          backgroundColor: screenThemeColor,
+          title: const Text(
+            'Case reporting',
+            style: TextStyle(
+                fontSize: 20,
+                color: MyColors.color_white,
+                fontWeight: FontWeight.w500),
+          ),
+        ),
         body: Container(
           color: MyColors.color_white,
           height: _hight,
@@ -98,20 +109,20 @@ class _ReportCasesScreenState extends State<ReportCasesScreen> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Container(
-                          color: screenThemeColor,
-                          height: _hight * .07,
-                          width: _width,
-                          child: const Center(
-                            child: Text(
-                              'Case reporting',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  color: MyColors.color_white,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                        ),
+                        // Container(
+                        //   color: screenThemeColor,
+                        //   height: _hight * .07,
+                        //   width: _width,
+                        //   child: const Center(
+                        //     child: Text(
+                        //       'Case reporting',
+                        //       style: TextStyle(
+                        //           fontSize: 20,
+                        //           color: MyColors.color_white,
+                        //           fontWeight: FontWeight.w500),
+                        //     ),
+                        //   ),
+                        // ),
                         /*GestureDetector(
                           onTap: () async {
                             final cameras = await availableCameras();
@@ -529,7 +540,7 @@ class _ReportCasesScreenState extends State<ReportCasesScreen> {
                                 Navigator.of(context)
                                     .pushNamed(NavHomeScreen.routeName);
                               }),
-                              MyButton('Add new Case', screenThemeColor!,
+                              MyButton('Add New Case', screenThemeColor!,
                                   _width * .48, () async {
                                 String? name = CustomValidator()
                                     .validateDescription(
@@ -585,7 +596,8 @@ class _ReportCasesScreenState extends State<ReportCasesScreen> {
                                   showtoas(coordinats);
                                 } else if (address != null) {
                                   showtoas(address);
-                                }else if (_controllerSufferingFrom.text == '') {
+                                } else if (_controllerSufferingFrom.text ==
+                                    '') {
                                   showtoas('Disease not found');
                                 }
                                 /*else if (pic_url == '') {
@@ -617,7 +629,8 @@ class _ReportCasesScreenState extends State<ReportCasesScreen> {
                                       //_selectedVaccine.toString(),
                                       [],
                                       false);
-                                  obj.epi_card_no = _controllerSufferingFrom.text;
+                                  obj.epi_card_no =
+                                      _controllerSufferingFrom.text;
                                   if (await Helper.isInternetAvailble()) {
                                     FirebaseCalls.setCaseReporting(newReg: obj)
                                         .then((value) => {

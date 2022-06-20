@@ -17,6 +17,8 @@ import 'Helper/Helper.dart';
 import 'Helper/MyColors.dart';
 import 'package:geolocator/geolocator.dart';
 
+import 'NavHomeScreen.dart';
+
 class NewBirthChildScreen extends StatefulWidget {
   static const String routeName = '/NewBirthChildScreen';
 
@@ -83,6 +85,17 @@ class _NewBirthChildScreenState extends State<NewBirthChildScreen> {
 
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          actions: [],
+          backgroundColor: screeThemeColor,
+          title: const Text(
+            'Add Newly Born Child',
+            style: TextStyle(
+                fontSize: 20,
+                color: MyColors.color_white,
+                fontWeight: FontWeight.w500),
+          ),
+        ),
         body: Container(
           color: MyColors.color_white,
           height: _hight,
@@ -95,20 +108,20 @@ class _NewBirthChildScreenState extends State<NewBirthChildScreen> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Container(
-                          color: screeThemeColor,
-                          height: _hight * .07,
-                          width: _width,
-                          child: const Center(
-                            child: Text(
-                              'Add Newly Born Child',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  color: MyColors.color_white,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                        ),
+                        // Container(
+                        //   color: screeThemeColor,
+                        //   height: _hight * .07,
+                        //   width: _width,
+                        //   child: const Center(
+                        //     child: Text(
+                        //       'Add Newly Born Child',
+                        //       style: TextStyle(
+                        //           fontSize: 20,
+                        //           color: MyColors.color_white,
+                        //           fontWeight: FontWeight.w500),
+                        //     ),
+                        //   ),
+                        // ),
                         GestureDetector(
                           onTap: () async {
                             Feedback.forTap(context);
@@ -517,7 +530,7 @@ class _NewBirthChildScreenState extends State<NewBirthChildScreen> {
                                   () {
                                 print('back pressed');
                                 Navigator.of(context)
-                                    .pushNamed(HomeScreen.routeName);
+                                    .pushNamed(NavHomeScreen.routeName);
                               }),
                               MyButton(
                                   'Add Child', screeThemeColor, _width * .48,

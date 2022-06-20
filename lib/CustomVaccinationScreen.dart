@@ -84,6 +84,17 @@ class _CustomVaccinationScreenState extends State<CustomVaccinationScreen> {
 
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          actions: [],
+          backgroundColor: const Color.fromARGB(255, 181, 164, 6),
+          title: const Text(
+            'Custom Vaccination',
+            style: TextStyle(
+                fontSize: 20,
+                color: MyColors.color_white,
+                fontWeight: FontWeight.w500),
+          ),
+        ),
         body: Container(
           color: MyColors.color_white,
           height: _hight,
@@ -96,20 +107,20 @@ class _CustomVaccinationScreenState extends State<CustomVaccinationScreen> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Container(
-                          color: MyColors.color_yellow_light,
-                          height: _hight * .07,
-                          width: _width,
-                          child: const Center(
-                            child: Text(
-                              'Custom Vaccination',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  color: MyColors.color_white,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                        ),
+                        // Container(
+                        //   color: MyColors.color_yellow_light,
+                        //   height: _hight * .07,
+                        //   width: _width,
+                        //   child: const Center(
+                        //     child: Text(
+                        //       'Custom Vaccination',
+                        //       style: TextStyle(
+                        //           fontSize: 20,
+                        //           color: MyColors.color_white,
+                        //           fontWeight: FontWeight.w500),
+                        //     ),
+                        //   ),
+                        // ),
                         GestureDetector(
                           onTap: () async {
                             final cameras = await availableCameras();
@@ -128,7 +139,7 @@ class _CustomVaccinationScreenState extends State<CustomVaccinationScreen> {
                                     File(_imgFilePicPath!),
                                     //fit: BoxFit.cover,
                                   )
-                                : SvgPicture.asset('assets/images/camera.svg'),
+                                : Image.asset('assets/images/add-photo.png'),
                           ),
                           // Container(
                           //   height: _hight * 0.13,

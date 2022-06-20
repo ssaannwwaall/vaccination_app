@@ -12,20 +12,18 @@ class MyTextFiled extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: _width,
-      margin: EdgeInsets.all(5),
+      margin: const EdgeInsets.all(5),
       child: TextFormField(
         cursorColor: Colors.white,
         controller: _controller,
         keyboardType: keyboardType,
-        style: TextStyle(fontSize: 15,color: Colors.black),
+        style: const TextStyle(fontSize: 15, color: Colors.black),
         decoration: InputDecoration(
-         fillColor: Colors.white.withOpacity(0.6),
+          fillColor: Colors.white.withOpacity(0.6),
           filled: true,
           border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(40.0)),
-            borderSide: BorderSide(
-                color: Color(0xff8d62d6), width: 3.0),
-
+            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            borderSide: BorderSide(color: Color(0xff8d62d6), width: 3.0),
           ),
           contentPadding: const EdgeInsets.all(7),
           labelText: hint,

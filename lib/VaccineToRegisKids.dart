@@ -14,6 +14,7 @@ import 'Helper/LocalDatabase.dart';
 import 'Helper/MyColors.dart';
 import 'Models/NewRegisteration.dart';
 import 'Models/VaccinationDoseForRegular.dart';
+import 'NavHomeScreen.dart';
 
 class VaccineToRegisKids extends StatefulWidget {
   static const routeName = "/VaccineToRegisKids";
@@ -25,7 +26,7 @@ class VaccineToRegisKids extends StatefulWidget {
 }
 
 class _VaccineToRegisKidsState extends State<VaccineToRegisKids> {
-  Color screenThemeColor = MyColors.color_purpel_light;
+  Color screenThemeColor = MyColors.Fllow_up;
   String currentVaccinatorName = '';
   DateTime dateTime_now = DateTime.now();
 
@@ -52,32 +53,40 @@ class _VaccineToRegisKidsState extends State<VaccineToRegisKids> {
     var _width = mediaQueryData.size.width;
 
     return Scaffold(
+      appBar: AppBar(
+        actions: [],
+        backgroundColor: screenThemeColor,
+        title: const Text(
+          'Add Vaccination Record',
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+      ),
       body: SafeArea(
         child: Container(
-          margin: EdgeInsets.only(left: 5, right: 5),
+          margin: const EdgeInsets.only(left: 5, right: 5),
           height: _hight,
           width: _width,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text(
-                    'Add vaccination record',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: const [
+              //     Text(
+              //       'Add vaccination record',
+              //       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              //     ),
+              //   ],
+              // ),
               Row(
                 children: [
                   const Text(
-                    'Vaccinator username ',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    'Vaccinator Username ',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     ' ${FirebaseCalls.user.email}', //
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 14,
                     ),
                   ),
@@ -396,7 +405,7 @@ class _VaccineToRegisKidsState extends State<VaccineToRegisKids> {
                           if (value == null)
                             {
                               Navigator.of(context)
-                                  .pushNamed(HomeScreen.routeName),
+                                  .pushNamed(NavHomeScreen.routeName),
                             }
                         });
               }),

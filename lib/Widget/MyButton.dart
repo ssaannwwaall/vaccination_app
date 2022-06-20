@@ -21,7 +21,7 @@ class MyButton extends StatelessWidget {
               color: MyColors.color_white,
               fontWeight: FontWeight.w800,
               fontSize: 16),
-          primary: buttonColor, // background
+          primary: MyColors.splash, // background
           onPrimary: Colors.black, // foreground
         ),
         onPressed: _function_handler,
