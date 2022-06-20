@@ -128,7 +128,8 @@ class FirebaseCalls {
     }
   }
 
-  static Future setCaseReporting({required NewRegisterationModel newReg}) async {
+  static Future setCaseReporting(
+      {required NewRegisterationModel newReg}) async {
     try {
       newReg.key ??= ref_case_reporting.push().key!;
       await ref_case_reporting.child(newReg.key).set(newReg.getMapOf());
@@ -234,6 +235,48 @@ class FirebaseCalls {
                 print('custom Vaccines added successfully'),
               }
           });
+    });
+    return null;
+  }
+
+  static Future getAllRegularVaccinators() async {
+    ref_case_reporting.once();
+    ref_case_reporting.onValue.listen((value) {
+      if (value.snapshot.exists) {
+        Map data = (value.snapshot.value as Map);
+        int myCases = 0;
+        data.forEach((key, value) {
+          if (FirebaseCalls.user != null) {
+            if (value['vaccinaor_uid'] == FirebaseCalls.user.uid) {
+              myCases = myCases + 1;
+              LocalDatabase.setMYReportingCases(myCases.toString());
+            }
+          }
+        });
+      } else {
+        LocalDatabase.setMYReportingCases(0.toString());
+      }
+    });
+    return null;
+  }
+
+  static Future getAllNewBorns() async {
+    ref_newly_born.once();
+    ref_newly_born.onValue.listen((value) {
+      if (value.snapshot.exists) {
+        Map data = (value.snapshot.value as Map);
+        int myCases = 0;
+        data.forEach((key, value) {
+          if (FirebaseCalls.user != null) {
+            if (value['vaccinaor_uid'] == FirebaseCalls.user.uid) {
+              myCases = myCases + 1;
+              LocalDatabase.setMYNewBorns(myCases.toString());
+            }
+          }
+        });
+      } else {
+        LocalDatabase.setMYNewBorns(0.toString());
+      }
     });
     return null;
   }

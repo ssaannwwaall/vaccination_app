@@ -6,7 +6,6 @@ import 'package:vaccination_app/Helper/SharefPrefsCurrentUser.dart';
 import 'package:vaccination_app/HomeScreen.dart';
 import 'package:vaccination_app/LoginScreen.dart';
 import 'package:vaccination_app/ReportCasesScreen.dart';
-
 import 'Helper/Helper.dart';
 
 class NavHomeScreen extends StatefulWidget {
@@ -74,17 +73,19 @@ class _NavHomeScreenState extends State<NavHomeScreen> {
               setState(() {
                 currentScreen = 0;
               });
-              Navigator.pop(context, true);
+              //Navigator.pop(context, true);
+              _scaffoldKey.currentState!.closeDrawer();
             },
           ),
           ListTile(
             title: const Text('Report cases'),
-            onTap: () async{
+            onTap: () async {
               await Helper.determineCurrentPosition();
               setState(() {
                 currentScreen = 1;
               });
-              Navigator.pop(context, true);
+              //Navigator.pop(context, true);
+              _scaffoldKey.currentState!.closeDrawer();
             },
           ),
           ListTile(
@@ -94,15 +95,17 @@ class _NavHomeScreenState extends State<NavHomeScreen> {
               setState(() {
                 currentScreen = 2;
               });
-              Navigator.pop(context, true);
+              //Navigator.pop(context, true);
+              _scaffoldKey.currentState!.closeDrawer();
             },
           ),
           Divider(),
           ListTile(
             title: const Text('Logout'),
             onTap: () {
-              //FirebaseAuth.instance.signOut();
-              //Navigator.of(context).pushNamed(LoginScreen.routeName);
+              FirebaseAuth.instance.signOut();
+              Navigator.pop(context, true);
+              Navigator.of(context).pushNamed(LoginScreen.routeName);
               print('logout');
             },
           ),

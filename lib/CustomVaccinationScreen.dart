@@ -629,7 +629,8 @@ class _CustomVaccinationScreenState extends State<CustomVaccinationScreen> {
                                       //nextvaccinationDate
                                       [],
                                       //list of vaccinations
-                                      false);
+                                      false,
+                                      FirebaseCalls.user.uid);
 
                                   if (await Helper.isInternetAvailble()) {
                                     FirebaseCalls.setCustomVaccinationRecord(

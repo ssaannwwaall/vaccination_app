@@ -8,6 +8,7 @@ import 'package:vaccination_app/NewRegisterationScreen.dart';
 import 'package:vaccination_app/RefusalScreen.dart';
 import 'package:vaccination_app/ReportCasesScreen.dart';
 import 'package:vaccination_app/NavHomeScreen.dart';
+import 'package:vaccination_app/StatusScreen.dart';
 import 'package:vaccination_app/defaulterScreen.dart';
 import 'SplashScreen.dart';
 import 'UpcomingScreen.dart';
@@ -49,7 +50,8 @@ class _MainState extends State<Main> {
         RefusalScreen.routeName: (ctx) => RefusalScreen(),
         ReportCasesScreen.routeName: (ctx) => ReportCasesScreen(),
         NavHomeScreen.routeName: (ctx) => NavHomeScreen(),
-        CustomVaccinationScreen.routeName: (ctx) => CustomVaccinationScreen(),
+        CustomVaccinationScreen.routeName: (ctx) =>  CustomVaccinationScreen(),
+        StatusScreen.routeName: (ctx) => const StatusScreen(),
       },
     );
   }

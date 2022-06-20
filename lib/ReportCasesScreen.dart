@@ -585,7 +585,8 @@ class _ReportCasesScreenState extends State<ReportCasesScreen> {
                                   showtoas(coordinats);
                                 } else if (address != null) {
                                   showtoas(address);
-                                }else if (_controllerSufferingFrom.text == '') {
+                                } else if (_controllerSufferingFrom.text ==
+                                    '') {
                                   showtoas('Disease not found');
                                 }
                                 /*else if (pic_url == '') {
@@ -616,8 +617,13 @@ class _ReportCasesScreenState extends State<ReportCasesScreen> {
                                       '',
                                       //_selectedVaccine.toString(),
                                       [],
-                                      false);
-                                  obj.epi_card_no = _controllerSufferingFrom.text;
+                                      false,
+                                      FirebaseCalls.user.uid);
+                                  print('vaccinator id wile reporting case   ');
+                                  print(FirebaseCalls.user.uid);
+                                  obj.epi_card_no =
+                                      _controllerSufferingFrom.text;
+                                  obj.vaccinaor_uid=FirebaseCalls.user.uid;
                                   if (await Helper.isInternetAvailble()) {
                                     FirebaseCalls.setCaseReporting(newReg: obj)
                                         .then((value) => {

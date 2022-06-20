@@ -11,7 +11,8 @@ class NewlyBorn {
       _pic,
       _unionCouncil,
       _joiningDate,
-      _gender;
+      _gender,
+      _vaccinator_uid;
   String? _epi_card_no, _key;
 
   NewlyBorn(
@@ -27,7 +28,8 @@ class NewlyBorn {
       this._longitude,
       this._address,
       this._pic,
-      this._joiningDate);
+      this._joiningDate,
+      this._vaccinator_uid);
 
   Map<String, String> getMapOf() {
     Map<String, String> map = {
@@ -44,7 +46,8 @@ class NewlyBorn {
       'pic': _pic,
       'unionCouncil': _unionCouncil,
       'joiningDate': _joiningDate,
-      'gender': _gender
+      'gender': _gender,
+      'vaccinator_uid': _vaccinator_uid,
     };
     return map;
   }

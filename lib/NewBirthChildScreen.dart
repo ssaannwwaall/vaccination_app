@@ -601,7 +601,8 @@ class _NewBirthChildScreenState extends State<NewBirthChildScreen> {
                                       _controllerAddress.text.toString(),
                                       pic_url,
                                       DateFormat('yyyy-MM-dd – kk:mm')
-                                          .format(DateTime.now()));
+                                          .format(DateTime.now()),
+                                  FirebaseCalls.user.uid);
 
                                   if (await Helper.isInternetAvailble()) {
                                     FirebaseCalls.setNewlyBorn(newlyBorn: obj)

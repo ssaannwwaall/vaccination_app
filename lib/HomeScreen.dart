@@ -14,6 +14,7 @@ import 'package:vaccination_app/defaulterScreen.dart';
 import 'Helper/Helper.dart';
 import 'Helper/MyColors.dart';
 import 'Helper/SharefPrefsCurrentUser.dart';
+import 'StatusScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = '/HomeScreen';
@@ -76,8 +77,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               MyColors.Dashboard,
                               'assets/images/graph1.svg'),
                           onTap: () {
-                            // Navigator.of(context)
-                            //     .pushNamed(NewBirthChildScreen.routeName);
+                            Navigator.of(context)
+                                .pushNamed(StatusScreen.routeName);
                           },
                         ),
                         GestureDetector(

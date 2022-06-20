@@ -92,6 +92,8 @@ _loadCitiesAndRegonsAndVaccines() async {
     await FirebaseCalls.getAllVaccines();
     await FirebaseCalls.getAllUpcoming();
     await FirebaseCalls.getCustomVaccines();
+    await FirebaseCalls.getAllRegularVaccinators();
+    await FirebaseCalls.getAllNewBorns();
   } else {
     print('internet not available');
   }

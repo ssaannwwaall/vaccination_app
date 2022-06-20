@@ -6,6 +6,8 @@ class LocalDatabase {
   static const String _vaccinesAndDoes = 'vaccinesAndDoes';
   static const String _allKidsData = 'allKidsData';
   static const String _customVaccines = 'customVaccines';
+  static const String _myReportingCases = 'myReportingCases';
+  static const String _myNewBorn = 'myNewBorn';
 
   static Future saveCitiesAndRegons(Map regons) async {
     try {
@@ -92,6 +94,54 @@ class LocalDatabase {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? value = prefs.getString(_customVaccines);
       return json.decode(value!); // sending back as a map
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  static Future setMYReportingCases(String regons) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString(_myReportingCases, regons);
+      return true;
+    } catch (e) {
+      print("all kids saving error $e.toString()");
+      return null;
+    }
+  }
+
+  static Future getMyReportingCases() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? value = prefs.getString(_myReportingCases);
+      print('case from local    ');
+      print(value);
+      return value!; // sending back as a map
+    } catch (e) {
+      print('case from local  error   ');
+      print(e.toString());
+      return null;
+    }
+  }
+
+  static Future setMYNewBorns(String regons) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString(_myNewBorn, regons);
+      return true;
+    } catch (e) {
+      print("all kids saving error $e.toString()");
+      return null;
+    }
+  }
+
+  static Future getMyNewBorns() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? value = prefs.getString(_myNewBorn);
+      print(value);
+      return value!; // sending back as a map
     } catch (e) {
       print(e.toString());
       return null;

@@ -962,13 +962,38 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                           nextVaccinationDate.toString(),
                                           //_selectedVaccine.toString(),
                                           list_of_vaccinations,
-                                          refusal);
+                                          refusal,
+                                          FirebaseCalls.user.uid);
+                                      print('button pressed');
+                                      if (await Helper.isInternetAvailble()) {
+                                        FirebaseCalls.setNewRegistration(
+                                            newReg: obj)
+                                            .then((value) => {
+                                          if (value == null)
+                                            {
+                                              showtoas(
+                                                  'New reg. successfully'),
+                                              Navigator.of(context)
+                                                  .pushNamed(HomeScreen
+                                                  .routeName),
+                                            }
+                                          else
+                                            {
+                                              showtoas(
+                                                  'Something went wrong'),
+                                            }
+                                        });
+                                      } else {
+                                        showtoas(
+                                            'have not internet connection');
+                                        // save in local data base
+                                      }
                                     }
                                   }),
                                 ],
                               ),
                             ),
-                            Container(
+                            /*Container(
                               height: _hight * .1,
                               width: _width,
                               child: Row(
@@ -1079,7 +1104,8 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                           nextVaccinationDate.toString(),
                                           //_selectedVaccine.toString(),
                                           list_of_vaccinations,
-                                          refusal);
+                                          refusal,
+                                          FirebaseCalls.user.uid);
 
                                       print('button pressed');
                                       if (await Helper.isInternetAvailble()) {
@@ -1110,7 +1136,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                   }),
                                 ],
                               ),
-                            ),
+                            ),*/
                           ],
                         ),
                       ],
