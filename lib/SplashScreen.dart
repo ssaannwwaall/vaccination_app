@@ -71,10 +71,10 @@ class _SplashScreenState extends State<SplashScreen>
           ),
           Container(
             child: const Text(
-              "Risi Vaccination",
+              "Routine Immuniztion Stengthening initiative",
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 25,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),

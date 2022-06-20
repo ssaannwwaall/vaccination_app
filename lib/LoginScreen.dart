@@ -58,8 +58,8 @@ class _LoginScreenState extends State<LoginScreen> {
             Container(
               height: _hight * .15,
               width: _width * .5,
-              child: SvgPicture.asset(
-                'assets/images/logo.svg',
+              child: Image.asset(
+                'assets/images/risi.png',
               ),
             ),
             const Padding(

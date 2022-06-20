@@ -344,7 +344,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                                         underline: SizedBox(),
                                                         elevation: 5,
                                                         hint: const Text(
-                                                            'City   شہر '),
+                                                            'City   شہر'),
                                                         value: _selectedCity,
                                                         onChanged:
                                                             (newValue) async {
