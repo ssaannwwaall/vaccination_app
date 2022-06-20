@@ -1,10 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:vaccination_app/CustomVaccinationScreen.dart';
 import 'package:vaccination_app/HomeScreen.dart';
 import 'package:vaccination_app/LoginScreen.dart';
 import 'package:vaccination_app/NewBirthChildScreen.dart';
 import 'package:vaccination_app/NewRegisterationScreen.dart';
 import 'package:vaccination_app/RefusalScreen.dart';
+import 'package:vaccination_app/ReportCasesScreen.dart';
+import 'package:vaccination_app/NavHomeScreen.dart';
 import 'package:vaccination_app/defaulterScreen.dart';
 import 'SplashScreen.dart';
 import 'UpcomingScreen.dart';
@@ -44,6 +47,9 @@ class _MainState extends State<Main> {
         DefaulterScreen.routeName: (ctx) => DefaulterScreen(),
         VaccineToRegisKids.routeName: (ctx) => VaccineToRegisKids(),
         RefusalScreen.routeName: (ctx) => RefusalScreen(),
+        ReportCasesScreen.routeName: (ctx) => ReportCasesScreen(),
+        NavHomeScreen.routeName: (ctx) => NavHomeScreen(),
+        CustomVaccinationScreen.routeName: (ctx) => CustomVaccinationScreen(),
       },
     );
   }

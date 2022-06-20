@@ -1,86 +1,81 @@
-import 'dart:ffi';
+import 'package:flutter/material.dart';
 import 'dart:io';
 import 'dart:math';
-import 'package:intl/intl.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:vaccination_app/Models/NewRegisteration.dart';
+import 'package:vaccination_app/Models/VaccinationRecord.dart';
+import 'dart:io';
 import 'Helper/FirebaseCall.dart';
 import 'Helper/Helper.dart';
 import 'Helper/LocalDatabase.dart';
 import 'Helper/MyColors.dart';
 import 'Helper/custom_validator.dart';
 import 'HomeScreen.dart';
-import 'Models/NewlyBorn.dart';
-import 'Models/VaccinationDoseForRegular.dart';
+import 'Models/NewRegisteration.dart';
+import 'NavHomeScreen.dart';
+import 'NewRegisterationScreen.dart';
 import 'Widget/MyButton.dart';
 import 'Widget/MyTextFiled.dart';
-import 'package:camera/camera.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart';
+import 'package:intl/intl.dart';
 
-String? _imgFilePicPath = null;
-String pic_url = '';
+//String? _imgFilePicPath = null;
+//String pic_url = '';
 
-class NewRegisterationScreen extends StatefulWidget {
-  static const String routeName = '/NewRegisterationScreen';
+class ReportCasesScreen extends StatefulWidget {
+  static const routeName = "/ReportCasesScreen";
 
-  const NewRegisterationScreen({Key? key}) : super(key: key);
+  const ReportCasesScreen({Key? key}) : super(key: key);
 
   @override
-  State<NewRegisterationScreen> createState() => _NewRegisterationScreenState();
+  State<ReportCasesScreen> createState() => _ReportCasesScreenState();
 }
 
-class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
+class _ReportCasesScreenState extends State<ReportCasesScreen> {
   final TextEditingController _controllerName = TextEditingController();
   final TextEditingController _controllerFName = TextEditingController();
   final TextEditingController _controllerPhone = TextEditingController();
-  final TextEditingController _controllerEpiCardNo = TextEditingController();
   final TextEditingController _controllerLatLong = TextEditingController();
   final TextEditingController _controllerAddress = TextEditingController();
+  final TextEditingController _controllerSufferingFrom =
+      TextEditingController();
+
   String lat = '33.6163723';
   String long = '72.8059114';
   Position? currentPosition;
   int _radioGroupValueGender = 0;
-  int _radioGroupValueCategory = 0;
 
-  //PlatformFile? _filePicPicked;
-  //String pic_url = '';
   final List<String> _cities = ['City'];
   final List<String> _tahsil = ['Tahsil'];
   final List<String> _councils = ['Council'];
 
-  final List<String> _dose = ['Dose'];
-
-  //final List<String> _vaccine = ['Vaccine'];
+  List<String> _vaccine = [];
   String? _selectedCity;
   String? _selectedTahsil;
   String? _selectedConsil;
 
-  String? _selectedDose;
+  //String? _selectedDose;
 
-  //String? _selectedVaccine;
+  String? _selectedVaccine;
 
   DateTime dob = DateTime.now();
   DateTime nextVaccinationDate = DateTime.now();
-  Color screenThemeColor = MyColors.color_yellow_light;
-
-  List<VaccinationDoseForRegular> list_of_vaccinations = [];
+  Color? screenThemeColor;
 
   @override
   void initState() {
     // TODO: implement initState
     _loadCities();
-    _loadDoses();
+    _loadCustomVaccines();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     currentPosition = Helper.currentPositon;
+    screenThemeColor = MyColors.color_ref_light;
     MediaQueryData mediaQueryData = MediaQuery.of(context);
     var _hight = mediaQueryData.size.height;
     var _width = mediaQueryData.size.width;
@@ -104,12 +99,12 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Container(
-                          color: MyColors.color_yellow_light,
+                          color: screenThemeColor,
                           height: _hight * .07,
                           width: _width,
                           child: const Center(
                             child: Text(
-                              'New Registration',
+                              'Case reporting',
                               style: TextStyle(
                                   fontSize: 20,
                                   color: MyColors.color_white,
@@ -117,11 +112,9 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                             ),
                           ),
                         ),
-                        GestureDetector(
+                        /*GestureDetector(
                           onTap: () async {
-                            // Obtain a list of the available cameras on the device.
                             final cameras = await availableCameras();
-                            // Get a specific camera from the list of available cameras.
                             final firstCamera = cameras.first;
 
                             Feedback.forTap(context);
@@ -129,34 +122,6 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) =>
                                     TakePictureScreen(camera: firstCamera)));
-
-                            //_filePicPicked = await Helper.getPictureFromPhone();
-                            //if (_filePicPicked != null) {
-                            /*if (_imgFilePicPath != null) {
-                              // setState(() {
-                              //   _filePicPicked;
-                              //   print('file picked  $_filePicPicked');
-                              // });
-                              if (await Helper.isInternetAvailble()) {
-                                pic_url = await FirebaseCalls.uploadPicture(
-                                    'newReg',
-                                    _controllerPhone.text.toString(),
-                                    _imgFilePicPath!);
-                              } else {
-                                pic_url = _imgFilePicPath!;
-                              }
-                              print('download url in screen is $pic_url');
-                            } else {
-                              //something went wrong
-                              Fluttertoast.showToast(
-                                  msg: "Image not found",
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  gravity: ToastGravity.BOTTOM,
-                                  timeInSecForIosWeb: 1,
-                                  backgroundColor: MyColors.color_gray,
-                                  textColor: MyColors.color_white,
-                                  fontSize: 16.0);
-                            }*/
                           },
                           child: Container(
                             width: _width * .9,
@@ -173,11 +138,13 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                           //   width: _width,
                           //   child: SvgPicture.asset('assets/images/logo.svg'),
                           // ),
-                        ),
+                        ),*/
                         Container(
-                          height: _hight * 0.64,
+                          margin: const EdgeInsets.only(top: 20),
+                          height: _hight * 0.65,
                           width: _width,
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Expanded(
                                 child: ListView(
@@ -190,7 +157,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                           children: [
                                             MyTextFiled(
                                                 _width * .47,
-                                                'Child name',
+                                                'Patient name',
                                                 TextInputType.name,
                                                 _controllerName),
                                             MyTextFiled(
@@ -202,7 +169,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                         ),
                                         MyTextFiled(
                                             _width * 0.95,
-                                            'Phone number',
+                                            'Mobile',
                                             TextInputType.name,
                                             _controllerPhone),
                                         Row(
@@ -214,7 +181,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                             ),
                                             Container(
                                               width: _width * .47,
-                                              child: Text(
+                                              child: const Text(
                                                 'Date of Birth',
                                                 style: TextStyle(
                                                     fontSize: 14,
@@ -229,11 +196,11 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            MyTextFiled(
-                                                _width * .47,
-                                                'Epi card no',
-                                                TextInputType.name,
-                                                _controllerEpiCardNo),
+                                            // MyTextFiled(
+                                            //     _width * .47,
+                                            //     'Epi card no',
+                                            //     TextInputType.name,
+                                            //     _controllerEpiCardNo),
                                             Container(
                                               margin:
                                                   EdgeInsets.only(bottom: 5),
@@ -241,11 +208,11 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                                 shape: BoxShape.rectangle,
                                                 border: Border.all(
                                                     width: .5,
-                                                    color: screenThemeColor),
+                                                    color: screenThemeColor!),
                                                 borderRadius:
                                                     BorderRadius.circular(5),
                                               ),
-                                              width: _width * .47,
+                                              width: _width * .9,
                                               child: TextButton(
                                                   onPressed: () async {
                                                     DateTime? date =
@@ -276,19 +243,13 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            // MyTextFiled(
-                                            //     _width * .47,
-                                            //     'District',
-                                            //     TextInputType.name,
-                                            //     _controllerCity),
-
                                             Container(
                                               width: _width * .47,
                                               decoration: BoxDecoration(
                                                 shape: BoxShape.rectangle,
                                                 border: Border.all(
                                                     width: .5,
-                                                    color: screenThemeColor),
+                                                    color: screenThemeColor!),
                                                 borderRadius:
                                                     BorderRadius.circular(5),
                                               ),
@@ -313,8 +274,8 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                                     items: _cities
                                                         .map((thislocation) {
                                                       return DropdownMenuItem(
-                                                        child: new Text(
-                                                            thislocation),
+                                                        child:
+                                                            Text(thislocation),
                                                         value: thislocation,
                                                       );
                                                     }).toList(),
@@ -323,13 +284,14 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                               ),
                                             ),
                                             Container(
-                                              margin: EdgeInsets.only(left: 5),
+                                              margin: const EdgeInsets.only(
+                                                  left: 5),
                                               width: _width * .47,
                                               decoration: BoxDecoration(
                                                 shape: BoxShape.rectangle,
                                                 border: Border.all(
                                                     width: .5,
-                                                    color: screenThemeColor),
+                                                    color: screenThemeColor!),
                                                 borderRadius:
                                                     BorderRadius.circular(5),
                                               ),
@@ -381,12 +343,6 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                                 ),
                                               ),
                                             ),
-
-                                            // MyTextFiled(
-                                            //     _width * .47,
-                                            //     'Tahsil',
-                                            //     TextInputType.name,
-                                            //     _controllerTahsil),
                                           ],
                                         ),
                                         Container(
@@ -397,7 +353,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                             shape: BoxShape.rectangle,
                                             border: Border.all(
                                                 width: .5,
-                                                color: screenThemeColor),
+                                                color: screenThemeColor!),
                                             borderRadius:
                                                 BorderRadius.circular(5),
                                           ),
@@ -444,176 +400,28 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
+                                            SizedBox(
+                                              width: _width * .45,
+                                              child: const Center(
+                                                  child: Text(
+                                                'Disease name',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 16),
+                                              )),
+                                            ),
                                             Container(
-                                              margin: const EdgeInsets.only(
-                                                  left: 5, right: 5),
-                                              width: _width * .9,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.rectangle,
-                                                border: Border.all(
-                                                    width: .5,
-                                                    color: screenThemeColor),
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                              ),
+                                              width: _width * .45,
                                               child: Center(
-                                                child: DropdownButton(
-                                                  underline: SizedBox(),
-                                                  hint: const Text('Dose'),
-                                                  value: _selectedDose,
-                                                  onChanged: (newValue) async {
-                                                    setState(() {
-                                                      _selectedDose =
-                                                          newValue.toString();
-                                                    });
-                                                    //print('selected dose is $_selectedDose');
-                                                    await _loadVaccines(
-                                                        _selectedDose!);
-                                                  },
-                                                  items:
-                                                      _dose.map((thislocation) {
-                                                    return DropdownMenuItem(
-                                                      child: new Text(
-                                                          thislocation),
-                                                      value: thislocation,
-                                                    );
-                                                  }).toList(),
-                                                ),
+                                                child: MyTextFiled(
+                                                    _width * 0.95,
+                                                    '',
+                                                    TextInputType.name,
+                                                    _controllerSufferingFrom),
                                               ),
                                             ),
-                                            /* Container(
-                                              width: _width * .47,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.rectangle,
-                                                border: Border.all(
-                                                    width: .5,
-                                                    color: screenThemeColor),
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                              ),
-                                              child: Center(
-                                                child: DropdownButton(
-                                                    underline: SizedBox(),
-                                                    hint: const Text(
-                                                      'Vaccine',
-                                                      style: TextStyle(
-                                                          fontSize: 14,
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                    ),
-                                                    value: _selectedVaccine,
-                                                    onChanged: (newValue) {
-                                                      setState(() {
-                                                        _selectedVaccine =
-                                                            newValue.toString();
-                                                      });
-                                                    },
-                                                    items: _vaccine != null ||
-                                                            _vaccine.isNotEmpty
-                                                        ? _vaccine.map(
-                                                            (thislocation) {
-                                                            return DropdownMenuItem(
-                                                              child: Text(
-                                                                  thislocation),
-                                                              value:
-                                                                  thislocation,
-                                                            );
-                                                          }).toList()
-                                                        : [
-                                                            'Vaccine'
-                                                          ].map((thislocation) {
-                                                            return DropdownMenuItem(
-                                                              child: Text(
-                                                                  thislocation),
-                                                              value:
-                                                                  thislocation,
-                                                            );
-                                                          }).toList()),
-                                              ),
-                                            ),*/
-
-                                            // MyTextFiled(
-                                            //     _width * .47,
-                                            //     'Tahsil',
-                                            //     TextInputType.name,
-                                            //     _controllerTahsil),
                                           ],
                                         ),
-                                        //nextVaccinationDate
-                                        Container(
-                                            margin: EdgeInsets.only(top: 5),
-                                            width: _width * .9,
-                                            child: const Text(
-                                              'Next vaccination date',
-                                              style: TextStyle(
-                                                  color: MyColors.color_black,
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.bold),
-                                            )),
-                                        Container(
-                                          margin: EdgeInsets.only(bottom: 5),
-                                          width: _width * .9,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.rectangle,
-                                            border: Border.all(
-                                                width: .5,
-                                                color: screenThemeColor),
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                          ),
-                                          child: Center(
-                                            child: TextButton(
-                                                onPressed: () async {
-                                                  DateTime? date =
-                                                      await showDatePicker(
-                                                    context: context,
-                                                    initialDate:
-                                                        nextVaccinationDate,
-                                                    firstDate: DateTime(1900),
-                                                    lastDate: DateTime(2100),
-                                                  );
-                                                  if (date == null) return;
-                                                  setState(() {
-                                                    nextVaccinationDate = date;
-                                                  });
-                                                },
-                                                child: Center(
-                                                  child: Text(
-                                                    '${nextVaccinationDate.day}-${nextVaccinationDate.month}-${nextVaccinationDate.year}',
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        color: MyColors
-                                                            .color_black),
-                                                  ),
-                                                )),
-                                          ),
-                                        ),
-                                        /*Container(
-                                          width: _width * 9,
-                                          child: Row(
-                                            children: [
-                                              // Checkbox(
-                                              //     activeColor: screenThemeColor,
-                                              //     value: checkboxVacciened,
-                                              //     onChanged: (onChanged) {
-                                              //       setState(() {
-                                              //         checkboxVacciened =
-                                              //             onChanged as bool;
-                                              //         print(
-                                              //             'value   $checkboxVacciened');
-                                              //       });
-                                              //     }),
-                                              const Text(
-                                                'Have done this vaccine',
-                                                style: TextStyle(
-                                                  color: MyColors.color_black,
-                                                  fontSize: 14,
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),*/
-
                                         MyTextFiled(
                                             _width * 0.95,
                                             'Location coordinates',
@@ -635,7 +443,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                                 value: 0,
                                                 groupValue:
                                                     _radioGroupValueGender,
-                                                activeColor: screenThemeColor,
+                                                activeColor: screenThemeColor!,
                                                 selected: true,
                                                 title: const Text(
                                                   'Male',
@@ -658,7 +466,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                                 value: 1,
                                                 groupValue:
                                                     _radioGroupValueGender,
-                                                activeColor: screenThemeColor,
+                                                activeColor: screenThemeColor!,
                                                 selected: false,
                                                 title: const Text(
                                                   'Female',
@@ -681,7 +489,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                                 value: 2,
                                                 groupValue:
                                                     _radioGroupValueGender,
-                                                activeColor: screenThemeColor,
+                                                activeColor: screenThemeColor!,
                                                 selected: false,
                                                 title: const Text(
                                                   'Trans',
@@ -699,64 +507,6 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                             ),
                                           ],
                                         ),
-                                        Text(
-                                          'Please select category',
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              width: _width * 0.45,
-                                              height: _hight * 0.06,
-                                              child: RadioListTile(
-                                                value: 0,
-                                                groupValue:
-                                                    _radioGroupValueCategory,
-                                                activeColor: screenThemeColor,
-                                                selected: true,
-                                                title: const Text(
-                                                  'Normal',
-                                                  style: TextStyle(
-                                                    color: MyColors.color_black,
-                                                    fontSize: 11,
-                                                  ),
-                                                ),
-                                                onChanged: (value) {
-                                                  setState(() =>
-                                                      _radioGroupValueCategory =
-                                                          value as int);
-                                                },
-                                              ),
-                                            ),
-                                            Container(
-                                              width: _width * 0.45,
-                                              height: _hight * 0.06,
-                                              child: RadioListTile(
-                                                value: 1,
-                                                groupValue:
-                                                    _radioGroupValueCategory,
-                                                activeColor: screenThemeColor,
-                                                selected: false,
-                                                title: const Text(
-                                                  'Refusal',
-                                                  style: TextStyle(
-                                                    color: MyColors.color_black,
-                                                    fontSize: 11,
-                                                  ),
-                                                ),
-                                                onChanged: (value) {
-                                                  setState(() =>
-                                                      _radioGroupValueCategory =
-                                                          value as int);
-                                                },
-                                              ),
-                                            ),
-                                          ],
-                                        ),
                                       ],
                                     ),
                                   ],
@@ -766,22 +516,21 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                           ),
                         ),
                         Container(
+                          margin: const EdgeInsets.only(top: 20),
                           height: _hight * .1,
                           width: _width,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              MyButton('Back', screenThemeColor, _width * .48,
+                              MyButton('Back', screenThemeColor!, _width * .48,
                                   () {
                                 print('back pressed');
                                 Navigator.of(context)
-                                    .pushNamed(HomeScreen.routeName);
+                                    .pushNamed(NavHomeScreen.routeName);
                               }),
-                              MyButton(
-                                  'Add child', screenThemeColor, _width * .48,
-                                  () async {
-                                print('add child');
+                              MyButton('Add new Case', screenThemeColor!,
+                                  _width * .48, () async {
                                 String? name = CustomValidator()
                                     .validateDescription(
                                         _controllerName.text.toString());
@@ -791,12 +540,8 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                 String? phone = CustomValidator()
                                     .validateMobile(
                                         _controllerPhone.text.toString());
-                                //String? dob = CustomValidator().validateName(
-                                //   _controllerDateOfBirth.text.toString());
                                 String? city = CustomValidator()
                                     .validateDescription(_selectedCity);
-                                print('cityyyyyyyyyyyyyy');
-                                print(city);
                                 String? thsl = CustomValidator()
                                     .validateDescription(_selectedTahsil);
                                 String? council = CustomValidator()
@@ -815,12 +560,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                 } else if (_radioGroupValueGender == 2) {
                                   gender = 'Transgender';
                                 }
-                                bool refusal = false;
-                                if (_radioGroupValueCategory == 0) {
-                                  refusal = false;
-                                } else if (_radioGroupValueCategory == 1) {
-                                  refusal = true;
-                                }
+
                                 if (name != null) {
                                   showtoas(name);
                                 } else if (fname != null) {
@@ -845,14 +585,15 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                   showtoas(coordinats);
                                 } else if (address != null) {
                                   showtoas(address);
-                                } else if (pic_url == '') {
+                                }else if (_controllerSufferingFrom.text == '') {
+                                  showtoas('Disease not found');
+                                }
+                                /*else if (pic_url == '') {
                                   showtoas('Picture required');
-                                } else {
+                                } */
+                                else {
                                   //upload data
                                   //_radioGroupValueCategory
-                                  print('list of vaccinations ');
-                                  print(
-                                      list_of_vaccinations[0].vaccination_name);
                                   var obj = NewRegisterationModel(
                                       _controllerName.text.toString(),
                                       _controllerFName.text.toString(),
@@ -865,29 +606,28 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                       (Helper.currentPositon.longitude
                                           .toString()),
                                       _controllerAddress.text.toString(),
-                                      pic_url,
+                                      '',
+                                      //pic_url
                                       _selectedConsil!,
                                       DateFormat('yyyy-MM-dd – kk:mm')
                                           .format(DateTime.now())
                                           .toString(),
                                       gender.toString(),
-                                      nextVaccinationDate.toString(),
+                                      '',
                                       //_selectedVaccine.toString(),
-                                      list_of_vaccinations,
-                                      refusal);
-
-                                  print('button pressed');
+                                      [],
+                                      false);
+                                  obj.epi_card_no = _controllerSufferingFrom.text;
                                   if (await Helper.isInternetAvailble()) {
-                                    FirebaseCalls.setNewRegistration(
-                                            newReg: obj)
+                                    FirebaseCalls.setCaseReporting(newReg: obj)
                                         .then((value) => {
                                               if (value == null)
                                                 {
                                                   showtoas(
-                                                      'New reg. successfully'),
+                                                      'Case reporting added successfully'),
                                                   Navigator.of(context)
-                                                      .pushNamed(
-                                                          HomeScreen.routeName),
+                                                      .pushNamed(NavHomeScreen
+                                                          .routeName),
                                                 }
                                               else
                                                 {
@@ -919,13 +659,9 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
 
   _loadCities() async {
     Map cityMap = await LocalDatabase.getCitiesAndRegons();
-    print("lcity map ");
-    print(cityMap.toString());
     _cities.clear();
     cityMap.forEach((key, value) {
-      print(key);
       _cities.add(key);
-      print("list is above ");
     });
     setState(() {
       _cities;
@@ -934,28 +670,16 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
 
   _loadTahsil(String city) async {
     Map cityMap = await LocalDatabase.getCitiesAndRegons();
-    print("tahsil map ");
-    //print(cityMap.toString());
     _tahsil.clear();
     cityMap.forEach((key, value) {
-      print("tahsil loop ");
       //city loop
       if (key == city) {
-        print(key);
-        print("selected city is above ");
-        print(value);
         Map tahsil_map = value;
-        print("tahsil map is below ");
-        print(tahsil_map.toString());
         tahsil_map.forEach((key, value) {
-          print(key);
-          print("list tahsil is above ");
           _tahsil.add(key);
         });
       }
     });
-    print("final list tahsil is here ");
-    print(_tahsil.toString());
     setState(() {
       _selectedTahsil = _tahsil[0];
       _tahsil;
@@ -972,64 +696,30 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
         tahsil_map.forEach((key, value_c) {
           //tahsil loop
           if (key == thsil) {
-            print("selected tahsil is here ");
-            print(key);
             Map counsilMap = value_c;
             counsilMap.forEach((key, value) {
-              print("list councils is above ");
-              print(value.toString());
               _councils.add(key);
             });
           }
         });
       }
     });
-    print("final list councils is here ");
-    print(_councils.toString());
     setState(() {
       _selectedConsil = _councils[0];
       _councils;
     });
   }
 
-  _loadDoses() async {
-    Map doseMap = await LocalDatabase.getDoseAndVaccines();
-    _dose.clear();
+  _loadCustomVaccines() async {
+    Map doseMap = await LocalDatabase.getCustomVaccines();
+    _vaccine.clear();
     doseMap.forEach((key, value) {
-      _dose.add(key);
+      _vaccine.add(key);
     });
     setState(() {
-      _dose;
-    });
-  }
-
-  _loadVaccines(String dose) async {
-    Map vaccinesMap = await LocalDatabase.getDoseAndVaccines();
-    //_vaccine.clear();
-    list_of_vaccinations.clear();
-    vaccinesMap.forEach((key, value) {
-      if (key == dose) {
-        Map vaccine_map = value;
-        vaccine_map.forEach((key, value) {
-          //_vaccine.add(key);
-          list_of_vaccinations.add(VaccinationDoseForRegular(
-              nextVaccinationDate.toString(),
-              key,
-              FirebaseCalls.user.uid,
-              false));
-        });
-        setState(() {
-          list_of_vaccinations;
-        });
-        print('selected dose...');
-        print(list_of_vaccinations[0].vaccination_name);
-        print(list_of_vaccinations[1].vaccination_name);
-      }
-    });
-    /*setState(() {
       _vaccine;
       _selectedVaccine = _vaccine[0];
-    });*/
+    });
   }
 }
 
@@ -1063,28 +753,21 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   @override
   void initState() {
     super.initState();
-    // To display the current output from the Camera,
-    // create a CameraController.
     _controller = CameraController(
-      // Get a specific camera from the list of available cameras.
       widget.camera,
-      // Define the resolution to use.
       ResolutionPreset.medium,
     );
-    // Next, initialize the controller. This returns a Future.
     _initializeControllerFuture = _controller.initialize();
   }
 
   @override
   void dispose() {
-    // Dispose of the controller when the widget is disposed.
     _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    // Fill this out in the next steps.
     MediaQueryData mediaQueryData = MediaQuery.of(context);
     var _hight = mediaQueryData.size.height;
     var _width = mediaQueryData.size.width;
@@ -1113,39 +796,26 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                 width: _width,
                 child: Center(
                   child: FloatingActionButton(
-                    // Provide an onPressed callback.
                     onPressed: () async {
-                      // Take the Picture in a try / catch block. If anything goes wrong,
-                      // catch the error.
                       try {
-                        // Ensure that the camera is initialized.
                         await _initializeControllerFuture;
-                        // Attempt to take a picture and then get the location
-                        // where the image file is saved.
                         final image = await _controller.takePicture();
-                        print('image captured');
-                        print(image.path);
                         setState(() {
-                          _imgFilePicPath = image.path;
+                          //_imgFilePicPath = image.path;
                         });
-                        // Navigator.of(context).push(MaterialPageRoute(builder: (context) => NewRegisterationScreen()));
-                        if (_imgFilePicPath != null) {
-                          //setState(() {
-                          //  _filePicPicked;
-                          //  print('file picked  $_filePicPicked');
-                          //});
+                        /*if (_imgFilePicPath != null) {
                           if (await Helper.isInternetAvailble()) {
                             Random r = Random(0);
                             pic_url = await FirebaseCalls.uploadPicture(
-                                'newReg',
+                                'CustomVaccination',
                                 r.nextInt(1000000).toString(),
                                 _imgFilePicPath!);
                           } else {
                             pic_url = _imgFilePicPath!;
                           }
                           print('download url in screen is $pic_url');
-                        } else {
-                          //something went wrong
+                        }
+                        else {
                           Fluttertoast.showToast(
                               msg: "Image not found",
                               toastLength: Toast.LENGTH_SHORT,
@@ -1154,11 +824,11 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                               backgroundColor: MyColors.color_gray,
                               textColor: MyColors.color_white,
                               fontSize: 16.0);
-                        }
+                        }*/
+                        Navigator.pop(context, true);
                         Navigator.of(context)
-                            .pushNamed(NewRegisterationScreen.routeName);
+                            .pushNamed(ReportCasesScreen.routeName);
                       } catch (e) {
-                        // If an error occurs, log the error to the console.
                         print(e);
                       }
                     },

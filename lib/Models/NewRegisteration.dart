@@ -63,6 +63,7 @@ class NewRegisterationModel {
       //'list_of_vaccincs': list_of_vaccincs as Map<dynamic, dynamic>,
       // list_of_vaccincs,
       'refusal': refusal,
+      'epi_card_no': _epi_card_no,
     };
     return map;
   }
@@ -86,6 +87,7 @@ class NewRegisterationModel {
     _key = value['key'];
     _nextVaccinationDate = value['nextVaccinationDate'];
     refusal = value['refusal'];
+    _epi_card_no = value['_epi_card_no'];
   }
 
   String get nextVaccinationDate => _nextVaccinationDate!;

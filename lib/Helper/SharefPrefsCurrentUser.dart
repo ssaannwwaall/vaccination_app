@@ -16,7 +16,6 @@ class SharedPrefsCurrentUser {
   }
 
   static Future getUserName() async {
-
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? value = prefs.getString(_userName);

@@ -6,6 +6,7 @@ import 'package:vaccination_app/Helper/MyColors.dart';
 import 'package:vaccination_app/HomeScreen.dart';
 import 'Helper/LocalDatabase.dart';
 import 'LoginScreen.dart';
+import 'NavHomeScreen.dart';
 
 class SplashScreen extends StatefulWidget {
   static const routeName = "/SplashScreen";
@@ -35,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen>
         // todo: check Internet Package with Google to access User Data
         //Navigator.of(context).pushNamed(LoginScreen.routeName);
         if (FirebaseCalls.user != null) {
-          Navigator.of(context).pushNamed(HomeScreen.routeName);
+          Navigator.of(context).pushNamed(NavHomeScreen.routeName);
         } else {
           Navigator.of(context).pushNamed(LoginScreen.routeName);
         }
@@ -75,12 +76,12 @@ class _SplashScreenState extends State<SplashScreen>
 
 
 _loadCitiesAndRegonsAndVaccines() async {
-  print('internet checking');
   if (await Helper.isInternetAvailble()) {
     print('internet is available');
     await FirebaseCalls.getCitiesAndRegions();
     await FirebaseCalls.getAllVaccines();
     await FirebaseCalls.getAllUpcoming();
+    await FirebaseCalls.getCustomVaccines();
   } else {
     print('internet not available');
   }

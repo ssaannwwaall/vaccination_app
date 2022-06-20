@@ -27,6 +27,13 @@ class FirebaseCalls {
       FirebaseDatabase.instance.ref('RegisteredKids');
   static DatabaseReference ref_vaccination_recored =
       FirebaseDatabase.instance.ref('VaccinationRecord');
+  static DatabaseReference ref_custom_vaccinations =
+      FirebaseDatabase.instance.ref('CustomVaccines');
+  static DatabaseReference ref_custom_vaccinations_record =
+      FirebaseDatabase.instance.ref('CustomVaccinesRecord');
+  static DatabaseReference ref_case_reporting =
+      FirebaseDatabase.instance.ref('CaseReporting');
+
   static final FirebaseStorage firebaseStorage_pics = FirebaseStorage.instance;
 
   // AUTH SIGN UP METHOD
@@ -108,6 +115,29 @@ class FirebaseCalls {
     }
   }
 
+  static Future setCustomVaccinationRecord(
+      {required NewRegisterationModel newReg}) async {
+    try {
+      newReg.key ??= ref_custom_vaccinations_record.push().key!;
+      await ref_custom_vaccinations_record
+          .child(newReg.key)
+          .set(newReg.getMapOf());
+      return null;
+    } on Exception catch (e) {
+      return e.toString();
+    }
+  }
+
+  static Future setCaseReporting({required NewRegisterationModel newReg}) async {
+    try {
+      newReg.key ??= ref_case_reporting.push().key!;
+      await ref_case_reporting.child(newReg.key).set(newReg.getMapOf());
+      return null;
+    } on Exception catch (e) {
+      return e.toString();
+    }
+  }
+
   static Future setVaccinationRecord(
       {required VaccinationRecord record}) async {
     try {
@@ -129,7 +159,6 @@ class FirebaseCalls {
     final snapshot = await ref_cities.once();
     ref_cities.onValue.listen((DatabaseEvent value) async {
       Map data = (value.snapshot.value as Map);
-      print('city test $data');
       await LocalDatabase.saveCitiesAndRegons(data).then((result) => {
             if (result == null)
               {
@@ -185,6 +214,26 @@ class FirebaseCalls {
       }
     });
     //if (who == ConstentStrings.upcoming) {}
+    return null;
+  }
+
+  static Future getCustomVaccines() async {
+    final snapshot = await ref_custom_vaccinations.once();
+    ref_custom_vaccinations.onValue.listen((DatabaseEvent value) async {
+      Map data = (value.snapshot.value as Map);
+      print('custom vaccines $data');
+      await LocalDatabase.saveCustomVaccines(data).then((result) => {
+            if (result == null)
+              {
+                //error
+                print('custom Vaccines cannot added in local database'),
+              }
+            else
+              {
+                print('custom Vaccines added successfully'),
+              }
+          });
+    });
     return null;
   }
 }

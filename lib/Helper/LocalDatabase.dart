@@ -5,6 +5,7 @@ class LocalDatabase {
   static const String _citiesAndRegions = 'citiesandregions';
   static const String _vaccinesAndDoes = 'vaccinesAndDoes';
   static const String _allKidsData = 'allKidsData';
+  static const String _customVaccines = 'customVaccines';
 
   static Future saveCitiesAndRegons(Map regons) async {
     try {
@@ -68,6 +69,28 @@ class LocalDatabase {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? value = prefs.getString(_allKidsData);
       print(value);
+      return json.decode(value!); // sending back as a map
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  static Future saveCustomVaccines(Map customVaccines) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString(_customVaccines, json.encode(customVaccines));
+      return true;
+    } catch (e) {
+      print("custom vaccines error $e.toString()");
+      return null;
+    }
+  }
+
+  static Future getCustomVaccines() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? value = prefs.getString(_customVaccines);
       return json.decode(value!); // sending back as a map
     } catch (e) {
       print(e.toString());
