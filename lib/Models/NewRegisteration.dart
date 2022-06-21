@@ -41,7 +41,7 @@ class NewRegisterationModel {
       //this._vaccinationKey,
       this.list_of_vaccincs,
       this.refusal,
-      _vaccinaor_uid);
+      this._vaccinaor_uid);
 
   Map<String, dynamic> getMapOf() {
     Map<String, dynamic> map = {
@@ -53,7 +53,7 @@ class NewRegisterationModel {
       'city': _city,
       'tahsil': _tahsil,
       'latitude': _latitude,
-      'Longitude': _longitude,
+      'longitude': _longitude,
       'key': key,
       'address': _address,
       'pic': _pic,

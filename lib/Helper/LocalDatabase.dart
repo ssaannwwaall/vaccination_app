@@ -8,6 +8,8 @@ class LocalDatabase {
   static const String _customVaccines = 'customVaccines';
   static const String _myReportingCases = 'myReportingCases';
   static const String _myNewBorn = 'myNewBorn';
+  static const String _myNewReg = 'myNewReg';
+  static const String _myNewCustomReg = 'myNewCustomReg';
 
   static Future saveCitiesAndRegons(Map regons) async {
     try {
@@ -129,6 +131,8 @@ class LocalDatabase {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString(_myNewBorn, regons);
+      print("new baby saved");
+      print(regons);
       return true;
     } catch (e) {
       print("all kids saving error $e.toString()");
@@ -140,6 +144,56 @@ class LocalDatabase {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? value = prefs.getString(_myNewBorn);
+      print(value);
+      return value!; // sending back as a map
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  static Future setMyReg(String regons) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString(_myNewReg, regons);
+      print("new reg saved");
+      print(regons);
+      return true;
+    } catch (e) {
+      print("all reg saving error $e.toString()");
+      return null;
+    }
+  }
+
+  static Future getMyReg() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? value = prefs.getString(_myNewReg);
+      print(value);
+      return value!; // sending back as a map
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  static Future setMyCustomReg(String regons) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString(_myNewCustomReg, regons);
+      print("new Custom reg saved");
+      print(regons);
+      return true;
+    } catch (e) {
+      print("all Custom reg saving error $e.toString()");
+      return null;
+    }
+  }
+
+  static Future getMyCustomReg() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? value = prefs.getString(_myNewCustomReg);
       print(value);
       return value!; // sending back as a map
     } catch (e) {

@@ -111,6 +111,9 @@ class _NewBirthChildScreenState extends State<NewBirthChildScreen> {
                         ),
                         GestureDetector(
                           onTap: () async {
+
+
+
                             Feedback.forTap(context);
                             print('file picked       click...');
                             _filePicPicked = await Helper.getPictureFromPhone();

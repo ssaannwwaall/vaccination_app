@@ -22,8 +22,8 @@ import 'package:camera/camera.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 
-String? _imgFilePicPath = null;
-String pic_url = '';
+//String? _imgFilePicPath = null;
+//String pic_url = '';
 
 class NewRegisterationScreen extends StatefulWidget {
   static const String routeName = '/NewRegisterationScreen';
@@ -47,8 +47,8 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
   int _radioGroupValueGender = 0;
   int _radioGroupValueCategory = 0;
 
-  //PlatformFile? _filePicPicked;
-  //String pic_url = '';
+  PlatformFile? _filePicPicked;
+  String pic_url = '';
   final List<String> _cities = ['City'];
   final List<String> _tahsil = ['Tahsil'];
   final List<String> _councils = ['Council'];
@@ -133,7 +133,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                             ),
                             GestureDetector(
                               onTap: () async {
-                                // Obtain a list of the available cameras on the device.
+                                /* // Obtain a list of the available cameras on the device.
                                 final cameras = await availableCameras();
                                 // Get a specific camera from the list of available cameras.
                                 final firstCamera = cameras.first;
@@ -143,41 +143,42 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => TakePictureScreen(
                                         camera: firstCamera)));
-
-                                //_filePicPicked = await Helper.getPictureFromPhone();
+*/
+                                _filePicPicked =
+                                    await Helper.getPictureFromPhone();
                                 //if (_filePicPicked != null) {
-                                /*if (_imgFilePicPath != null) {
-                                // setState(() {
-                                //   _filePicPicked;
-                                //   print('file picked  $_filePicPicked');
-                                // });
-                                if (await Helper.isInternetAvailble()) {
-                                  pic_url = await FirebaseCalls.uploadPicture(
-                                      'newReg',
-                                      _controllerPhone.text.toString(),
-                                      _imgFilePicPath!);
+                                if (_filePicPicked != null) {
+                                  setState(() {
+                                    _filePicPicked;
+                                    print('file picked  $_filePicPicked');
+                                  });
+                                  if (await Helper.isInternetAvailble()) {
+                                    pic_url = await FirebaseCalls.uploadPicture(
+                                        'newReg',
+                                        _controllerPhone.text.toString(),
+                                        _filePicPicked!.path!);
+                                  } else {
+                                    pic_url = _filePicPicked!.path!;
+                                  }
+                                  print('download url in screen is $pic_url');
                                 } else {
-                                  pic_url = _imgFilePicPath!;
+                                  //something went wrong
+                                  Fluttertoast.showToast(
+                                      msg: "Image not found",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: MyColors.color_gray,
+                                      textColor: MyColors.color_white,
+                                      fontSize: 16.0);
                                 }
-                                print('download url in screen is $pic_url');
-                              } else {
-                                //something went wrong
-                                Fluttertoast.showToast(
-                                    msg: "Image not found",
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.BOTTOM,
-                                    timeInSecForIosWeb: 1,
-                                    backgroundColor: MyColors.color_gray,
-                                    textColor: MyColors.color_white,
-                                    fontSize: 16.0);
-                              }*/
                               },
                               child: Container(
                                 width: _width * .9,
                                 height: _hight * 0.13,
-                                child: _imgFilePicPath != null
+                                child: _filePicPicked != null
                                     ? Image.file(
-                                        File(_imgFilePicPath!),
+                                        File(_filePicPicked!.path!),
                                         //fit: BoxFit.cover,
                                       )
                                     : Image.asset(
@@ -964,25 +965,27 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                           list_of_vaccinations,
                                           refusal,
                                           FirebaseCalls.user.uid);
+                                      obj.vaccinaor_uid =
+                                          FirebaseCalls.user.uid;
                                       print('button pressed');
                                       if (await Helper.isInternetAvailble()) {
                                         FirebaseCalls.setNewRegistration(
-                                            newReg: obj)
+                                                newReg: obj)
                                             .then((value) => {
-                                          if (value == null)
-                                            {
-                                              showtoas(
-                                                  'New reg. successfully'),
-                                              Navigator.of(context)
-                                                  .pushNamed(HomeScreen
-                                                  .routeName),
-                                            }
-                                          else
-                                            {
-                                              showtoas(
-                                                  'Something went wrong'),
-                                            }
-                                        });
+                                                  if (value == null)
+                                                    {
+                                                      showtoas(
+                                                          'New reg. successfully'),
+                                                      Navigator.of(context)
+                                                          .pushNamed(HomeScreen
+                                                              .routeName),
+                                                    }
+                                                  else
+                                                    {
+                                                      showtoas(
+                                                          'Something went wrong'),
+                                                    }
+                                                });
                                       } else {
                                         showtoas(
                                             'have not internet connection');
@@ -1278,7 +1281,7 @@ void showtoas(String s) {
       fontSize: 16.0);
 }
 
-class TakePictureScreen extends StatefulWidget {
+/*class TakePictureScreen extends StatefulWidget {
   const TakePictureScreen({
     key,
     required this.camera,
@@ -1406,4 +1409,4 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       ),
     );
   }
-}
+}*/

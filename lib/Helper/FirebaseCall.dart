@@ -268,7 +268,7 @@ class FirebaseCalls {
         int myCases = 0;
         data.forEach((key, value) {
           if (FirebaseCalls.user != null) {
-            if (value['vaccinaor_uid'] == FirebaseCalls.user.uid) {
+            if (value['vaccinator_uid'] == FirebaseCalls.user.uid) {
               myCases = myCases + 1;
               LocalDatabase.setMYNewBorns(myCases.toString());
             }
@@ -276,6 +276,48 @@ class FirebaseCalls {
         });
       } else {
         LocalDatabase.setMYNewBorns(0.toString());
+      }
+    });
+    return null;
+  }
+
+  static Future getAllNewReg() async {
+    ref_regis_kids.once();
+    ref_regis_kids.onValue.listen((value) {
+      if (value.snapshot.exists) {
+        Map data = (value.snapshot.value as Map);
+        int myreg = 0;
+        data.forEach((key, value) {
+          if (FirebaseCalls.user != null) {
+            if (value['vaccinaor_uid'] == FirebaseCalls.user.uid) {
+              myreg = myreg + 1;
+              LocalDatabase.setMyReg(myreg.toString());
+            }
+          }
+        });
+      } else {
+        LocalDatabase.setMyReg(0.toString());
+      }
+    });
+    return null;
+  }
+
+  static Future getAllMyCustomvacc() async {
+    ref_custom_vaccinations_record.once();
+    ref_custom_vaccinations_record.onValue.listen((value) {
+      if (value.snapshot.exists) {
+        Map data = (value.snapshot.value as Map);
+        int mycustomreg = 0;
+        data.forEach((key, value) {
+          if (FirebaseCalls.user != null) {
+            if (value['vaccinaor_uid'] == FirebaseCalls.user.uid) {
+              mycustomreg = mycustomreg + 1;
+              LocalDatabase.setMyCustomReg(mycustomreg.toString());
+            }
+          }
+        });
+      } else {
+        LocalDatabase.setMyCustomReg(0.toString());
       }
     });
     return null;

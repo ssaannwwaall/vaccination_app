@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:camera/camera.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -19,8 +20,8 @@ import 'Widget/MyButton.dart';
 import 'Widget/MyTextFiled.dart';
 import 'package:intl/intl.dart';
 
-String? _imgFilePicPath = null;
-String pic_url = '';
+//String? _imgFilePicPath = null;
+//String pic_url = '';
 
 class CustomVaccinationScreen extends StatefulWidget {
   static const routeName = "/CustomVaccinationScreen";
@@ -44,8 +45,8 @@ class _CustomVaccinationScreenState extends State<CustomVaccinationScreen> {
   Position? currentPosition;
   int _radioGroupValueGender = 0;
 
-  //PlatformFile? _filePicPicked;
-  //String pic_url = '';
+  PlatformFile? _filePicPicked;
+  String pic_url = '';
   final List<String> _cities = ['City'];
   final List<String> _tahsil = ['Tahsil'];
   final List<String> _councils = ['Council'];
@@ -112,20 +113,48 @@ class _CustomVaccinationScreenState extends State<CustomVaccinationScreen> {
                         ),
                         GestureDetector(
                           onTap: () async {
-                            final cameras = await availableCameras();
+                            /*final cameras = await availableCameras();
                             final firstCamera = cameras.first;
                             Feedback.forTap(context);
                             print('going to take camera...');
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) =>
-                                    TakePictureScreen(camera: firstCamera)));
+                                    TakePictureScreen(camera: firstCamera)));*/
+
+                            _filePicPicked = await Helper.getPictureFromPhone();
+                            //if (_filePicPicked != null) {
+                            if (_filePicPicked != null) {
+                              setState(() {
+                                _filePicPicked;
+                                print('file picked  $_filePicPicked');
+                              });
+                              if (await Helper.isInternetAvailble()) {
+                                pic_url = await FirebaseCalls.uploadPicture(
+                                    'newReg',
+                                    _controllerPhone.text.toString(),
+                                    _filePicPicked!.path!);
+                              } else {
+                                pic_url = _filePicPicked!.path!;
+                              }
+                              print('download url in screen is $pic_url');
+                            } else {
+                              //something went wrong
+                              Fluttertoast.showToast(
+                                  msg: "Image not found",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIosWeb: 1,
+                                  backgroundColor: MyColors.color_gray,
+                                  textColor: MyColors.color_white,
+                                  fontSize: 16.0);
+                            }
                           },
                           child: Container(
                             width: _width * .9,
                             height: _hight * 0.13,
-                            child: _imgFilePicPath != null
+                            child: _filePicPicked != null
                                 ? Image.file(
-                                    File(_imgFilePicPath!),
+                                    File(_filePicPicked!.path!),
                                     //fit: BoxFit.cover,
                                   )
                                 : SvgPicture.asset('assets/images/camera.svg'),
@@ -631,6 +660,8 @@ class _CustomVaccinationScreenState extends State<CustomVaccinationScreen> {
                                       //list of vaccinations
                                       false,
                                       FirebaseCalls.user.uid);
+                                  obj.vaccinaor_uid = FirebaseCalls.user.uid;
+                                  obj.epi_card_no = _selectedVaccine!;
 
                                   if (await Helper.isInternetAvailble()) {
                                     FirebaseCalls.setCustomVaccinationRecord(
@@ -749,7 +780,7 @@ void showtoas(String s) {
       fontSize: 16.0);
 }
 
-class TakePictureScreen extends StatefulWidget {
+/*class TakePictureScreen extends StatefulWidget {
   const TakePictureScreen({
     key,
     required this.camera,
@@ -856,4 +887,4 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       ),
     );
   }
-}
+}*/

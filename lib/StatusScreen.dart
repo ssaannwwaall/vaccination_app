@@ -17,6 +17,8 @@ class StatusScreen extends StatefulWidget {
 class _StatusScreenState extends State<StatusScreen> {
   String _myCases = '0';
   String _myBorns = '0';
+  String _myReg = '0';
+  String _myCustomVac = '0';
 
   @override
   void initState() {
@@ -64,14 +66,14 @@ class _StatusScreenState extends State<StatusScreen> {
                               MyColors.color_purpel_light,
                               _myCases),
                           StatusCard(_hight * .20, _width * .42, 'New Reg.',
-                              MyColors.color_purpel_light, '12'),
+                              MyColors.color_purpel_light, _myReg),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           StatusCard(_hight * .20, _width * .42, 'Custom vac.',
-                              MyColors.color_purpel_light, '87'),
+                              MyColors.color_purpel_light, _myCustomVac),
                           StatusCard(
                               _hight * .20,
                               _width * .42,
@@ -142,6 +144,39 @@ class _StatusScreenState extends State<StatusScreen> {
             {
               setState(() {
                 _myBorns = '0';
+              }),
+            }
+        });
+
+    await LocalDatabase.getMyReg().then((value) => {
+          if (value != null)
+            {
+              setState(() {
+                _myReg = value;
+                print('new _my Reg');
+                print(_myReg);
+              }),
+            }
+          else
+            {
+              setState(() {
+                _myReg = '0';
+              }),
+            }
+        });
+    await LocalDatabase.getMyCustomReg().then((value) => {
+          if (value != null)
+            {
+              setState(() {
+                _myCustomVac = value;
+                print('new _my Custom Vac Reg');
+                print(_myCustomVac);
+              }),
+            }
+          else
+            {
+              setState(() {
+                _myCustomVac = '0';
               }),
             }
         });
