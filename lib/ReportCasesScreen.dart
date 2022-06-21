@@ -75,7 +75,7 @@ class _ReportCasesScreenState extends State<ReportCasesScreen> {
   @override
   Widget build(BuildContext context) {
     currentPosition = Helper.currentPositon;
-    screenThemeColor = MyColors.color_ref_light;
+    screenThemeColor = Color.fromARGB(255, 39, 76, 211);
     MediaQueryData mediaQueryData = MediaQuery.of(context);
     var _hight = mediaQueryData.size.height;
     var _width = mediaQueryData.size.width;
@@ -86,6 +86,17 @@ class _ReportCasesScreenState extends State<ReportCasesScreen> {
 
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          actions: [],
+          backgroundColor: screenThemeColor,
+          title: const Text(
+            'Case reporting',
+            style: TextStyle(
+                fontSize: 20,
+                color: MyColors.color_white,
+                fontWeight: FontWeight.w500),
+          ),
+        ),
         body: Container(
           color: MyColors.color_white,
           height: _hight,
@@ -98,20 +109,20 @@ class _ReportCasesScreenState extends State<ReportCasesScreen> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Container(
-                          color: screenThemeColor,
-                          height: _hight * .07,
-                          width: _width,
-                          child: const Center(
-                            child: Text(
-                              'Case reporting',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  color: MyColors.color_white,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                        ),
+                        // Container(
+                        //   color: screenThemeColor,
+                        //   height: _hight * .07,
+                        //   width: _width,
+                        //   child: const Center(
+                        //     child: Text(
+                        //       'Case reporting',
+                        //       style: TextStyle(
+                        //           fontSize: 20,
+                        //           color: MyColors.color_white,
+                        //           fontWeight: FontWeight.w500),
+                        //     ),
+                        //   ),
+                        // ),
                         /*GestureDetector(
                           onTap: () async {
                             final cameras = await availableCameras();
@@ -157,19 +168,19 @@ class _ReportCasesScreenState extends State<ReportCasesScreen> {
                                           children: [
                                             MyTextFiled(
                                                 _width * .47,
-                                                'Patient name',
+                                                'Patient Name مر یض کا نام',
                                                 TextInputType.name,
                                                 _controllerName),
                                             MyTextFiled(
                                                 _width * .47,
-                                                'Father name',
+                                                'Father Name   والد کا نام ',
                                                 TextInputType.name,
                                                 _controllerFName),
                                           ],
                                         ),
                                         MyTextFiled(
                                             _width * 0.95,
-                                            'Mobile',
+                                            'Mobile No   موبائل نمبر',
                                             TextInputType.name,
                                             _controllerPhone),
                                         Row(
@@ -260,7 +271,7 @@ class _ReportCasesScreenState extends State<ReportCasesScreen> {
                                                   child: DropdownButton(
                                                     underline: SizedBox(),
                                                     elevation: 5,
-                                                    hint: Text('City'),
+                                                    hint: Text('City   شہر'),
                                                     value: _selectedCity,
                                                     onChanged:
                                                         (newValue) async {
@@ -302,7 +313,7 @@ class _ReportCasesScreenState extends State<ReportCasesScreen> {
                                                   child: DropdownButton(
                                                       underline: SizedBox(),
                                                       hint: const Text(
-                                                        'Tahsil',
+                                                        'Tahsil   تحصیل',
                                                         style: TextStyle(
                                                             fontSize: 14,
                                                             fontWeight:
@@ -361,7 +372,7 @@ class _ReportCasesScreenState extends State<ReportCasesScreen> {
                                             child: DropdownButton(
                                                 underline: SizedBox(),
                                                 hint: const Text(
-                                                  'Union council',
+                                                  'Union council   یو نین کو نسل',
                                                   style: TextStyle(
                                                       fontSize: 14,
                                                       fontWeight:
@@ -401,21 +412,21 @@ class _ReportCasesScreenState extends State<ReportCasesScreen> {
                                               MainAxisAlignment.center,
                                           children: [
                                             SizedBox(
-                                              width: _width * .45,
+                                              width: _width * .30,
                                               child: const Center(
                                                   child: Text(
-                                                'Disease name',
+                                                'Disease Name',
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.w600,
                                                     fontSize: 16),
                                               )),
                                             ),
                                             Container(
-                                              width: _width * .45,
+                                              width: _width * .60,
                                               child: Center(
                                                 child: MyTextFiled(
-                                                    _width * 0.95,
-                                                    '',
+                                                    _width * 0.60,
+                                                    'Disease Name  بیماری کا نام',
                                                     TextInputType.name,
                                                     _controllerSufferingFrom),
                                               ),
@@ -482,29 +493,29 @@ class _ReportCasesScreenState extends State<ReportCasesScreen> {
                                                 },
                                               ),
                                             ),
-                                            Container(
-                                              width: _width * 0.33,
-                                              height: _hight * 0.06,
-                                              child: RadioListTile(
-                                                value: 2,
-                                                groupValue:
-                                                    _radioGroupValueGender,
-                                                activeColor: screenThemeColor!,
-                                                selected: false,
-                                                title: const Text(
-                                                  'Trans',
-                                                  style: TextStyle(
-                                                    color: MyColors.color_black,
-                                                    fontSize: 11,
-                                                  ),
-                                                ),
-                                                onChanged: (value) {
-                                                  setState(() =>
-                                                      _radioGroupValueGender =
-                                                          value as int);
-                                                },
-                                              ),
-                                            ),
+                                            // Container(
+                                            //   width: _width * 0.33,
+                                            //   height: _hight * 0.06,
+                                            //   child: RadioListTile(
+                                            //     value: 2,
+                                            //     groupValue:
+                                            //         _radioGroupValueGender,
+                                            //     activeColor: screenThemeColor!,
+                                            //     selected: false,
+                                            //     title: const Text(
+                                            //       'Trans',
+                                            //       style: TextStyle(
+                                            //         color: MyColors.color_black,
+                                            //         fontSize: 11,
+                                            //       ),
+                                            //     ),
+                                            //     onChanged: (value) {
+                                            //       setState(() =>
+                                            //           _radioGroupValueGender =
+                                            //               value as int);
+                                            //     },
+                                            //   ),
+                                            // ),
                                           ],
                                         ),
                                       ],
@@ -529,7 +540,7 @@ class _ReportCasesScreenState extends State<ReportCasesScreen> {
                                 Navigator.of(context)
                                     .pushNamed(NavHomeScreen.routeName);
                               }),
-                              MyButton('Add new Case', screenThemeColor!,
+                              MyButton('Add New Case', screenThemeColor!,
                                   _width * .48, () async {
                                 String? name = CustomValidator()
                                     .validateDescription(

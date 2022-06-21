@@ -66,15 +66,15 @@ class _SplashScreenState extends State<SplashScreen>
             height: _hight * .3,
             width: _width * .4,
             child: Image.asset(
-              'assets/images/newlogo.png',
+              'assets/images/risi.png',
             ),
           ),
           Container(
-            child: Text(
-              "Risi Vaccination",
+            child: const Text(
+              "Routine Immuniztion Stengthening initiative",
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 25,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),

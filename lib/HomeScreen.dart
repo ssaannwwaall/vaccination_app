@@ -182,7 +182,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: MyColors.splash,
                   child: Center(
                     child: Text(
-                      'Click to Upload Pendding Data',
+                      'Click to Upload Pending Data',
                       style: TextStyle(
                           color: MyColors.color_white,
                           fontWeight: FontWeight.bold,

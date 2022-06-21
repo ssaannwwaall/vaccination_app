@@ -18,6 +18,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:vaccination_app/Models/VaccinatorUser.dart';
 import 'package:vaccination_app/Helper/Helper.dart';
 
+import 'NavHomeScreen.dart';
+
 class LoginScreen extends StatefulWidget {
   static const routeName = '/LoginScreen';
 
@@ -40,19 +42,14 @@ class _LoginScreenState extends State<LoginScreen> {
     var _width = mediaQueryData.size.width;
     return Scaffold(
       body: Container(
-
-        decoration: const BoxDecoration(
-
-          image: DecorationImage(
-
-            image: AssetImage("assets/images/bgg.jpg"),
-            colorFilter:
-            ColorFilter.mode(Colors.black,
-                BlendMode.dstATop),
-            fit: BoxFit.cover,
-          ),
-        ),
-        //color: MyColors.color_white,
+        // decoration: const BoxDecoration(
+        //   image: DecorationImage(
+        //     image: AssetImage("assets/images/bgg.jpg"),
+        //     colorFilter: ColorFilter.mode(Colors.black, BlendMode.dstATop),
+        //     fit: BoxFit.cover,
+        //   ),
+        // ),
+        color: const Color.fromARGB(255, 167, 188, 215),
         height: _hight,
         width: _width,
         child: Padding(
@@ -61,8 +58,8 @@ class _LoginScreenState extends State<LoginScreen> {
             Container(
               height: _hight * .15,
               width: _width * .5,
-              child: SvgPicture.asset(
-                'assets/images/logo.svg',
+              child: Image.asset(
+                'assets/images/risi.png',
               ),
             ),
             const Padding(
@@ -109,9 +106,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Text(
                   _textRegister,
                   style: const TextStyle(
-                      color: MyColors.color_black,
+                      color: MyColors.color_white,
                       fontWeight: FontWeight.w500,
-                      fontSize: 14),
+                      fontSize: 16),
                 ),
               ),
               onTap: () {
@@ -182,7 +179,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             fontSize: 16.0),
                         //get datafrom firebase and save in sharedpreference
 
-                        Navigator.of(context).pushNamed(HomeScreen.routeName),
+                        Navigator.of(context)
+                            .pushNamed(NavHomeScreen.routeName),
                       }
                     else
                       {
