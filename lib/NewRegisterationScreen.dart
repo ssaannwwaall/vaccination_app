@@ -546,56 +546,6 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                                     ),
                                                   ),
                                                 ),
-                                                /* Container(
-                                                width: _width * .47,
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.rectangle,
-                                                  border: Border.all(
-                                                      width: .5,
-                                                      color: screenThemeColor),
-                                                  borderRadius:
-                                                      BorderRadius.circular(5),
-                                                ),
-                                                child: Center(
-                                                  child: DropdownButton(
-                                                      underline: SizedBox(),
-                                                      hint: const Text(
-                                                        'Vaccine',
-                                                        style: TextStyle(
-                                                            fontSize: 14,
-                                                            fontWeight:
-                                                                FontWeight.w600),
-                                                      ),
-                                                      value: _selectedVaccine,
-                                                      onChanged: (newValue) {
-                                                        setState(() {
-                                                          _selectedVaccine =
-                                                              newValue.toString();
-                                                        });
-                                                      },
-                                                      items: _vaccine != null ||
-                                                              _vaccine.isNotEmpty
-                                                          ? _vaccine.map(
-                                                              (thislocation) {
-                                                              return DropdownMenuItem(
-                                                                child: Text(
-                                                                    thislocation),
-                                                                value:
-                                                                    thislocation,
-                                                              );
-                                                            }).toList()
-                                                          : [
-                                                              'Vaccine'
-                                                            ].map((thislocation) {
-                                                              return DropdownMenuItem(
-                                                                child: Text(
-                                                                    thislocation),
-                                                                value:
-                                                                    thislocation,
-                                                              );
-                                                            }).toList()),
-                                                ),
-                                              ),*/
 
                                                 // MyTextFiled(
                                                 //     _width * .47,
@@ -625,16 +575,6 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                                   margin: const EdgeInsets.only(
                                                       top: 5),
                                                   width: _width * .5,
-                                                  // decoration: BoxDecoration(
-                                                  //   shape: BoxShape.rectangle,
-                                                  //   border: Border.all(
-                                                  //       width: .5,
-                                                  //       color:
-                                                  //           screenThemeColor),
-                                                  //   borderRadius:
-                                                  //       BorderRadius.circular(
-                                                  //           5),
-                                                  // ),
                                                   child: Card(
                                                     color:
                                                         MyColors.New_Register,
@@ -674,32 +614,6 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                                 ),
                                               ],
                                             ),
-
-                                            /*Container(
-                                            width: _width * 9,
-                                            child: Row(
-                                              children: [
-                                                // Checkbox(
-                                                //     activeColor: screenThemeColor,
-                                                //     value: checkboxVacciened,
-                                                //     onChanged: (onChanged) {
-                                                //       setState(() {
-                                                //         checkboxVacciened =
-                                                //             onChanged as bool;
-                                                //         print(
-                                                //             'value   $checkboxVacciened');
-                                                //       });
-                                                //     }),
-                                                const Text(
-                                                  'Have done this vaccine',
-                                                  style: TextStyle(
-                                                    color: MyColors.color_black,
-                                                    fontSize: 14,
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),*/
 
                                             MyTextFiled(
                                                 _width * 0.95,
@@ -765,31 +679,6 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                                     },
                                                   ),
                                                 ),
-                                                // Container(
-                                                //   width: _width * 0.33,
-                                                //   height: _hight * 0.06,
-                                                //   child: RadioListTile(
-                                                //     value: 2,
-                                                //     groupValue:
-                                                //         _radioGroupValueGender,
-                                                //     activeColor:
-                                                //         screenThemeColor,
-                                                //     selected: false,
-                                                //     title: const Text(
-                                                //       'Trans',
-                                                //       style: TextStyle(
-                                                //         color: MyColors
-                                                //             .color_black,
-                                                //         fontSize: 11,
-                                                //       ),
-                                                //     ),
-                                                //     onChanged: (value) {
-                                                //       setState(() =>
-                                                //           _radioGroupValueGender =
-                                                //               value as int);
-                                                //     },
-                                                //   ),
-                                                // ),
                                               ],
                                             ),
                                             const Text(
@@ -862,7 +751,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                 ],
                               ),
                             ),
-                            Container(
+                            /*Container(
                               height: _hight * .1,
                               width: _width,
                               child: Row(
@@ -1004,11 +893,8 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                         // save in local data base
                                       }
                                     }
-                                  }),
-                                ],
-                              ),
-                            ),
-                            /*Container(
+                                  }),*/
+                            Container(
                               height: _hight * .1,
                               width: _width,
                               child: Row(
@@ -1096,8 +982,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                       //upload data
                                       //_radioGroupValueCategory
                                       print('list of vaccinations ');
-                                      print(list_of_vaccinations[0]
-                                          .vaccination_name);
+
                                       var obj = NewRegisterationModel(
                                           _controllerName.text.toString(),
                                           _controllerFName.text.toString(),
@@ -1132,8 +1017,9 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                                       showtoas(
                                                           'New reg. successfully'),
                                                       Navigator.of(context)
-                                                          .pushNamed(HomeScreen
-                                                              .routeName),
+                                                          .pushNamed(
+                                                              NavHomeScreen
+                                                                  .routeName),
                                                     }
                                                   else
                                                     {
@@ -1156,13 +1042,16 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                         ),
                       ],
                     ),
+                    //],
                   ),
                 ],
               ),
+              //]
             ),
           ],
         ),
       ),
+      //]
     );
   }
 
@@ -1421,4 +1310,5 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       ),
     );
   }
-}*/
+}
+ */

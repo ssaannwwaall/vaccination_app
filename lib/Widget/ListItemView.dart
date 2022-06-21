@@ -95,7 +95,7 @@ class ListItemView extends StatelessWidget {
                                 color: MyColors.color_white),
                           ),*/
                           Padding(
-                            padding: const EdgeInsets.all( 8.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: Text(
                               'Phone ${newRegisteraionModel!.phone}',
                               style: const TextStyle(

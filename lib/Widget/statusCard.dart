@@ -44,7 +44,7 @@ class StatusCard extends StatelessWidget {
             Container(
               width: _width * .8,
               height: .5,
-              color: MyColors.color_black,
+              color: MyColors.color_white,
             ),
             Container(
               height: _hight * 0.3,

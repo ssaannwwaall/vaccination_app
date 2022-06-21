@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:vaccination_app/Helper/LocalDatabase.dart';
 import 'package:vaccination_app/Helper/MyColors.dart';
@@ -34,6 +36,17 @@ class _StatusScreenState extends State<StatusScreen> {
     var _width = mediaQueryData.size.width;
 
     return Scaffold(
+      appBar: AppBar(
+        actions: [],
+        backgroundColor: MyColors.splash,
+        title: const Text(
+          "RISI Status ",
+          style: TextStyle(
+              fontSize: 20,
+              color: MyColors.color_white,
+              fontWeight: FontWeight.w500),
+        ),
+      ),
       body: SafeArea(
         child: SizedBox(
           width: _width,
@@ -41,14 +54,14 @@ class _StatusScreenState extends State<StatusScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Row(
+              /* Row(
                 children: const [
                   Text(
-                    'RISI Status ',
+                    '',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                   ),
                 ],
-              ),
+              ),*/
               Container(
                 width: _width,
                 height: _hight * .70,
@@ -59,27 +72,19 @@ class _StatusScreenState extends State<StatusScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          StatusCard(
-                              _hight * .20,
-                              _width * .42,
-                              'Case Reporting',
-                              MyColors.color_purpel_light,
-                              _myCases),
-                          StatusCard(_hight * .20, _width * .42, 'New Reg.',
-                              MyColors.color_purpel_light, _myReg),
+                          StatusCard(_hight * .25, _width * .42,
+                              'Case Reporting', MyColors.splash, _myCases),
+                          StatusCard(_hight * .25, _width * .42, 'New Reg.',
+                              MyColors.Newly_Born, _myReg),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          StatusCard(_hight * .20, _width * .42, 'Custom vac.',
-                              MyColors.color_purpel_light, _myCustomVac),
-                          StatusCard(
-                              _hight * .20,
-                              _width * .42,
-                              'New born reg.',
-                              MyColors.color_purpel_light,
-                              _myBorns),
+                          StatusCard(_hight * .25, _width * .42, 'Custom Vacc.',
+                              MyColors.Defaulters, _myCustomVac),
+                          StatusCard(_hight * .25, _width * .42, 'Newly Born',
+                              MyColors.New_Register, _myBorns),
                         ],
                       ),
                     ],
