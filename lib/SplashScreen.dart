@@ -70,19 +70,20 @@ class _SplashScreenState extends State<SplashScreen>
             ),
           ),
           Container(
-           child: Text("Risi Vaccination",style:  TextStyle(
-             color: Colors.white,
-             fontSize: 25,
-               fontWeight: FontWeight.bold,
-           ),),
+            child: Text(
+              "Risi Vaccination",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           )
         ],
       ),
     );
   }
 }
-
-
 
 _loadCitiesAndRegonsAndVaccines() async {
   print('internet checking');

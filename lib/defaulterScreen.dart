@@ -57,12 +57,8 @@ class _UpcomingScreenState extends State<DefaulterScreen> {
                       ? ListView.builder(
                           itemCount: list_defaulter.length,
                           itemBuilder: (ctx, index) {
-                            return ListItemView(
-                                _width,
-                                list_defaulter[index],
-                                'Vaccination date was ',
-                                screeThemeColor,
-                                () {});
+                            return ListItemView(_width, list_defaulter[index],
+                                '', screeThemeColor, () {});
                           },
                         )
                       : const Center(

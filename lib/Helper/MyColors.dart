@@ -26,4 +26,5 @@ class MyColors {
   static const Color Fllow_up = Color.fromARGB(255, 33, 140, 198);
   static const Color Refusals = Color.fromARGB(255, 57, 189, 45);
   static const Color Defaulters = Color.fromARGB(255, 235, 85, 107);
+  static const Color transparent = Color.fromARGB(0, 235, 85, 107);
 }

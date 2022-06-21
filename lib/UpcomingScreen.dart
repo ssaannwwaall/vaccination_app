@@ -59,7 +59,7 @@ class _UpcomingScreenState extends State<UpcomingScreen> {
                 padding: const EdgeInsets.all(10.0),
                 child: Container(
                   width: _width,
-                  height: _hight * .75,
+                  height: _hight *.84,
                   child: list_kids.isNotEmpty
                       ? ListView.builder(
                           itemCount: list_kids.length,

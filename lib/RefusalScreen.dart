@@ -61,7 +61,7 @@ class _UpcomingScreenState extends State<RefusalScreen> {
                           itemCount: list_refusal.length,
                           itemBuilder: (ctx, index) {
                             return ListItemView(_width, list_refusal[index],
-                                'Vaccination date ', screeThemeColor, () {});
+                                '', screeThemeColor, () {});
                           },
                         )
                       : const Center(
