@@ -140,9 +140,10 @@ class _CustomVaccinationScreenState extends State<CustomVaccinationScreen> {
                                 print('file picked  $_filePicPicked');
                               });
                               if (await Helper.isInternetAvailble()) {
+                                Random r = Random(0);
                                 pic_url = await FirebaseCalls.uploadPicture(
                                     'newReg',
-                                    _controllerPhone.text.toString(),
+                                    '${r.nextInt(100000)}-${r.nextInt(4444)} -${r.nextInt(3322)} ',
                                     _filePicPicked!.path!);
                               } else {
                                 pic_url = _filePicPicked!.path!;

@@ -193,7 +193,7 @@ class _VaccineToRegisKidsState extends State<VaccineToRegisKids> {
                                 fontSize: 14, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            '${Helper.currentPositon.longitude.toString()}}',
+                            '${Helper.currentPositon.latitude.toString()}',
                             style: const TextStyle(
                               fontSize: 14,
                             ),
@@ -219,7 +219,7 @@ class _VaccineToRegisKidsState extends State<VaccineToRegisKids> {
                                 fontSize: 14, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            '${Helper.currentPositon.longitude.toString()}}',
+                            '${Helper.currentPositon.longitude.toString()}',
                             style: const TextStyle(
                               fontSize: 14,
                             ),

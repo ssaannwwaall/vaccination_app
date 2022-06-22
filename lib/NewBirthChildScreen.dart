@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -124,9 +125,6 @@ class _NewBirthChildScreenState extends State<NewBirthChildScreen> {
                         // ),
                         GestureDetector(
                           onTap: () async {
-
-
-
                             Feedback.forTap(context);
                             print('file picked       click...');
                             _filePicPicked = await Helper.getPictureFromPhone();
@@ -136,9 +134,10 @@ class _NewBirthChildScreenState extends State<NewBirthChildScreen> {
                                 print('file picked  $_filePicPicked');
                               });
                               if (await Helper.isInternetAvailble()) {
+                                Random r = Random();
                                 pic_url = await FirebaseCalls.uploadPicture(
                                     'newlyBorn',
-                                    _controllerPhone.text.toString(),
+                                    '${r.nextInt(100000)}-${r.nextInt(4444)} -${r.nextInt(3322)} ',
                                     _filePicPicked!.path!);
                               } else {
                                 pic_url = _filePicPicked!.path!;
@@ -619,7 +618,7 @@ class _NewBirthChildScreenState extends State<NewBirthChildScreen> {
                                       pic_url,
                                       DateFormat('yyyy-MM-dd – kk:mm')
                                           .format(DateTime.now()),
-                                  FirebaseCalls.user.uid);
+                                      FirebaseCalls.user.uid);
 
                                   if (await Helper.isInternetAvailble()) {
                                     FirebaseCalls.setNewlyBorn(newlyBorn: obj)
