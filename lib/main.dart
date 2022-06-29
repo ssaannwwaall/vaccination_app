@@ -42,7 +42,6 @@ class _MainState extends State<Main> {
         LoginScreen.routeName: (ctx) => LoginScreen(),
         HomeScreen.routeName: (ctx) => HomeScreen(),
         NewBirthChildScreen.routeName: (ctx) => NewBirthChildScreen(),
-        NewBirthChildScreen.routeName: (ctx) => NewBirthChildScreen(),
         NewRegisterationScreen.routeName: (ctx) => NewRegisterationScreen(),
         UpcomingScreen.routeName: (ctx) => UpcomingScreen(),
         DefaulterScreen.routeName: (ctx) => DefaulterScreen(),

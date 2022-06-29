@@ -19,7 +19,7 @@ class NewRegisterationModel {
   String? _vaccinaor_uid;
   bool? refusal;
 
-  //String? _vaccinationKey;
+  String? _vaccinationKey;
   String? _nextVaccinationDate;
   List<VaccinationDoseForRegular>? list_of_vaccincs = [];
 
@@ -38,7 +38,7 @@ class NewRegisterationModel {
       this._joiningDate,
       this._gender,
       this._nextVaccinationDate,
-      //this._vaccinationKey,
+      this._vaccinationKey,
       this.list_of_vaccincs,
       this.refusal,
       this._vaccinaor_uid);
@@ -60,7 +60,7 @@ class NewRegisterationModel {
       'unionCouncil': _unionCouncil,
       'joiningDate': _joiningDate,
       'gender': _gender,
-      //'vaccinationKey': _vaccinationKey,
+      'vaccinationKey': _vaccinationKey,
       'nextVaccinationDate': _nextVaccinationDate,
       'list_of_vaccincs': getMapofList(list_of_vaccincs), // list_of_vaccincs,
       //'list_of_vaccincs': list_of_vaccincs as Map<dynamic, dynamic>,
@@ -86,12 +86,13 @@ class NewRegisterationModel {
     _unionCouncil = value['unionCouncil'];
     _joiningDate = value['joiningDate'];
     _gender = value['gender'];
-    list_of_vaccincs = getListFromMap(value['list_of_vaccincs']);
+    list_of_vaccincs =   getListFromMap(value['list_of_vaccincs'] );
     _epi_card_no = value['epi_card_no'];
     _key = value['key'];
     _nextVaccinationDate = value['nextVaccinationDate'];
     refusal = value['refusal'];
     _vaccinaor_uid = value['vaccinaor_uid'];
+    _vaccinationKey = value['vaccinationKey']?? '';
   }
 
   String get nextVaccinationDate => _nextVaccinationDate!;
@@ -104,11 +105,12 @@ class NewRegisterationModel {
 
   set vaccinaor_uid(String value) {
     _vaccinaor_uid = value;
-  } // String get vaccinationKey => _vaccinationKey!;
-  //
-  // set vaccinationKey(String value) {
-  //   _vaccinationKey = value;
-  // }
+  }
+  String get vaccinationKey => _vaccinationKey!;
+
+  set vaccinationKey(String value) {
+    _vaccinationKey = value;
+  }
 
 
   get key => _key;

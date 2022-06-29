@@ -627,6 +627,7 @@ class _ReportCasesScreenState extends State<ReportCasesScreen> {
                                       gender.toString(),
                                       '',
                                       //_selectedVaccine.toString(),
+                                      '',// dose
                                       [],
                                       false,
                                       FirebaseCalls.user.uid);
