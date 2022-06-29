@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vaccination_app/Helper/Helper.dart';
 import 'package:vaccination_app/Helper/LocalDatabase.dart';
 import 'package:vaccination_app/Helper/MyColors.dart';
 import 'package:vaccination_app/Models/NewRegisteration.dart';
@@ -94,14 +95,20 @@ class ListItemView extends StatelessWidget {
                                 fontWeight: FontWeight.w500,
                                 color: MyColors.color_white),
                           ),*/
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              'Phone ${newRegisteraionModel!.phone}',
-                              style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  color: MyColors.color_white),
+                          InkWell(
+                            onTap: () async {
+                              await Helper.makePhoneCall(
+                                  newRegisteraionModel!.phone);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'Phone ${newRegisteraionModel!.phone}',
+                                style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: MyColors.color_white),
+                              ),
                             ),
                           ),
                           Padding(

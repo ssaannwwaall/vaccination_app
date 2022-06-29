@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -184,10 +183,56 @@ class FirebaseCalls {
 
   static Future getAllVaccines() async {
     //await ref_cities.keepSynced(false);
+    var query = ref_vaccines.orderByChild('priority');
+
+    // Map data  =query.onChildAdded as  Map<String, dynamic>;
+    //Map data  =(query.onChildAdded as DatabaseEvent).snapshot.value as  Map<String, dynamic>;
+    //print(' testinggggggggggggggggg $data');
+    // query.onChildAdded.forEach((event) {
+    //   //Map data = (event.snapshot as Map);
+    //   print('vaccines testpppppppppppp');
+    //   print(event.snapshot.value);
+    //   print(event.snapshot);
+    // });
+    //.forEach((event) => {
+    // print('vaccines testpppppppppppp'),
+    //   print(event.snapshot.value),
+    //   print(event.snapshot)
+    // });
+
+    /*ref_vaccines.once().then((snapshot) {
+      print("Done loading all data for query");
+      print('vaccines test $snapshot');
+      Map data = (snapshot.snapshot.value as Map);
+      data.forEach((key, value) {
+        print('doseeeeeeeeeee');
+        print(value['priority'].toString());
+        print(key);
+      });
+      LocalDatabase.saveDoseAndVaccines(data).then((result) => {
+            if (result == null)
+              {
+                //error
+                print('Vaccines cannot added in local database'),
+              }
+            else
+              {
+                print('Vaccines added successfully'),
+              }
+          });
+    });*/
+
     final snapshot = await ref_vaccines.once();
-    ref_vaccines.onValue.listen((DatabaseEvent value) async {
+    ref_vaccines.orderByKey().onValue.listen((DatabaseEvent value) async {
       Map data = (value.snapshot.value as Map);
-      print('vaccines test $data');
+
+      /*data.forEach((key, value) {
+        print('doseeeeeeeeeee');
+        print(value['priority'].toString());
+        print(key);
+      });
+*/
+     // await LocalDatabase.saveDoseAndVaccines(data).then((result) => {
       await LocalDatabase.saveDoseAndVaccines(data).then((result) => {
             if (result == null)
               {
@@ -200,6 +245,29 @@ class FirebaseCalls {
               }
           });
     });
+
+    /*final snapshot = await ref_vaccines.once();
+    ref_vaccines.orderByKey().onValue.listen((DatabaseEvent value) async {
+      Map data = (value.snapshot.value as Map);
+      print('vaccines test $data');
+      data.forEach((key, value) {
+        print('doseeeeeeeeeee');
+        print(value['priority'].toString());
+        print(key);
+      });
+
+      await LocalDatabase.saveDoseAndVaccines(data).then((result) => {
+            if (result == null)
+              {
+                //error
+                print('Vaccines cannot added in local database'),
+              }
+            else
+              {
+                print('Vaccines added successfully'),
+              }
+          });
+    });*/
     return null;
   }
 

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Helper {
   static Position currentPositon = Position(
@@ -67,5 +68,13 @@ class Helper {
     currentAddress =
         '${placemark.street} , ${placemark.subLocality}, ${placemark.postalCode}, ${placemark.country}';
     return currentPositon;
+  }
+
+  static Future<void> makePhoneCall(String phoneNumber) async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: phoneNumber,
+    );
+    await launchUrl(launchUri);
   }
 }

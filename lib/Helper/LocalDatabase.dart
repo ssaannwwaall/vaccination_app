@@ -38,6 +38,7 @@ class LocalDatabase {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString(_vaccinesAndDoes, json.encode(vaccineMap));
+      print("Vaccines saved to ${vaccineMap}");
       return true;
     } catch (e) {
       print("Vaccines and does saving error $e.toString()");

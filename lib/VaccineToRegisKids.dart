@@ -57,7 +57,7 @@ class _VaccineToRegisKidsState extends State<VaccineToRegisKids> {
         actions: [],
         backgroundColor: screenThemeColor,
         title: const Text(
-          'Add Vaccination Record',
+          'Vaccination Details',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
       ),
@@ -193,7 +193,8 @@ class _VaccineToRegisKidsState extends State<VaccineToRegisKids> {
                                 fontSize: 14, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            '${Helper.currentPositon.latitude.toString()}',
+                            //'${Helper.currentPositon.latitude.toString()}',
+                            '${Constants.regular_kid?.latitude}',
                             style: const TextStyle(
                               fontSize: 14,
                             ),
@@ -219,7 +220,8 @@ class _VaccineToRegisKidsState extends State<VaccineToRegisKids> {
                                 fontSize: 14, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            '${Helper.currentPositon.longitude.toString()}',
+                            //'${Helper.currentPositon.longitude.toString()}',
+                            '${Constants.regular_kid?.longitude}',
                             style: const TextStyle(
                               fontSize: 14,
                             ),
@@ -371,44 +373,47 @@ class _VaccineToRegisKidsState extends State<VaccineToRegisKids> {
                   ),
                 ],
               ),
-              MyButton('Submit', screenThemeColor, _width * .8, () async {
-                //upload data here recorde and update user profile
-                for (int a = 0;
-                    a < Constants.regular_kid!.list_of_vaccincs!.length;
-                    a++) {
-                  if (Constants.regular_kid!.list_of_vaccincs![a].vaccined) {
-                    //todo: put all checked vaccines in record one by one
-                    await FirebaseCalls.setVaccinationRecord(
-                        record: VaccinationRecord(
-                            dateTime_now.toString(),
-                            Constants.regular_kid!.list_of_vaccincs![a]
-                                .vaccination_name,
-                            Constants.regular_kid!.key,
-                            FirebaseCalls.user.uid));
-                    //todo: remove the vaccines from list which has been deployed to kids
-                    Constants.regular_kid!.list_of_vaccincs!
-                        .remove(Constants.regular_kid!.list_of_vaccincs![a]);
-                  }
-                }
-                //todo: add new vaccinations in kid's list which kid has to  get next time, also list carries previous ones which are pending
-                for (int b = 0; b < list_of_vaccinations.length; b++) {
-                  Constants.regular_kid!.list_of_vaccincs!
-                      .add(list_of_vaccinations[b]);
-                }
+              Constants.isFollow_up == true
+                  ? MyButton('Submit', screenThemeColor, _width * .8, () async {
+                      //upload data here recorde and update user profile
+                      for (int a = 0;
+                          a < Constants.regular_kid!.list_of_vaccincs!.length;
+                          a++) {
+                        if (Constants
+                            .regular_kid!.list_of_vaccincs![a].vaccined) {
+                          //todo: put all checked vaccines in record one by one
+                          await FirebaseCalls.setVaccinationRecord(
+                              record: VaccinationRecord(
+                                  dateTime_now.toString(),
+                                  Constants.regular_kid!.list_of_vaccincs![a]
+                                      .vaccination_name,
+                                  Constants.regular_kid!.key,
+                                  FirebaseCalls.user.uid));
+                          //todo: remove the vaccines from list which has been deployed to kids
+                          Constants.regular_kid!.list_of_vaccincs!.remove(
+                              Constants.regular_kid!.list_of_vaccincs![a]);
+                        }
+                      }
+                      //todo: add new vaccinations in kid's list which kid has to  get next time, also list carries previous ones which are pending
+                      for (int b = 0; b < list_of_vaccinations.length; b++) {
+                        Constants.regular_kid!.list_of_vaccincs!
+                            .add(list_of_vaccinations[b]);
+                      }
 
-                var kid = Constants.regular_kid;
+                      var kid = Constants.regular_kid;
 
-                kid?.nextVaccinationDate = nextVaccinationDate.toString();
-                //kid?.list_of_vaccincs = list_of_vaccinations!;
-                await FirebaseCalls.setNewRegistration(newReg: kid!)
-                    .then((value) => {
-                          if (value == null)
-                            {
-                              Navigator.of(context)
-                                  .pushNamed(NavHomeScreen.routeName),
-                            }
-                        });
-              }),
+                      kid?.nextVaccinationDate = nextVaccinationDate.toString();
+                      //kid?.list_of_vaccincs = list_of_vaccinations!;
+                      await FirebaseCalls.setNewRegistration(newReg: kid!)
+                          .then((value) => {
+                                if (value == null)
+                                  {
+                                    Navigator.of(context)
+                                        .pushNamed(NavHomeScreen.routeName),
+                                  }
+                              });
+                    })
+                  : Container(),
             ],
           ),
         ),

@@ -4,7 +4,9 @@ import 'package:vaccination_app/Helper/LocalDatabase.dart';
 import 'package:vaccination_app/Helper/MyColors.dart';
 import 'package:vaccination_app/Widget/ListItemView.dart';
 
+import 'Helper/Constants.dart';
 import 'Models/NewRegisteration.dart';
+import 'VaccineToRegisKids.dart';
 
 class RefusalScreen extends StatefulWidget {
   static const routeName = "/RefusalScreen";
@@ -60,8 +62,14 @@ class _UpcomingScreenState extends State<RefusalScreen> {
                       ? ListView.builder(
                           itemCount: list_refusal.length,
                           itemBuilder: (ctx, index) {
-                            return ListItemView(_width, list_refusal[index],
-                                '', screeThemeColor, () {});
+                            return ListItemView(_width, list_refusal[index], '',
+                                screeThemeColor, () async {
+                              Constants.regular_kid = list_refusal[index];
+                              Constants.isFollow_up=false;
+                              //await Helper.determineCurrentPosition();
+                              Navigator.of(context)
+                                  .pushNamed(VaccineToRegisKids.routeName);
+                            });
                           },
                         )
                       : const Center(

@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:vaccination_app/CustomVaccinationScreen.dart';
 import 'package:vaccination_app/NewBirthChildScreen.dart';
 import 'package:vaccination_app/NewRegisterationScreen.dart';
 import 'package:vaccination_app/RefusalScreen.dart';
+import 'package:vaccination_app/ReportCasesScreen.dart';
 import 'package:vaccination_app/UpcomingScreen.dart';
 import 'package:vaccination_app/Widget/CardHome.dart';
 import 'package:vaccination_app/Widget/MyButton.dart';
@@ -63,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   //first row
                   Container(
-                    height: _hight * 0.2,
+                    height: _hight * 0.15,
                     width: _width,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -100,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Container(
-                    height: _hight * 0.2,
+                    height: _hight * 0.15,
                     width: _width,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -137,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Container(
-                    height: _hight * 0.2,
+                    height: _hight * 0.15,
                     width: _width,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -166,6 +168,41 @@ class _HomeScreenState extends State<HomeScreen> {
                           onTap: () {
                             Navigator.of(context)
                                 .pushNamed(DefaulterScreen.routeName);
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: _hight * 0.15,
+                    width: _width,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        GestureDetector(
+                          child: CardHome(
+                              _hight * 0.1,
+                              _width * 0.45,
+                              'Custom vacc',
+                              MyColors.color_yellow_light,
+                              'assets/images/ic_custom_vacc.svg'),
+                          onTap: () {
+                            Navigator.of(context)
+                                .pushNamed(CustomVaccinationScreen.routeName);
+                          },
+                        ),
+                        GestureDetector(
+                          child: CardHome(
+                            _hight * 0.1,
+                            _width * 0.45,
+                            'Reporting',
+                            MyColors.splash,
+                            'assets/images/ic_case_reporting.svg',
+                          ),
+                          onTap: () {
+                            Navigator.of(context)
+                                .pushNamed(ReportCasesScreen.routeName);
                           },
                         ),
                       ],

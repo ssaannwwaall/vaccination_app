@@ -59,7 +59,7 @@ class _UpcomingScreenState extends State<UpcomingScreen> {
                 padding: const EdgeInsets.all(10.0),
                 child: Container(
                   width: _width,
-                  height: _hight *.84,
+                  height: _hight * .84,
                   child: list_kids.isNotEmpty
                       ? ListView.builder(
                           itemCount: list_kids.length,
@@ -70,7 +70,8 @@ class _UpcomingScreenState extends State<UpcomingScreen> {
                                 'Next Vaccination Date',
                                 screeThemeColor, () async {
                               Constants.regular_kid = list_kids[index];
-                              await Helper.determineCurrentPosition();
+                              Constants.isFollow_up = true;
+                              //await Helper.determineCurrentPosition();
                               Navigator.of(context)
                                   .pushNamed(VaccineToRegisKids.routeName);
                             });
@@ -96,23 +97,57 @@ class _UpcomingScreenState extends State<UpcomingScreen> {
   _loadUpcomingKids() async {
     Map map = await LocalDatabase.getAllKids();
     list_kids.clear();
+    NewRegisterationModel tmp;
+    NewRegisterationModel init_obj;
+    int diff_pre = -1;
+    var dif_cur;
     map.forEach((key, value) {
       //print('kids value');
-      final a = NewRegisterationModel.fromSnapshot(value);
+      var a = NewRegisterationModel.fromSnapshot(value);
       // print(a);
       DateTime dateTime_vac = DateTime.parse(a.nextVaccinationDate);
-      final dif = dateTime_vac.difference(dateTime_now).inDays;
-      print('date diff is '); //more than -1 to 28 are in follow-up
-      print(dif.toString());
-      print(a.name);
-      if (dif > -1 && dif < 28) {
-        list_kids.add(a);
+      dif_cur = dateTime_vac.difference(dateTime_now).inDays;
+
+      if (dif_cur > -1 && dif_cur < 28) {
+        init_obj = NewRegisterationModel.fromSnapshot(value);
+        list_kids.add(init_obj);
+        ///////////////
+        for (int j = 0; j < list_kids.length; j++) {
+          tmp = list_kids[j];
+          //if (list_kids[i] > list_kids[j]) {
+          if (dif_cur > diff_pre) {
+            tmp = init_obj;
+            init_obj = list_kids[j];
+            list_kids[j] = tmp;
+            print('shuffling...');
+            print('name of kid');
+            print(list_kids[j].name);
+            print('currnet dif     $dif_cur    pre difff         $diff_pre');
+          }
+          diff_pre = dif_cur;
+        }
       }
-      // print('date od birth is');
-      // print(list_kids[0].dob);
     });
     setState(() {
       list_kids;
     });
   }
+
+/*List<NewRegisterationModel>  selectionSort(List<NewRegisterationModel> list ) {
+  for (int i = 0; i < array.length; i++) {
+  int min = array[i];
+  int minId = i;
+  for (int j = i+1; j < array.length; j++) {
+  if (array[j] < min) {
+  min = array[j];
+  minId = j;
+  }
+  }
+  // swapping
+  int temp = array[i];
+  array[i] = min;
+  array[minId] = temp;
+  }
+  return list;
+  }*/
 }

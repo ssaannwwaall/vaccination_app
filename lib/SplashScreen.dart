@@ -62,16 +62,18 @@ class _SplashScreenState extends State<SplashScreen>
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            height: _hight * .3,
-            width: _width * .4,
+          SizedBox(
+            //height: _hight * .5,
+            height: animation?.value * _hight * .5,
+            width: _width * .5,
             child: Image.asset(
               'assets/images/risi.png',
             ),
           ),
-          Container(
-            child: const Text(
-              "Routine Immuniztion Stengthening initiative",
+          const Center(
+            child: Text(
+              "Routine immunization \n Strengthening initiative",
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18,

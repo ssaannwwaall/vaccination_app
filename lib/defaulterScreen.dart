@@ -4,7 +4,9 @@ import 'package:vaccination_app/Helper/LocalDatabase.dart';
 import 'package:vaccination_app/Helper/MyColors.dart';
 import 'package:vaccination_app/Widget/ListItemView.dart';
 
+import 'Helper/Constants.dart';
 import 'Models/NewRegisteration.dart';
+import 'VaccineToRegisKids.dart';
 
 class DefaulterScreen extends StatefulWidget {
   static const routeName = "/DefaulterScreen";
@@ -58,7 +60,13 @@ class _UpcomingScreenState extends State<DefaulterScreen> {
                           itemCount: list_defaulter.length,
                           itemBuilder: (ctx, index) {
                             return ListItemView(_width, list_defaulter[index],
-                                '', screeThemeColor, () {});
+                                '', screeThemeColor, () async {
+                              Constants.regular_kid = list_defaulter[index];
+                              Constants.isFollow_up = false;
+                              //await Helper.determineCurrentPosition();
+                              Navigator.of(context)
+                                  .pushNamed(VaccineToRegisKids.routeName);
+                            });
                           },
                         )
                       : const Center(
