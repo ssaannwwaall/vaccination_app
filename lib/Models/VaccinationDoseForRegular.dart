@@ -3,6 +3,7 @@ class VaccinationDoseForRegular {
   String? vaccinator_uid;
   bool vaccined = false;
   String? date;
+  int priority=0;
 
   VaccinationDoseForRegular(
       this.date, this.vaccination_name, this.vaccinator_uid, this.vaccined);

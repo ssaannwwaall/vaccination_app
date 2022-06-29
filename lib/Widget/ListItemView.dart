@@ -3,6 +3,7 @@ import 'package:vaccination_app/Helper/LocalDatabase.dart';
 import 'package:vaccination_app/Helper/MyColors.dart';
 import 'package:vaccination_app/Models/NewRegisteration.dart';
 import 'package:intl/intl.dart';
+import 'package:vaccination_app/main.dart';
 
 class ListItemView extends StatelessWidget {
   double? _width;
@@ -104,17 +105,34 @@ class ListItemView extends StatelessWidget {
                                   color: MyColors.color_white),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              //"DOB ${dateTime_dob.toString()}",
-                              "DOB ${dateTime_dob!.day}-${dateTime_dob!.month}-${dateTime_dob!.year}",
-                              //newRegisteraionModel!.nextVaccinationDate
-                              style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  color: MyColors.color_white),
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  //"DOB ${dateTime_dob.toString()}",
+                                  "DOB ${dateTime_dob!.day}-${dateTime_dob!.month}-${dateTime_dob!.year}",
+                                  //newRegisteraionModel!.nextVaccinationDate
+                                  style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      color: MyColors.color_white),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  //"DOB ${dateTime_dob.toString()}",
+                                  newRegisteraionModel?.vaccinationKey?? '',
+                                  //newRegisteraionModel!.nextVaccinationDate
+                                  style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      color: MyColors.color_white),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),

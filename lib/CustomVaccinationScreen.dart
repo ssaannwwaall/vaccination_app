@@ -666,8 +666,8 @@ class _CustomVaccinationScreenState extends State<CustomVaccinationScreen> {
                                           .format(DateTime.now())
                                           .toString(),
                                       gender.toString(),
-                                      '',
-                                      //nextvaccinationDate
+                                      '',//nextvaccinationDate
+                                      '',//dose
                                       [],
                                       //list of vaccinations
                                       false,

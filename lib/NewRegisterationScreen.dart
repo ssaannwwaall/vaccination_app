@@ -1003,10 +1003,11 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
                                               .toString(),
                                           gender.toString(),
                                           nextVaccinationDate.toString(),
-                                          //_selectedVaccine.toString(),
+                                          _selectedDose.toString(),
                                           list_of_vaccinations,
                                           refusal,
-                                          FirebaseCalls.user.uid);
+                                          FirebaseCalls.user.uid,
+                                      );
 
                                       print('button pressed');
                                       if (await Helper.isInternetAvailble()) {
@@ -1136,6 +1137,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
     _dose.clear();
     doseMap.forEach((key, value) {
       _dose.add(key);
+      _dose.sort((a, b) => a.compareTo(b));
     });
     setState(() {
       _dose;
@@ -1144,13 +1146,11 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
 
   _loadVaccines(String dose) async {
     Map vaccinesMap = await LocalDatabase.getDoseAndVaccines();
-    //_vaccine.clear();
     list_of_vaccinations.clear();
     vaccinesMap.forEach((key, value) {
       if (key == dose) {
         Map vaccine_map = value;
         vaccine_map.forEach((key, value) {
-          //_vaccine.add(key);
           list_of_vaccinations.add(VaccinationDoseForRegular(
               nextVaccinationDate.toString(),
               key,
@@ -1158,7 +1158,7 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
               false));
         });
         setState(() {
-          list_of_vaccinations;
+           list_of_vaccinations;
         });
         print('selected dose...');
         print(list_of_vaccinations[0].vaccination_name);
@@ -1166,8 +1166,8 @@ class _NewRegisterationScreenState extends State<NewRegisterationScreen> {
       }
     });
     /*setState(() {
-      _vaccine;
-      _selectedVaccine = _vaccine[0];
+      list_of_vaccinations;
+      _selectedVaccine =_dose;
     });*/
   }
 }

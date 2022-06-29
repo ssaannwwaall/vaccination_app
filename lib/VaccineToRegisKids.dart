@@ -423,6 +423,7 @@ class _VaccineToRegisKidsState extends State<VaccineToRegisKids> {
     _dose.clear();
     doseMap.forEach((key, value) {
       _dose.add(key);
+      _dose.sort((a, b) => a.compareTo(b));
     });
     setState(() {
       _dose;
@@ -438,7 +439,11 @@ class _VaccineToRegisKidsState extends State<VaccineToRegisKids> {
         Map vaccine_map = value;
         vaccine_map.forEach((key, value) {
           list_of_vaccinations.add(VaccinationDoseForRegular(
-              dateTime_now.toString(), key, FirebaseCalls.user.uid, false));
+              dateTime_now.toString(),
+              key,
+              FirebaseCalls.user.uid,
+              false
+              ));
         });
       }
     });

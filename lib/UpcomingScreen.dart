@@ -59,7 +59,7 @@ class _UpcomingScreenState extends State<UpcomingScreen> {
                 padding: const EdgeInsets.all(10.0),
                 child: Container(
                   width: _width,
-                  height: _hight *.84,
+                  height: _hight * .82,
                   child: list_kids.isNotEmpty
                       ? ListView.builder(
                           itemCount: list_kids.length,
@@ -97,19 +97,18 @@ class _UpcomingScreenState extends State<UpcomingScreen> {
     Map map = await LocalDatabase.getAllKids();
     list_kids.clear();
     map.forEach((key, value) {
-      //print('kids value');
       final a = NewRegisterationModel.fromSnapshot(value);
-      // print(a);
       DateTime dateTime_vac = DateTime.parse(a.nextVaccinationDate);
       final dif = dateTime_vac.difference(dateTime_now).inDays;
       print('date diff is '); //more than -1 to 28 are in follow-up
+      print(dateTime_now.toString());
+      print(dateTime_vac.toString());
       print(dif.toString());
       print(a.name);
       if (dif > -1 && dif < 28) {
         list_kids.add(a);
+        list_kids.sort((x, y) => x.nextVaccinationDate.compareTo(y.nextVaccinationDate));
       }
-      // print('date od birth is');
-      // print(list_kids[0].dob);
     });
     setState(() {
       list_kids;
